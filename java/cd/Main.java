@@ -138,7 +138,7 @@ public class Main
     public static final float DEPTH_FACTOR   = 2;   // USD_TRADE_AMOUNT multiplier that must be
                                                     // in the orderbook before initiating a trade.
     protected static final Logger LOG = LoggerFactory.getLogger(Main.class);
-    private static boolean initThreads;
+    private static String LOG_DIRECTORY ="/home/cd/Eclipse-Workspace/tradebot/logs/";
 
     /*
      * Stuff
@@ -151,15 +151,18 @@ public class Main
     private static Map<Currency, BigDecimal> allPrices = new HashMap<Currency, BigDecimal>();
     private static Set<Currency> allCurrencies;
     private static List<CoinMarketCapTicker> coinMarketCapTickers;
+    private static boolean initThreads;
 
     private static PrintWriter comparisonLog;
+    private static PrintWriter detailsLog;
+
     static 
     {
         PrintWriter tmp = null;
 
         try 
         {
-          tmp = new PrintWriter(new FileWriter("/home/cd/Eclipse-Workspace/tradebot/logs/ComparisonLog"+java.time.LocalDateTime.now()+".txt"));
+          tmp = new PrintWriter(new FileWriter(LOG_DIRECTORY+"ComparisonLog"+java.time.LocalDateTime.now()+".txt"));
         } 
         catch(Exception e)
         {
@@ -168,15 +171,10 @@ public class Main
         }
 
         comparisonLog = tmp;
-    }
-    private static PrintWriter detailsLog;
-    static 
-    {
-        PrintWriter tmp = null;
 
         try 
         {
-          tmp = new PrintWriter(new FileWriter("/home/cd/Eclipse-Workspace/tradebot/logs/DetailsLog"+java.time.LocalDateTime.now()+".txt"));
+          tmp = new PrintWriter(new FileWriter(LOG_DIRECTORY+"DetailsLog"+java.time.LocalDateTime.now()+".txt"));
         } 
         catch(Exception e)
         {
@@ -663,12 +661,12 @@ public class Main
         }
 
         // TEST SEARCH ALGORITHM
-        System.out.println("Building Topo");
-        Seeker seeker = new Seeker(exchangeMonitors);
+        System.out.println("Building Seeker");
+        Seeker seeker = new Seeker(exchangeMonitors, LOG_DIRECTORY);
 
         seeker.dijkstra(gdax, Currency.BTC, binance, Currency.LTC, new BigDecimal(1));
 
-        //System.out.println(seeker.graph.toString());
+        seeker.graph.dump();
 
         System.out.println("Completed successfully");
         comparisonLog.println("Completed successfully");

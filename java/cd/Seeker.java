@@ -7,7 +7,10 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Random;
 import java.math.*; 
+import java.time.LocalDateTime;
 
+import java.io.PrintWriter;
+import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -33,11 +36,13 @@ public class Seeker
 	public final Graph graph;
 	public final List<Node> nodes;
 	public final BigDecimal COST_INFINITE = new BigDecimal(0x0FFFFFFF); 
-	// Acceptable value for a max cost. BigDecimal is stored as an array of ints. Arrays are indexed using ints.
+	// This is an acceptable value for a max cost. BigDecimal is stored as an array of ints. Arrays are indexed using ints.
 	// Therefore, the largest BigDecimal is Integer.MAX_VALUE[Integer.MAX_VALUE]. Many GB.
 
+	private final String LOG_DIRECTORY;
+
 	// Assumes that the ExchangeMonitors already have ther OrderBooks loaded
-	public Seeker(List<ExchangeMonitor> monitors)
+	public Seeker(List<ExchangeMonitor> monitors, String logDirectory)
 	{
 		nodes = new ArrayList<Node>();
 		System.out.println("Building Seeker: ");
@@ -56,6 +61,8 @@ public class Seeker
 
 		// Construct the graph
 		graph = new Graph();
+
+		LOG_DIRECTORY=logDirectory;
 	}
 
 	// TODO: Return residual of the final node in the path, for any arbitrary path.
@@ -244,6 +251,7 @@ public class Seeker
 			System.out.println(this.toString()+":\n  CalculatingResidual: tradeAmount="+tradeAmount+" rate="+rate+" cost="+cost);
 			BigDecimal amountMinusCost = tradeAmount.subtract(cost);
 			BigDecimal residual = amountMinusCost.multiply(rate);
+			residual = residual.setScale(rate.scale(), RoundingMode.HALF_UP);
 
 			// Never engage in a path where one's node goes to zero
 			if (residual.compareTo(new BigDecimal(0)) < 0)
@@ -258,20 +266,19 @@ public class Seeker
 		// NEED TO MAKE SURE TRADEAMOUNT IS IN TERMS OF BASE
 		private BigDecimal exchangeRate(BigDecimal tradeAmount)
 		{
-			BigDecimal rate;
+			BigDecimal exchangeRate;
 
 			if(from.monitor != to.monitor) // Withdraw
 			{
-				rate = new BigDecimal(1);
+				exchangeRate = new BigDecimal(1);
 			}
 			else
 			{
-				rate = from.monitor.getExchangeRate(from.currency, to.currency, tradeAmount);
+				exchangeRate = from.monitor.getExchangeRate(from.currency, to.currency, tradeAmount);
 			}
 
-			System.out.print(this.toString() + " Exchange Rate = ");
-			System.out.println(rate);
-			return rate;
+			System.out.println("Exchange Rate: " + this.toString() + " = " + exchangeRate);
+			return exchangeRate;
 		}
 
 		/*
@@ -395,15 +402,42 @@ public class Seeker
 
 		// Prints to csv in the form of adjacency tables
 		// i,j == row,column
-		public String toString()
+		public void dump()
 		{
+			/*
+			 * Write each table to its own file.
+			 */
+			PrintWriter rateWriter 			= null;
+			PrintWriter edgeWriter 			= null;
+			PrintWriter tradeFeeWriter 		= null;
+			PrintWriter withdrawFeeWriter 	= null;
+			PrintWriter costWriter 			= null;
+			PrintWriter residualWriter 		= null;
+
+        	try 
+        	{
+        	   	rateWriter = new PrintWriter(new FileWriter(LOG_DIRECTORY+"table_rates.txt"));		
+				edgeWriter = new PrintWriter(new FileWriter(LOG_DIRECTORY+"table_edges.txt"));		
+				tradeFeeWriter = new PrintWriter(new FileWriter(LOG_DIRECTORY+"table_tradeFees.txt"));	
+				withdrawFeeWriter = new PrintWriter(new FileWriter(LOG_DIRECTORY+"table_withdrawFees.txt"));	
+				costWriter = new PrintWriter(new FileWriter(LOG_DIRECTORY+"table_costs.txt"));	
+				residualWriter = new PrintWriter(new FileWriter(LOG_DIRECTORY+"table_residuals.txt"));	
+        	} 
+        	catch(Exception e)
+        	{
+        	  // Handle exception.
+        	   System.out.println("ERROR: File Writer failed");
+        	   return;
+        	}
+
 			/*
 			 * Make raw adjacency tables with labels
 			 * Add +2 size to length and height
 			 * Presumes dijkstra has been run
 			 */
-			String edgeTable[][]     	= new String[nodes.size() + 2][nodes.size() + 2];
+			String labelTable[][] 		= new String[nodes.size() + 2][nodes.size() + 2];
 			String rateTable[][]     	= new String[nodes.size() + 2][nodes.size() + 2];
+			String edgeTable[][]     	= new String[nodes.size() + 2][nodes.size() + 2];
 			String tradeFeeTable[][] 	= new String[nodes.size() + 2][nodes.size() + 2];
 			String withdrawFeeTable[][] = new String[nodes.size() + 2][nodes.size() + 2];
 			String costTable[][] 		= new String[nodes.size() + 2][nodes.size() + 2];
@@ -414,31 +448,50 @@ public class Seeker
 			{
 				for (int j = 0; j < (nodes.size()+2); j++)
 				{
-					rateTable[i][j] = "";
-					tradeFeeTable[i][j] = ""; 	
-					withdrawFeeTable[i][j] = ""; 
-					costTable[i][j] = ""; 		
-					residualTable[i][j] = ""; 	
+					labelTable[i][j] = ""; 	
 				}
 			}
 
 			// Labels
-			rateTable[2][0] = nodes.get(0).monitor.getName();
-			rateTable[2][1] = nodes.get(0).currency.toString();
-			rateTable[0][2] = nodes.get(0).monitor.getName();
-			rateTable[1][2] = nodes.get(0).currency.toString();
+			labelTable[2][0] = nodes.get(0).monitor.getName();
+			labelTable[2][1] = nodes.get(0).currency.toString();
+			labelTable[0][2] = nodes.get(0).monitor.getName();
+			labelTable[1][2] = nodes.get(0).currency.toString();
+			labelTable[0][1] = java.time.LocalDateTime.now().toString();
 			for (int i = 1; i < nodes.size(); i++)
 			{
 				if (nodes.get(i).monitor != nodes.get(i-1).monitor)
 				{
-					rateTable[i+2][0] = nodes.get(i).monitor.getName();
-					rateTable[0][i+2] = nodes.get(i).monitor.getName();	
+					labelTable[i+2][0] = nodes.get(i).monitor.getName();
+					labelTable[0][i+2] = nodes.get(i).monitor.getName();	
 				}
 
-				rateTable[i+2][1] = nodes.get(i).currency.toString();
+				labelTable[i+2][1] = nodes.get(i).currency.toString();
+				labelTable[1][i+2] = nodes.get(i).currency.toString();
 			}
 
-			// Copy Values
+			// Copy Labels and init values
+			for (int i = 0; i < (nodes.size()+2); i++)
+			{
+				for (int j = 0; j < (nodes.size()+2); j++)
+				{
+					rateTable[i][j]     	= labelTable[i][j];
+					edgeTable[i][j]     	= labelTable[i][j];
+					tradeFeeTable[i][j] 	= labelTable[i][j];
+					withdrawFeeTable[i][j] 	= labelTable[i][j];
+					costTable[i][j] 		= labelTable[i][j];
+					residualTable[i][j] 	= labelTable[i][j]; 	
+				}
+			}
+			
+			rateTable[0][0]     	= "ExchangeRate";
+			edgeTable[0][0]     	= "Edge";
+			tradeFeeTable[0][0] 	= "TradeFee";
+			withdrawFeeTable[0][0] 	= "WithdrawFee";
+			costTable[0][0] 		= "Cost";
+			residualTable[0][0] 	= "Residual";
+
+			// Insert Values
 			for (int i = 0; i < nodes.size(); i++)
 			{
 				for (int j = 0; j < nodes.size(); j++)
@@ -457,30 +510,46 @@ public class Seeker
 			 * Turn tables into csv strings
 			 */
 			String rateString 			= "";
+			String edgeString 			= "";
 			String tradeFeeString 		= "";
 			String withdrawFeeString 	= "";
 			String costString 			= "";
-			String redidualString 		= "";
+			String residualString 		= "";
 			// Copy Values
 			for (int i = 0; i < nodes.size() + 2; i++)
 			{
 				for (int j = 0; j < nodes.size() + 2; j++)
 				{
 					rateString 			+= rateTable[i][j] + ",";
+					edgeString 			+= edgeTable[i][j] + ",";
 					tradeFeeString 	 	+= tradeFeeTable[i][j] + ",";
 					withdrawFeeString  	+= withdrawFeeTable[i][j] + ",";
 					costString 	 		+= costTable[i][j] + ",";
-					redidualString 		+= residualTable[i][j] + ",";
+					residualString 		+= residualTable[i][j] + ",";
 				}
 
 				rateString 			+= "\n";
+				edgeString 			+= "\n";
 				tradeFeeString 	 	+= "\n";
 				withdrawFeeString  	+= "\n";
 				costString 	 		+= "\n";
-				redidualString 		+= "\n";
+				residualString 		+= "\n";
 			}
 
-			return rateString + "\n\n" + tradeFeeString + "\n\n" + withdrawFeeString + "\n\n" + costString + "\n\n" + redidualString;
+			rateWriter.println(rateString);
+			edgeWriter.println(edgeString);
+			tradeFeeWriter.println(tradeFeeString);
+			withdrawFeeWriter.println(withdrawFeeString);
+			costWriter.println(costString);
+			residualWriter.println(residualString);
+
+			rateWriter.close();
+			edgeWriter.close();
+			tradeFeeWriter.close();
+			withdrawFeeWriter.close();
+			costWriter.close();
+			residualWriter.close();
+			//return rateString + "\n\n" + tradeFeeString + "\n\n" + withdrawFeeString + "\n\n" + costString + "\n\n" + redidualString;
 		}
 	}
 }

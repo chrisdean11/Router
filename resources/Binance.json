@@ -2183,6 +2183,27 @@
       "min_amount" : 1.00000000,
       "max_amount" : 90000000.00000000,
       "price_scale" : 6
+    },
+    "REP/BTC" : {
+      "minNotional" : 0.00100000,
+      "trading_fee" : 0,
+      "min_amount" : 0.00100000,
+      "max_amount" : 10000000.00000000,
+      "price_scale" : 6
+    },
+    "REP/ETH" : {
+      "minNotional" : 0.01000000,
+      "trading_fee" : 0,
+      "min_amount" : 0.00100000,
+      "max_amount" : 10000000.00000000,
+      "price_scale" : 5
+    },
+    "REP/BNB" : {
+      "minNotional" : 1.00000000,
+      "trading_fee" : 0,
+      "min_amount" : 0.00100000,
+      "max_amount" : 10000000.00000000,
+      "price_scale" : 3
     }
   },
   "currencies" : {
@@ -2664,35 +2685,3 @@
     },
     "WAN" : {
       "scale" : 8,
-      "withdrawal_fee" : 0.1
-    },
-    "WPR" : {
-      "scale" : 8,
-      "withdrawal_fee" : 29.5
-    },
-    "QLC" : {
-      "scale" : 8,
-      "withdrawal_fee" : 1.0
-    },
-    "GRS" : {
-      "scale" : 8,
-      "withdrawal_fee" : 0.2
-    },
-    "EDO" : {
-      "scale" : 8,
-      "withdrawal_fee" : 1.7
-    },
-    "WINGS" : {
-      "scale" : 8,
-      "withdrawal_fee" : 6.1
-    },
-    "NAV" : {
-      "scale" : 8,
-      "withdrawal_fee" : 0.2
-    },
-    "TRIG" : {
-      "scale" : 8,
-      "withdrawal_fee" : 17.7
-    },
-    "APPC" : {
-    

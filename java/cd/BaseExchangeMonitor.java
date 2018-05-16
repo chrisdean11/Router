@@ -433,8 +433,12 @@ public class BaseExchangeMonitor extends ExchangeMonitor
                 else // Asks - counter to base
                 {   
                     // Rate to receive counter is 1/LimitPrice
-                    // Amount of counter traded is rate * 
-                    rateAtDepth = (new BigDecimal(1)).divide(order.getLimitPrice());
+                    // Amount of counter traded is rate *
+                    // Trying to maintain the precision when inverting the rate, using the method here: https://stackoverflow.com/questions/7572309/any-neat-way-to-limit-significant-figures-with-bigdecimal 
+                    BigDecimal priceInOtherDirection = order.getLimitPrice();
+                    int precision = priceInOtherDirection.precision(); // Desired precision
+                    BigDecimal preRateAtDepth = (new BigDecimal(1)).divide(priceInOtherDirection, 20, RoundingMode.HALF_UP);
+                    rateAtDepth = preRateAtDepth.setScale(precision - preRateAtDepth.precision() + preRateAtDepth.scale(), RoundingMode.HALF_UP);
                     amountAtDepth = amountAtDepth.add(order.getOriginalAmount().multiply(rateAtDepth));
                 }
 
@@ -442,7 +446,7 @@ public class BaseExchangeMonitor extends ExchangeMonitor
                 if (amountAtDepth.compareTo( tradeAmount ) > 0 ) // There's enough depth to cover trade. Stop searching.
                 {
                     success = true;
-                    break; 
+                    break;
                 }
             }
         }
