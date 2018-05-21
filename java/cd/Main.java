@@ -443,28 +443,47 @@ public class Main
             /**
              * Load up monitors here instead of launching threads
              */
-            System.out.println("Single thread");
-            for (CurrencyPair pair : arbitragePairs)
+            //System.out.println("Single thread");
+            //for (CurrencyPair pair : arbitragePairs)
+            //{
+            //    System.out.println("Getting " + pair + " from all your favorite exchanges: ");
+            //    for (ExchangeMonitor monitor : exchangeMonitors)
+            //    {
+            //        System.out.print("  " + monitor.getName());
+            //        if (monitor.getCurrencyPairs().contains(pair))
+            //        {
+            //            System.out.println("-- Pair found.");
+            //            //monitor.loadTicker(pair);
+            //            if (!monitor.loadOrderBook(pair))
+            //            {
+            //                System.out.println("Orderbook load failed: " + monitor.getName());
+            //                detailsLog.println("Orderbook load failed: " + monitor.getName());
+            //                continue;
+            //            }
+            //        }
+            //        else System.out.println("-- Pair not found.");
+            //    }
+//
+            //    Thread.sleep(TIME_DELAY);
+            //}
+
+            // TODO: Check exchanges to see if you can get all orderbooks at once - method may only be present in some derived from BaseExchanges 
+            System.out.println("Single thread -- getting all pairs instead of just arbitragePairs -- May take much longer!");
+            for (ExchangeMonitor monitor : exchangeMonitors)
             {
-                System.out.println("Getting " + pair + " from all your favorite exchanges: ");
-                for (ExchangeMonitor monitor : exchangeMonitors)
+                System.out.print("  " + monitor.getName());
+                for (CurrencyPair pair : monitor.getCurrencyPairs())
                 {
-                    System.out.print("  " + monitor.getName());
-                    if (monitor.getCurrencyPairs().contains(pair))
+                    //monitor.loadTicker(pair);
+                    if (!monitor.loadOrderBook(pair))
                     {
-                        System.out.println("-- Pair found.");
-                        //monitor.loadTicker(pair);
-                        if (!monitor.loadOrderBook(pair))
-                        {
-                            System.out.println("Orderbook load failed: " + monitor.getName());
-                            detailsLog.println("Orderbook load failed: " + monitor.getName());
-                            continue;
-                        }
+                        System.out.println("Orderbook load failed: " + monitor.getName());
+                        detailsLog.println("Orderbook load failed: " + monitor.getName());
+                        continue;
                     }
-                    else System.out.println("-- Pair not found.");
                 }
 
-                Thread.sleep(TIME_DELAY);
+                //Thread.sleep(TIME_DELAY);
             }
         }
 
@@ -640,6 +659,19 @@ public class Main
             }
         }
 
+        detailsLog.println("\n\n\n\nALL EXCHANGE RATES");
+        for (ExchangeMonitor monitor : exchangeMonitors)
+        {
+            for (CurrencyPair pair : monitor.getCurrencyPairs())
+            {
+                OrderBook book = monitor.viewOrderBook(pair);
+                BigDecimal asksPrice = getPriceAtDepth(monitor.viewOrderBook(pair).getAsks());
+                BigDecimal bidsPrice = getPriceAtDepth(monitor.viewOrderBook(pair).getBids());
+
+                System.out.println(monitor.getName() + " ExchangeRates: " + "Asks= " + asksPrice + " Bids=" + bidsPrice);
+            }
+        }
+
         ExchangeMonitor gdax = null;
         ExchangeMonitor binance = null;
 
@@ -648,14 +680,14 @@ public class Main
             if (monitor.getName().equals("GDAX"))
             {
                 gdax = monitor;
-                System.out.println("Found GDAX" +monitor.tradeFee + monitor.getWithdrawFee() + gdax.getTradeFee() + gdax.getWithdrawFee());
+                System.out.println("Found GDAX: compare fees - trade fee " + monitor.getTradeFee() + "=" + gdax.getTradeFee() +  ", withdraw fee " + monitor.getWithdrawFee() + "=" + binance.getWithdrawFee());
                 continue;
             }
 
             if (monitor.getName().equals("Binance"))
             {
                 binance = monitor;
-                System.out.println("Found Binance" +monitor.tradeFee + monitor.getWithdrawFee() + binance.tradeFee + binance.getWithdrawFee());
+                System.out.println("Found Binance: compare fees - trade fee " + monitor.getTradeFee() + "=" + binance.getTradeFee() +  ", withdraw fee " + monitor.getWithdrawFee() + "=" + binance.getWithdrawFee());
                 continue;
             }
         }
@@ -795,6 +827,7 @@ public class Main
     }
 
     // Get the price at USD_TRADE_AMOUNT * DEPTH_FACTOR deep in the OrderBook.
+    // TODO: Calculate the accurate price considering the cost of each order you eat up, not just the worst-case one.
     // This will always return a BigDecimal! It should never return null.
     private static BigDecimal getPriceAtDepth(List<LimitOrder> orders)
     {
@@ -835,8 +868,8 @@ public class Main
         }
         catch(Exception e)
         {
-            System.out.println("\nGetPriceAtDepth: " + e + "\n  Orders: " + orders.get(0) + "\n");
-            detailsLog.println("\nGetPriceAtDepth: " + e + "\n  Orders: " + orders.get(0) + "\n");
+            System.out.println("Ran out of orders or expected data was missing: \n  GetPriceAtDepth: " + e + "\n  Orders: " + orders.get(0) + "\n");
+            detailsLog.println("Ran out of orders or expected data was missing: \n  GetPriceAtDepth: " + e + "\n  Orders: " + orders.get(0) + "\n");
             return new BigDecimal(0);
         }
 
@@ -850,9 +883,11 @@ public class Main
             detailsLog.println("      Orderbook broken? LimitPrice was null.");
             return new BigDecimal(0);
         }
-
-        // priceAtDepth is now the price you'd be able to trade USD_TRADE_AMOUNT
-        return priceAtDepth;
+        else // priceAtDepth is now the price you'd be able to trade USD_TRADE_AMOUNT
+        {
+            return priceAtDepth;
+        }
+        
     }
 
     // diff = 100 * (larger-smaller)/larger

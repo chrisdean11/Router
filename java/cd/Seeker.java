@@ -339,7 +339,6 @@ public class Seeker
 			}
 			else fee = map.get(from.currency).getWithdrawalFee();
 
-			System.out.println("FEE: " + from.monitor.getWithdrawFee());
 			fee = from.monitor.getWithdrawFee(); // Temporary hack
 
 			System.out.println("  [WithdrawalFee: " + fee + "] " + this.toString());
@@ -400,8 +399,7 @@ public class Seeker
 			System.out.println("Graph constructor complete.");
 		}
 
-		// Prints to csv in the form of adjacency tables
-		// i,j == row,column
+		// Prints adjacency tables to csv
 		public void dump()
 		{
 			/*
@@ -448,7 +446,7 @@ public class Seeker
 			{
 				for (int j = 0; j < (nodes.size()+2); j++)
 				{
-					labelTable[i][j] = ""; 	
+					labelTable[i][j] = "";
 				}
 			}
 
@@ -457,9 +455,10 @@ public class Seeker
 			labelTable[2][1] = nodes.get(0).currency.toString();
 			labelTable[0][2] = nodes.get(0).monitor.getName();
 			labelTable[1][2] = nodes.get(0).currency.toString();
-			labelTable[0][1] = java.time.LocalDateTime.now().toString();
+			labelTable[1][0] = java.time.LocalDateTime.now().toString();
 			for (int i = 1; i < nodes.size(); i++)
 			{
+				if ( i > 1 ) labelTable[i][i] = "\\ \\ \\ ";
 				if (nodes.get(i).monitor != nodes.get(i-1).monitor)
 				{
 					labelTable[i+2][0] = nodes.get(i).monitor.getName();
@@ -496,13 +495,187 @@ public class Seeker
 			{
 				for (int j = 0; j < nodes.size(); j++)
 				{
-					if (adjacencyMatrix[i][j] == null) continue;
+					if (i == j)
+					{
+						continue;
+					}
+					else if (adjacencyMatrix[i][j] == null) continue;
 					edgeTable[i+2][j+2] = adjacencyMatrix[i][j].toString();
 					if (adjacencyMatrix[i][j].rate != null) rateTable[i+2][j+2] = adjacencyMatrix[i][j].rate.toString();
-					if (adjacencyMatrix[i][j].tradeFee() != null) tradeFeeTable[i+2][j+2] = adjacencyMatrix[i][j].tradeFee().toString();
-					if (adjacencyMatrix[i][j].withdrawalFee() != null) withdrawFeeTable[i+2][j+2]  = adjacencyMatrix[i][j].withdrawalFee().toString();
 					if (adjacencyMatrix[i][j].cost != null) costTable[i+2][j+2] = adjacencyMatrix[i][j].cost.toString();
 					if (adjacencyMatrix[i][j].to.balance != null) residualTable[i+2][j+2] = adjacencyMatrix[i][j].to.balance.toString();
+
+					if (adjacencyMatrix[i][j].from.monitor.getName().compareTo(adjacencyMatrix[i][j].to.monitor.getName()) == 0)
+					{
+						if (adjacencyMatrix[i][j].tradeFee() != null) tradeFeeTable[i+2][j+2] = adjacencyMatrix[i][j].tradeFee().toString();
+					}
+					else
+					{
+						if (adjacencyMatrix[i][j].withdrawalFee() != null) withdrawFeeTable[i+2][j+2]  = adjacencyMatrix[i][j].withdrawalFee().toString();
+					}
+				}
+			}
+
+			/*
+			 * Turn tables into csv strings
+			 */
+			String rateString 			= "";
+			String edgeString 			= "";
+			String tradeFeeString 		= "";
+			String withdrawFeeString 	= "";
+			String costString 			= "";
+			String residualString 		= "";
+			// Copy Values
+			for (int i = 0; i < nodes.size() + 2; i++)
+			{
+				for (int j = 0; j < nodes.size() + 2; j++)
+				{
+					rateString 			+= rateTable[i][j] + ",";
+					edgeString 			+= edgeTable[i][j] + ",";
+					tradeFeeString 	 	+= tradeFeeTable[i][j] + ",";
+					withdrawFeeString  	+= withdrawFeeTable[i][j] + ",";
+					costString 	 		+= costTable[i][j] + ",";
+					residualString 		+= residualTable[i][j] + ",";
+				}
+
+				rateString 			+= "\n";
+				edgeString 			+= "\n";
+				tradeFeeString 	 	+= "\n";
+				withdrawFeeString  	+= "\n";
+				costString 	 		+= "\n";
+				residualString 		+= "\n";
+			}
+
+			rateWriter.println(rateString);
+			edgeWriter.println(edgeString);
+			tradeFeeWriter.println(tradeFeeString);
+			withdrawFeeWriter.println(withdrawFeeString);
+			costWriter.println(costString);
+			residualWriter.println(residualString);
+
+			rateWriter.close();
+			edgeWriter.close();
+			tradeFeeWriter.close();
+			withdrawFeeWriter.close();
+			costWriter.close();
+			residualWriter.close();
+			//return rateString + "\n\n" + tradeFeeString + "\n\n" + withdrawFeeString + "\n\n" + costString + "\n\n" + redidualString;
+		}
+
+		// Prints adjacency tables to csv
+		public void dump2()
+		{
+			/*
+			 * Write each table to its own file.
+			 */
+			PrintWriter rateWriter 			= null;
+			PrintWriter edgeWriter 			= null;
+			PrintWriter tradeFeeWriter 		= null;
+			PrintWriter withdrawFeeWriter 	= null;
+			PrintWriter costWriter 			= null;
+			PrintWriter residualWriter 		= null;
+
+        	try 
+        	{
+        	   	rateWriter = new PrintWriter(new FileWriter(LOG_DIRECTORY+"table_rates.txt"));		
+				edgeWriter = new PrintWriter(new FileWriter(LOG_DIRECTORY+"table_edges.txt"));		
+				tradeFeeWriter = new PrintWriter(new FileWriter(LOG_DIRECTORY+"table_tradeFees.txt"));	
+				withdrawFeeWriter = new PrintWriter(new FileWriter(LOG_DIRECTORY+"table_withdrawFees.txt"));	
+				costWriter = new PrintWriter(new FileWriter(LOG_DIRECTORY+"table_costs.txt"));	
+				residualWriter = new PrintWriter(new FileWriter(LOG_DIRECTORY+"table_residuals.txt"));	
+        	} 
+        	catch(Exception e)
+        	{
+        	  // Handle exception.
+        	   System.out.println("ERROR: File Writer failed");
+        	   return;
+        	}
+
+			/*
+			 * Make raw adjacency tables with labels
+			 * Add +2 size to length and height
+			 * Presumes dijkstra has been run
+			 */
+			String labelTable[][] 		= new String[nodes.size() + 2][nodes.size() + 2];
+			String rateTable[][]     	= new String[nodes.size() + 2][nodes.size() + 2];
+			String edgeTable[][]     	= new String[nodes.size() + 2][nodes.size() + 2];
+			String tradeFeeTable[][] 	= new String[nodes.size() + 2][nodes.size() + 2];
+			String withdrawFeeTable[][] = new String[nodes.size() + 2][nodes.size() + 2];
+			String costTable[][] 		= new String[nodes.size() + 2][nodes.size() + 2];
+			String residualTable[][] 	= new String[nodes.size() + 2][nodes.size() + 2];
+
+			// Initialize
+			for (int i = 0; i < (nodes.size()+2); i++)
+			{
+				for (int j = 0; j < (nodes.size()+2); j++)
+				{
+					labelTable[i][j] = "";
+				}
+			}
+
+			// Labels
+			labelTable[2][0] = nodes.get(0).monitor.getName();
+			labelTable[2][1] = nodes.get(0).currency.toString();
+			labelTable[0][2] = nodes.get(0).monitor.getName();
+			labelTable[1][2] = nodes.get(0).currency.toString();
+			labelTable[1][0] = java.time.LocalDateTime.now().toString();
+			for (int i = 1; i < nodes.size(); i++)
+			{
+				if ( i > 1 ) labelTable[i][i] = "\\ \\ \\ ";
+				if (nodes.get(i).monitor != nodes.get(i-1).monitor)
+				{
+					labelTable[i+2][0] = nodes.get(i).monitor.getName();
+					labelTable[0][i+2] = nodes.get(i).monitor.getName();	
+				}
+
+				labelTable[i+2][1] = nodes.get(i).currency.toString();
+				labelTable[1][i+2] = nodes.get(i).currency.toString();
+			}
+
+			// Copy Labels and init values
+			for (int i = 0; i < (nodes.size()+2); i++)
+			{
+				for (int j = 0; j < (nodes.size()+2); j++)
+				{
+					rateTable[i][j]     	= labelTable[i][j];
+					edgeTable[i][j]     	= labelTable[i][j];
+					tradeFeeTable[i][j] 	= labelTable[i][j];
+					withdrawFeeTable[i][j] 	= labelTable[i][j];
+					costTable[i][j] 		= labelTable[i][j];
+					residualTable[i][j] 	= labelTable[i][j]; 	
+				}
+			}
+			
+			rateTable[0][0]     	= "ExchangeRate";
+			edgeTable[0][0]     	= "Edge";
+			tradeFeeTable[0][0] 	= "TradeFee";
+			withdrawFeeTable[0][0] 	= "WithdrawFee";
+			costTable[0][0] 		= "Cost";
+			residualTable[0][0] 	= "Residual";
+
+			// Insert Values
+			for (int i = 0; i < nodes.size(); i++)
+			{
+				for (int j = 0; j < nodes.size(); j++)
+				{
+					if (i == j)
+					{
+						continue;
+					}
+					else if (adjacencyMatrix[i][j] == null) continue;
+					edgeTable[i+2][j+2] = adjacencyMatrix[i][j].toString();
+					if (adjacencyMatrix[i][j].rate != null) rateTable[i+2][j+2] = adjacencyMatrix[i][j].rate.toString();
+					if (adjacencyMatrix[i][j].cost != null) costTable[i+2][j+2] = adjacencyMatrix[i][j].cost.toString();
+					if (adjacencyMatrix[i][j].to.balance != null) residualTable[i+2][j+2] = adjacencyMatrix[i][j].to.balance.toString();
+
+					if (adjacencyMatrix[i][j].from.monitor.getName().compareTo(adjacencyMatrix[i][j].to.monitor.getName()) == 0)
+					{
+						if (adjacencyMatrix[i][j].tradeFee() != null) tradeFeeTable[i+2][j+2] = adjacencyMatrix[i][j].tradeFee().toString();
+					}
+					else
+					{
+						if (adjacencyMatrix[i][j].withdrawalFee() != null) withdrawFeeTable[i+2][j+2]  = adjacencyMatrix[i][j].withdrawalFee().toString();
+					}
 				}
 			}
 

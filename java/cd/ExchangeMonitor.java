@@ -24,8 +24,8 @@ import org.knowm.xchange.service.marketdata.MarketDataService;
  */
 abstract public class ExchangeMonitor {
 
-    public BigDecimal tradeFee; // Fractional fee
-    public BigDecimal withdrawFee;
+    private BigDecimal tradeFee; // Fractional fee
+    private BigDecimal withdrawFee;
     
     abstract public void init();
 

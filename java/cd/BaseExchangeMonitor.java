@@ -107,14 +107,13 @@ public class BaseExchangeMonitor extends ExchangeMonitor
 
         currencyPairs = exchange.getExchangeSymbols();
         currencies = new HashSet<Currency>();
-        
 
         System.out.println(name + " CurrencyPairs and currencies:");
         for (CurrencyPair pair : currencyPairs)
         {
             currencies.add(pair.base);
             currencies.add(pair.counter);
-            System.out.print(pair + ",");
+            System.out.print(pair + ", ");
         }
 
         System.out.println();
@@ -130,11 +129,13 @@ public class BaseExchangeMonitor extends ExchangeMonitor
         FeeParser parser = new FeeParser();
         if (parser.read(name))
         {
+            System.out.println(name + ": Loading fees from file");
             tradeFee = new BigDecimal(parser.fees.tradeFee);
             withdrawFee = new BigDecimal(parser.fees.withdrawFee);
         }
         else
         {
+            System.out.println(name + ": Fee data not found. Initializing to 0.");
             tradeFee = new BigDecimal(0);
             withdrawFee = new BigDecimal(0);
         }
@@ -339,6 +340,7 @@ public class BaseExchangeMonitor extends ExchangeMonitor
             if (book == null) 
             {
                 System.out.println("  " + name + ": marketDataService().getOrderBook("+pair+") returned NULL");
+                return false;
             }
 
             news.get(pair).orderBook = book;
@@ -369,9 +371,13 @@ public class BaseExchangeMonitor extends ExchangeMonitor
     */
     public BigDecimal getExchangeRate(Currency from, Currency to, BigDecimal tradeAmount)
     {
+        boolean success = false;
         boolean fromBase = false;
         CurrencyPair pair;
+        BigDecimal amountAtDepth = new BigDecimal(0);
+        BigDecimal rateAtDepth = new BigDecimal(0);
 
+        // Check if we have data for this pair
         if (news.get(new CurrencyPair(from,to)) != null)
         {
             pair = new CurrencyPair(from, to);
@@ -387,21 +393,20 @@ public class BaseExchangeMonitor extends ExchangeMonitor
             return new BigDecimal(0);
         }
 
-        BigDecimal amountAtDepth = new BigDecimal(0);
-        BigDecimal rateAtDepth = new BigDecimal(0);
-        boolean success = false;
+        /*
+         * LTC/BTC example
+         * If trading from base to counter: look at Bids. LTC * .005 = BTC
+         * If trading from counter to base: look at Asks. BTC * 1/.005 = LTC
+         */
 
-        // LTC/BTC example
-        // If trading from base to counter: look at Bids. LTC * .005 = BTC
-        // If trading from counter to base: look at Asks. BTC * 1/.005 = LTC
-
+        // This always confuses me:
         // LimitPrice is in terms of Base to Counter. Asks are ordered low to high (less Counter for more Base) from Counter to Base.
 
         List<LimitOrder> orders;
 
         if(news.get(pair) == null ) 
         {
-            System.out.println("  "+name+": " +pair+") doesn't exist."); 
+            System.out.println("  "+name+": " + pair + ") doesn't exist."); 
             return new BigDecimal(0);
         }
 
