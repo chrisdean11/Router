@@ -694,7 +694,7 @@ public class Main
 
         // TEST SEARCH ALGORITHM
         System.out.println("Building Seeker");
-        Seeker seeker = new Seeker(exchangeMonitors, LOG_DIRECTORY);
+        Seeker seeker = new Seeker(exchangeMonitors, LOG_DIRECTORY, allPrices);
 
         seeker.dijkstra(gdax, Currency.BTC, binance, Currency.LTC, new BigDecimal(1));
 
