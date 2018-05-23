@@ -29,8 +29,9 @@ public class FeeParser{
 		try
 		{
 			//read json file data to String
-			byte[] jsonData = Files.readAllBytes(Paths.get("../src/main/resources/fees/" + name + ".json"));
-		
+			byte[] jsonData = Files.readAllBytes(Paths.get("./src/main/resources/fees/" + name + ".json"));
+			System.out.println("  " + name + " Fee info found: ./src/main/resources/fees/" + name + ".json");
+
 			//create ObjectMapper instance
 			ObjectMapper objectMapper = new ObjectMapper();
 		
@@ -39,16 +40,16 @@ public class FeeParser{
 		}
 		catch(IOException e)
 		{
-			System.out.println("  " + name + " Fee file not found: " + e);
+			System.out.println("  " + name + " Error loading fee info: " + e);
 			return false;
 		}
 
 		return true;
 	}
 	
-	public class Fees
+	static class Fees
 	{
-		public int tradeFee;
-		public int withdrawFee; // Will eventually be the actual fee per currency instead of this dummy value.
+		public double tradeFee;
+		public double withdrawFee; // Will eventually be the actual fee per currency instead of this dummy value.
 	}
 }

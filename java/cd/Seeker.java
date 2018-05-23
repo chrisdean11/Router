@@ -35,6 +35,8 @@ public class Seeker
 {
 	public final Graph graph;
 	public final List<Node> nodes;
+	private Node startNode;
+	private BigDecimal startBalance;
     private final Map<Currency, BigDecimal> allPrices;
 	private final String LOG_DIRECTORY;
 	public final BigDecimal COST_INFINITE = new BigDecimal(0x0FFFFFFF); 
@@ -109,6 +111,8 @@ public class Seeker
 		
 		Node start = getNode(startM, startC);
 		Node end = getNode(endM, endC);
+		startNode = start;
+		startBalance = startAmount;
 
 		if (start == null)
 		{
@@ -458,7 +462,7 @@ public class Seeker
 			String withdrawFeeTable[][] = new String[nodes.size() + 2][nodes.size() + 2];
 			String costTable[][] 		= new String[nodes.size() + 2][nodes.size() + 2];
 			String residualTable[][] 	= new String[nodes.size() + 2][nodes.size() + 2];
-			String valueTable[][] 		= new String[nodes.size() + 2][4];
+			String valueTable[][] 		= new String[nodes.size() + 2][5];
 			String pathTable[][] 	    = new String[nodes.size() + 2][3];
 
 			// Initialize
@@ -504,6 +508,9 @@ public class Seeker
 					if (j < 3)
 					{
 						pathTable[i][j] = labelTable[i][j];
+					}
+					if (j < 4)
+					{
 						valueTable[i][j] = labelTable[i][j];
 					}
 				}
@@ -551,8 +558,27 @@ public class Seeker
 				
 				if (allPrices.get(nodes.get(i).currency) != null && nodes.get(i).balance != null) 
 				{
-					valueTable[i+2][2] = nodes.get(i).balance.toString();
-					valueTable[i+2][3] = nodes.get(i).balance.multiply(allPrices.get(nodes.get(i).currency)).toString();
+					BigDecimal bal = nodes.get(i).balance;
+					BigDecimal val = bal.multiply(allPrices.get(nodes.get(i).currency)); // Dollar value of bal
+					BigDecimal startVal = startBalance.multiply(allPrices.get(startNode.currency));
+					valueTable[i+2][2] = bal.toString();
+					valueTable[i+2][3] = val.toString();
+
+					try{
+					// Percentage of original amount
+					if (val.compareTo(startVal) >= 0)
+					{
+						valueTable[i+2][4] = val.subtract(startVal).divide(startVal, 4, BigDecimal.ROUND_HALF_UP).toString(); 
+					}
+					else
+					{
+						valueTable[i+2][4] = "-" + startVal.subtract(val).divide(startVal, 4, BigDecimal.ROUND_HALF_UP).toString(); 
+					}
+					}
+					catch(Exception e)
+					{
+						valueTable[i+2][4] = "ex: Start value=" + startVal.toString() + " remaining=" + val + "  " + e;
+					}
 				}
 			}
 
@@ -568,7 +594,7 @@ public class Seeker
 			String pathString 			= "";
 			String valueString 			= "";
 
-			// Copy Values
+			// Copy Values into print string
 			for (int i = 0; i < nodes.size() + 2; i++)
 			{
 				for (int j = 0; j < nodes.size() + 2; j++)
@@ -582,7 +608,7 @@ public class Seeker
 				}
 
 				pathString += pathTable[i][0] + "," + pathTable[i][1] + "," + pathTable[i][2];
-				valueString += valueTable[i][0] + "," + valueTable[i][1] + "," + valueTable[i][2] + "," + valueTable[i][3];
+				valueString += valueTable[i][0] + "," + valueTable[i][1] + "," + valueTable[i][2] + "," + valueTable[i][3] + "," + valueTable[i][4];
 
 				rateString 			+= "\n";
 				edgeString 			+= "\n";

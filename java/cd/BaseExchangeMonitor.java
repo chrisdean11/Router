@@ -130,6 +130,8 @@ public class BaseExchangeMonitor extends ExchangeMonitor
         if (parser.read(name))
         {
             System.out.println(name + ": Loading fees from file");
+            System.out.println("Loaded " + name + " fees:" + parser.fees.tradeFee + parser.fees.withdrawFee);
+
             tradeFee = new BigDecimal(parser.fees.tradeFee);
             withdrawFee = new BigDecimal(parser.fees.withdrawFee);
         }
@@ -138,9 +140,9 @@ public class BaseExchangeMonitor extends ExchangeMonitor
             System.out.println(name + ": Fee data not found. Initializing to 0.");
             tradeFee = new BigDecimal(0);
             withdrawFee = new BigDecimal(0);
+            System.out.println(name + " fees:" + tradeFee + withdrawFee);
         }
 
-        System.out.println(name + " fees:" + tradeFee + withdrawFee);
         System.out.println("Created " + exchangeClassName + " " + name + " Monitor with no login");
     }
 

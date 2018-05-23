@@ -2204,6 +2204,48 @@
       "min_amount" : 0.00100000,
       "max_amount" : 10000000.00000000,
       "price_scale" : 3
+    },
+    "TUSD/BTC" : {
+      "minNotional" : 0.00100000,
+      "trading_fee" : 0,
+      "min_amount" : 1.00000000,
+      "max_amount" : 90000000.00000000,
+      "price_scale" : 8
+    },
+    "TUSD/ETH" : {
+      "minNotional" : 0.01000000,
+      "trading_fee" : 0,
+      "min_amount" : 1.00000000,
+      "max_amount" : 90000000.00000000,
+      "price_scale" : 8
+    },
+    "TUSD/BNB" : {
+      "minNotional" : 1.00000000,
+      "trading_fee" : 0,
+      "min_amount" : 0.01000000,
+      "max_amount" : 90000000.00000000,
+      "price_scale" : 5
+    },
+    "ZEN/BTC" : {
+      "minNotional" : 0.00100000,
+      "trading_fee" : 0,
+      "min_amount" : 0.00100000,
+      "max_amount" : 10000000.00000000,
+      "price_scale" : 6
+    },
+    "ZEN/ETH" : {
+      "minNotional" : 0.01000000,
+      "trading_fee" : 0,
+      "min_amount" : 0.00100000,
+      "max_amount" : 10000000.00000000,
+      "price_scale" : 5
+    },
+    "ZEN/BNB" : {
+      "minNotional" : 1.00000000,
+      "trading_fee" : 0,
+      "min_amount" : 0.00100000,
+      "max_amount" : 10000000.00000000,
+      "price_scale" : 3
     }
   },
   "currencies" : {
@@ -2622,66 +2664,4 @@
     "RLC" : {
       "scale" : 8,
       "withdrawal_fee" : 2.8
-    },
-    "INS" : {
-      "scale" : 8,
-      "withdrawal_fee" : 2.4
-    },
-    "IOST" : {
-      "scale" : 8,
-      "withdrawal_fee" : 84.9
-    },
-    "STEEM" : {
-      "scale" : 8,
-      "withdrawal_fee" : 0.01
-    },
-    "NANO" : {
-      "scale" : 8,
-      "withdrawal_fee" : 0.01
-    },
-    "AE" : {
-      "scale" : 8,
-      "withdrawal_fee" : 1.8
-    },
-    "VIA" : {
-      "scale" : 8,
-      "withdrawal_fee" : 0.01
-    },
-    "BLZ" : {
-      "scale" : 8,
-      "withdrawal_fee" : 7.0
-    },
-    "SYS" : {
-      "scale" : 8,
-      "withdrawal_fee" : 0.001
-    },
-    "RPX" : {
-      "scale" : 8,
-      "withdrawal_fee" : 1.0
-    },
-    "NCASH" : {
-      "scale" : 8,
-      "withdrawal_fee" : 81.3
-    },
-    "POA" : {
-      "scale" : 8,
-      "withdrawal_fee" : 0.01
-    },
-    "ONT" : {
-      "scale" : 8,
-      "withdrawal_fee" : 0.1
-    },
-    "ZIL" : {
-      "scale" : 8,
-      "withdrawal_fee" : 100.0
-    },
-    "STORM" : {
-      "scale" : 8,
-      "withdrawal_fee" : 86.0
-    },
-    "XEM" : {
-      "scale" : 8,
-      "withdrawal_fee" : 4.0
-    },
-    "WAN" : {
-      "scale" : 8,
+    
