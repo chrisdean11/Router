@@ -57,7 +57,7 @@ public class Seeker
 			for (Currency currency : monitor.getCurrencies())
 			{
 				nodes.add(new Node(monitor, currency));
-				System.out.println("    " + currency.toString() + " Fees: " + monitor.getTradeFee() + monitor.getWithdrawFee());
+				System.out.println("    " + currency.toString() + " Fees: " + monitor.getTradeFee() + monitor.getWithdrawFee(currency));
 			}
 		}
 
@@ -312,7 +312,7 @@ public class Seeker
 			}
 			else // Withdraw-Deposit inter-exchange
 			{
-				System.out.println(from.monitor.getName() + " != " + to.monitor.getName());
+				System.out.println(from.monitor.getName() + " != " + to.monitor.getName() + ". Getting withdrawalFee.");
 				return withdrawalFee();
 			}
 		}
@@ -340,24 +340,30 @@ public class Seeker
 
 		private BigDecimal withdrawalFee()
 		{
-			Map<Currency, CurrencyMetaData> map = from.monitor.getExchange().getExchangeMetaData().getCurrencies();
-			BigDecimal fee = COST_INFINITE;
+			//Map<Currency, CurrencyMetaData> map = from.monitor.getExchange().getExchangeMetaData().getCurrencies();
+			//BigDecimal fee = COST_INFINITE;
+
+			//if(from.currency.compareTo(to.currency) != 0) 
+			//{
+			//	System.out.println("  WithdrawalFee: 'from' and 'to' currencies don't match: " + from.currency + "->" + to.currency);
+			//}
+			//else if (!map.keySet().contains(from.currency)) 
+			//{
+			//	System.out.println("  WithdrawalFee: ExchangeMetaData doesn't contain " + from.currency);
+			//}
+			//else if (map.get(from.currency).getWithdrawalFee() == null) 
+			//{
+			//	System.out.println("  WithdrawalFee: Not Found " + from.currency);
+			//}
+			//else fee = map.get(from.currency).getWithdrawalFee();
 
 			if(from.currency.compareTo(to.currency) != 0) 
 			{
 				System.out.println("  WithdrawalFee: 'from' and 'to' currencies don't match: " + from.currency + "->" + to.currency);
 			}
-			else if (!map.keySet().contains(from.currency)) 
-			{
-				System.out.println("  WithdrawalFee: ExchangeMetaData doesn't contain " + from.currency);
-			}
-			else if (map.get(from.currency).getWithdrawalFee() == null) 
-			{
-				System.out.println("  WithdrawalFee: Not Found " + from.currency);
-			}
-			else fee = map.get(from.currency).getWithdrawalFee();
 
-			fee = from.monitor.getWithdrawFee(); // Temporary hack
+			System.out.println("WithdrawFee:"+from.monitor.getWithdrawFee(from.currency));
+			BigDecimal fee = from.monitor.getWithdrawFee(from.currency);
 
 			System.out.println("  [WithdrawalFee: " + fee + "] " + this.toString());
 			return fee;
@@ -551,7 +557,6 @@ public class Seeker
 					{
 						if (adjacencyMatrix[i][j].withdrawalFee() != null) withdrawFeeTable[i+2][j+2]  = adjacencyMatrix[i][j].withdrawalFee().toString();
 					}
-
 				}
 
 				pathTable[i+2][2] = nodes.get(i).bestPathToString();

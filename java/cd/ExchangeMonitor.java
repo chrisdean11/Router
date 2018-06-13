@@ -41,7 +41,7 @@ abstract public class ExchangeMonitor {
 
     abstract public BigDecimal getTradeFee();
 
-    abstract public BigDecimal getWithdrawFee();
+    abstract public BigDecimal getWithdrawFee(Currency c);
 
     // Refresh info from remote exchange and view it
 

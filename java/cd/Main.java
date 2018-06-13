@@ -680,14 +680,14 @@ public class Main
             if (monitor.getName().equals("GDAX"))
             {
                 gdax = monitor;
-                System.out.println("Found GDAX: compare fees - trade fee " + monitor.getTradeFee() + "=" + gdax.getTradeFee() +  ", withdraw fee " + monitor.getWithdrawFee() + "=" + binance.getWithdrawFee());
+                System.out.println("Found GDAX: compare fees - trade fee " + monitor.getTradeFee() + "=" + gdax.getTradeFee() +  ", BTC withdraw fee " + monitor.getWithdrawFee(new Currency("BTC")) + "=" + binance.getWithdrawFee(new Currency("BTC")));
                 continue;
             }
 
             if (monitor.getName().equals("Binance"))
             {
                 binance = monitor;
-                System.out.println("Found Binance: compare fees - trade fee " + monitor.getTradeFee() + "=" + binance.getTradeFee() +  ", withdraw fee " + monitor.getWithdrawFee() + "=" + binance.getWithdrawFee());
+                System.out.println("Found Binance: compare fees - trade fee " + monitor.getTradeFee() + "=" + binance.getTradeFee() +  ", BTC withdraw fee " + monitor.getWithdrawFee(new Currency("BTC")) + "=" + binance.getWithdrawFee(new Currency("BTC")));
                 continue;
             }
         }

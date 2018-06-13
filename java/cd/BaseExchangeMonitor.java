@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.Map;
 import java.util.HashSet;
 import java.util.HashMap;
 import java.util.Random;
@@ -40,9 +41,8 @@ public class BaseExchangeMonitor extends ExchangeMonitor
     private String name;
     private Exchange exchange;
     private List<CurrencyPair> currencyPairs;
-    private Set<Currency> currencies;
+    private Set<Currency> currencies = new HashSet();
     private BigDecimal tradeFee; // Fractional fee
-    private BigDecimal withdrawFee;
 
     private class News
     {
@@ -53,7 +53,8 @@ public class BaseExchangeMonitor extends ExchangeMonitor
         // TODO: BittrexTicker ticker; and other market-specific items 
     }
     
-    private HashMap<CurrencyPair, News> news;
+    private Map<CurrencyPair, News> news = new HashMap();
+    private Map<Currency, BigDecimal> withdrawFees = new HashMap();
 
     /**
      * Constructor without API keys
@@ -80,6 +81,7 @@ public class BaseExchangeMonitor extends ExchangeMonitor
 
         PrintWriter metajson = null;
 
+        // Print out the metadata from XChange even though it's not used, yet.
         try 
         {
             metajson = new PrintWriter(new FileWriter("/home/cd/Eclipse-Workspace/tradebot/src/main/resources/" + name + ".json"));
@@ -106,7 +108,6 @@ public class BaseExchangeMonitor extends ExchangeMonitor
         */
 
         currencyPairs = exchange.getExchangeSymbols();
-        currencies = new HashSet<Currency>();
 
         System.out.println(name + " CurrencyPairs and currencies:");
         for (CurrencyPair pair : currencyPairs)
@@ -120,27 +121,34 @@ public class BaseExchangeMonitor extends ExchangeMonitor
         for (Currency c : currencies) System.out.print(c + ",");
         System.out.println();
 
-        news = new HashMap();
         for (CurrencyPair pair : currencyPairs)
         {
             news.put(pair, new News());
         }
 
+        // Load fees from Json
         FeeParser parser = new FeeParser();
         if (parser.read(name))
         {
-            System.out.println(name + ": Loading fees from file");
-            System.out.println("Loaded " + name + " fees:" + parser.fees.tradeFee + parser.fees.withdrawFee);
+            tradeFee = parser.tradeFee;
+            System.out.println(name + " tradefee:" + tradeFee);
 
-            tradeFee = new BigDecimal(parser.fees.tradeFee);
-            withdrawFee = new BigDecimal(parser.fees.withdrawFee);
+            for(Currency currency : currencies)
+            {
+                BigDecimal f = parser.withdrawFees.get(currency);
+
+                if (f != null)
+                {
+                    withdrawFees.put(currency, f);
+                }
+
+                System.out.println("  " + currency + " withdrawfee: " + f);
+            }
         }
         else
         {
-            System.out.println(name + ": Fee data not found. Initializing to 0.");
             tradeFee = new BigDecimal(0);
-            withdrawFee = new BigDecimal(0);
-            System.out.println(name + " fees:" + tradeFee + withdrawFee);
+            System.out.println(name + " tradeFee:" + tradeFee + "Fee data not loaded from json");
         }
 
         System.out.println("Created " + exchangeClassName + " " + name + " Monitor with no login");
@@ -151,24 +159,7 @@ public class BaseExchangeMonitor extends ExchangeMonitor
      */
     public BaseExchangeMonitor(String exchangeClassName, String apiKey, String secretKey) 
     {
-        // Get actual name
-        for(int i = 0; i < exchangeClassName.length(); i++)
-        {
-            name += exchangeClassName.charAt(i);
-
-            if (exchangeClassName.charAt(i)=='.')
-            {
-                name = "";
-            }
-        }
-
-        // Remove 'Exchange' from end
-        for (int i = 0; i < name.length(); i++)
-        {
-            if (name.substring(i).compareTo("Exchange") == 0)
-                name = name.substring(0, i);
-        }
-
+        // Do everything in the above constructor, but with a different createExchange call.
     /*
         // Read api keys
         try 
@@ -193,46 +184,6 @@ public class BaseExchangeMonitor extends ExchangeMonitor
 
         exchange = ExchangeFactory.INSTANCE.createExchange(exchangeClassName, apiKey, secretKey);
         System.out.println(name + "\n" + exchange.getExchangeMetaData().toJSONString());
-
-        // Remote init even though we aren't in init()
-        /*
-        try 
-        { 
-            exchange.remoteInit(); 
-        } 
-        catch (Exception e)
-        {
-            System.out.println(name + " Monitor: remoteInit() failed");
-        }
-        */
-
-        currencyPairs = exchange.getExchangeSymbols();
-        currencies = new HashSet<Currency>();
-        
-        // detailsLog.println(monitor.getName());
-        for (CurrencyPair pair : currencyPairs)
-        {
-            currencies.add(pair.base);
-            currencies.add(pair.counter);
-        }
-
-        news = new HashMap();
-        for (CurrencyPair pair : currencyPairs)
-        {
-            news.put(pair, new News());
-        }
-
-        FeeParser parser = new FeeParser();
-        if (parser.read(name))
-        {
-            tradeFee = new BigDecimal(parser.fees.tradeFee);
-            withdrawFee = new BigDecimal(parser.fees.withdrawFee);
-        }
-        else
-        {
-            tradeFee = new BigDecimal(0);
-            withdrawFee = new BigDecimal(0);
-        }
 
         System.out.println("Created " + exchangeClassName + " " + name + " Monitor with keys " + apiKey + " " + secretKey);
     }
@@ -294,9 +245,9 @@ public class BaseExchangeMonitor extends ExchangeMonitor
         return tradeFee;
     }
 
-    public BigDecimal getWithdrawFee()
+    public BigDecimal getWithdrawFee(Currency c)
     {
-        return withdrawFee;
+        return withdrawFees.get(c);
     }
 
     public boolean loadTicker(CurrencyPair pair)
