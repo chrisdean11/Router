@@ -132,8 +132,21 @@ public class Seeker
 			if (node == start)
 			{
 				node.balance = startAmount;
-				node.bestPath.add(node);
+				node.bestPath = new ArrayList<Node>();
 			}
+		}
+
+		// Seed the map by getting residuals for all nodes adjacent to start node
+		int s = nodes.indexOf(start);
+
+		for (int j = 0; j < nodes.size(); j++)
+		{
+			if (graph.adjacencyMatrix[s][j] == null) continue; // Not adjacent
+			Edge edge = graph.adjacencyMatrix[s][j];
+
+			edge.to.balance = edge.calculateResidual(edge.from.balance);
+			edge.to.bestPath = new ArrayList<Node>();
+			edge.to.bestPath.add(edge.from);
 		}
 
 		// Shallow copy of nodes list to chew through
@@ -319,20 +332,20 @@ public class Seeker
 
 		private BigDecimal tradeFee()
 		{
-			Map<CurrencyPair, CurrencyPairMetaData> map = from.monitor.getExchange().getExchangeMetaData().getCurrencyPairs();
-			BigDecimal fee;
+			//Map<CurrencyPair, CurrencyPairMetaData> map = from.monitor.getExchange().getExchangeMetaData().getCurrencyPairs();
+			//BigDecimal fee;
+//
+			//if(map.keySet().contains(new CurrencyPair(from.currency, to.currency)))
+			//{
+			//	fee = map.get(new CurrencyPair(from.currency, to.currency)).getTradingFee();
+			//}
+			//else if(map.keySet().contains(new CurrencyPair(to.currency, from.currency)))
+			//{
+			//	fee = map.get(new CurrencyPair(to.currency, from.currency)).getTradingFee();
+			//}
+			//else fee = COST_INFINITE;
 
-			if(map.keySet().contains(new CurrencyPair(from.currency, to.currency)))
-			{
-				fee = map.get(new CurrencyPair(from.currency, to.currency)).getTradingFee();
-			}
-			else if(map.keySet().contains(new CurrencyPair(to.currency, from.currency)))
-			{
-				fee = map.get(new CurrencyPair(to.currency, from.currency)).getTradingFee();
-			}
-			else fee = COST_INFINITE;
-
-			fee = from.monitor.getTradeFee(); // Temporary hack
+			BigDecimal fee = from.monitor.getTradeFee();
 
 			System.out.println("  [tradeFee " + fee + "] " + this.toString());
 			return fee;
