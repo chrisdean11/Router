@@ -46,8 +46,8 @@ import org.knowm.xchange.service.marketdata.MarketDataService;
 
 // CoinMarketCap and OpenExchangeRates
 import org.knowm.xchange.coinmarketcap.dto.marketdata.CoinMarketCapTicker;
+import org.knowm.xchange.coinmarketcap.dto.marketdata.CoinMarketCapQuote;
 import org.knowm.xchange.oer.dto.marketdata.OERRates;
-
 
 // Exchange
 import org.knowm.xchange.abucoins.                  AbucoinsExchange;
@@ -88,7 +88,6 @@ import org.knowm.xchange.cryptofacilities.          CryptoFacilitiesExchange;
 import org.knowm.xchange.cryptopia.                 CryptopiaExchange;
 import org.knowm.xchange.cryptonit.v2.              CryptonitExchange;
 import org.knowm.xchange.dsx.                       DSXExchange;
-import org.knowm.xchange.empoex.                    EmpoExExchange;
 import org.knowm.xchange.gatecoin.                  GatecoinExchange;
 import org.knowm.xchange.gateio.                    GateioExchange;
 import org.knowm.xchange.gdax.                      GDAXExchange;
@@ -114,7 +113,6 @@ import org.knowm.xchange.poloniex.                  PoloniexExchange;
 //import org.knowm.xchange.quoine.                    QuoineExchange;
 import org.knowm.xchange.quadrigacx.                QuadrigaCxExchange;
 import org.knowm.xchange.ripple.                    RippleExchange;
-import org.knowm.xchange.taurus.                    TaurusExchange;
 import org.knowm.xchange.therock.                   TheRockExchange;
 import org.knowm.xchange.truefx.                    TrueFxExchange;
 import org.knowm.xchange.vaultoro.                  VaultoroExchange;
@@ -262,8 +260,9 @@ public class Main
 
         for(CoinMarketCapTicker tick : coinMarketCapTickers)
         {
-            System.out.println(tick + "  " + tick.getPriceUSD());
-            allPrices.put(tick.getBaseCurrency().getCurrency(), tick.getPriceUSD());
+            Map<String, CoinMarketCapQuote> quotes = tick.getQuotes();
+            System.out.println(tick + "  " + quotes.get("USD").getPrice());
+            allPrices.put(tick.getBaseCurrency().getCurrency(), quotes.get("USD").getPrice());
         }
 
         allPrices.put(Currency.getInstance("USD"), new BigDecimal(1));

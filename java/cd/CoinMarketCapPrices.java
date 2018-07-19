@@ -24,7 +24,7 @@ import org.knowm.xchange.coinmarketcap.dto.marketdata.CoinMarketCapTicker;
 
 public class CoinMarketCapPrices 
 {
-    final private String urlToRead = "https://api.coinmarketcap.com/v1/ticker/";
+    final private String urlToRead = "https://api.coinmarketcap.com/v2/ticker/";
 
     public List<CoinMarketCapTicker> tickers;
 
