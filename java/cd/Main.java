@@ -1,5 +1,5 @@
 /**
- * This is a class that holds the comparison information on every exchange in the MyMarket
+ * 
  */
 
 import java.io.IOException;
@@ -42,11 +42,11 @@ import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.Trades;
-import org.knowm.xchange.service.marketdata.MarketDataService;
 
 // CoinMarketCap and OpenExchangeRates
 import org.knowm.xchange.coinmarketcap.dto.marketdata.CoinMarketCapTicker;
 import org.knowm.xchange.coinmarketcap.dto.marketdata.CoinMarketCapQuote;
+import org.knowm.xchange.coinmarketcap.service.CoinMarketCapMarketDataService;
 import org.knowm.xchange.oer.dto.marketdata.OERRates;
 
 // Exchange
@@ -182,6 +182,7 @@ public class Main
 
         detailsLog = tmp;
     }
+
 /*
     private static PrintWriter Prices;
     static 
@@ -248,28 +249,37 @@ public class Main
     */
     private static void init() throws InterruptedException, IOException
     {
-        exchangeMonitors = new ArrayList<ExchangeMonitor>();
         allPairs = new ArrayList<CurrencyPair>();
         arbitragePairs = new ArrayList<CurrencyPair>();
         allCurrencies = new HashSet<Currency>();
 
         initThreads = false;
 
-        CoinMarketCapPrices prices = new CoinMarketCapPrices(); // Calls cmc api and loads tickers
-        coinMarketCapTickers = prices.tickers;
+        /*
+         * (1) Get USD values
+         */
 
-        for(CoinMarketCapTicker tick : coinMarketCapTickers)
+        CoinMarketCapExchange coinMarketCap = new CoinMarketCapExchange();
+        CoinMarketCapMarketDataService coinMarketCapMarketDataService = new CoinMarketCapMarketDataService(coinMarketCap);
+
+        List<CoinMarketCapTicker> ticks = coinMarketCapMarketDataService.getCoinMarketCapTickers();
+        System.out.println("Number of CMC tickers = " + ticks.size());
+        for (CoinMarketCapTicker tick : ticks)
         {
             Map<String, CoinMarketCapQuote> quotes = tick.getQuotes();
-            System.out.println(tick + "  " + quotes.get("USD").getPrice());
-            allPrices.put(tick.getBaseCurrency().getCurrency(), quotes.get("USD").getPrice());
+
+            for (Map.Entry<String, CoinMarketCapQuote> entry : quotes.entrySet())
+            {
+                System.out.println("  " + tick.getBaseCurrency().getCurrency() + " = " + entry.getValue().getPrice());
+                allPrices.put(tick.getBaseCurrency().getCurrency(), entry.getValue().getPrice());
+            }
         }
 
         allPrices.put(Currency.getInstance("USD"), new BigDecimal(1));
 
         // TODO Figure out fiat OER problem
         // TODO Check AllPairs for reversed pairs     
-        //addFiatValues(allPrices);
+        addFiatValues(allPrices);
         // Display all prices
         System.out.println("Repeating the currency prices available: ");
         for (Map.Entry<Currency, BigDecimal> entry : allPrices.entrySet())
@@ -279,87 +289,15 @@ public class Main
 
         System.out.println("End of exchange rates"); 
 
-        //coinMarketCap = ExchangeFactory.INSTANCE.createExchange(CoinMarketCapExchange.class.getName());
+        /*
+         * (2) Construct exchangeMonitors
+         */
+        createExchangeMonitors();
 
-        // TODO find out why detailsLog has so many "GetPriceAtDepth: java.lang.NullPointerException" 
-        // Instantiate and init exchange monitors
-        // exchangeMonitors.add(new BaseExchangeMonitor(AbucoinsExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(ANXExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(AcxExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BiboxExchange.class.getName()));
-        exchangeMonitors.add(new BaseExchangeMonitor(BinanceExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BitbayExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BitcoinAverageExchange.class.getName()));
-        // Not an exchange exchangeMonitors.add(new BaseExchangeMonitor(BitcoinChartsExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BitcoinCoreExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BitcoindeExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BitcoiniumExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BitcointoyouExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BitfinexExchange.class.getName()));
-        //  exchangeMonitors.add(new BaseExchangeMonitor(BitmexExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BitflyerExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BitMarketExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BitsoExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BitstampExchange.class.getName()));
-        //exchangeMonitors.add(new BaseExchangeMonitor(BittrexExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BitZExchange.class.getName()));
-        // Timeouts exchangeMonitors.add(new BaseExchangeMonitor(BleutradeExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BlockchainExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BTCCExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BTCMarketsExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BTCTradeExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(BTCTurkExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(CampBXExchange.class.getName()));
-        // Ticker error. Json parse exception exchangeMonitors.add(new BaseExchangeMonitor(CCEXExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(CexIOExchange.class.getName()));
-        //exchangeMonitors.add(new BaseExchangeMonitor(CoinbaseExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(CoinEggExchange.class.getName()));
-        //Not an exchange exchangeMonitors.add(new BaseExchangeMonitor(CoinMarketCapExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(CoinfloorExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(CoinmateExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(CryptoFacilitiesExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(CryptopiaExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(CryptonitExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(DSXExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(EmpoExExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(GatecoinExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(GateioExchange.class.getName()));
-        exchangeMonitors.add(new BaseExchangeMonitor(GDAXExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(GeminiExchange.class.getName()));
-        // Terrible reputation exchangeMonitors.add(new BaseExchangeMonitor(HitbtcExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(ItBitExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(IndependentReserveExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(KoineksExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(KoinimExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(KrakenExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(KunaExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(KucoinExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(LakeBTCExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(LiquiExchange.class.getName()));
-        //exchangeMonitors.add(new BaseExchangeMonitor(LivecoinExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(LunoExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(MercadoBitcoinExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(OkCoinExchange.class.getName()));
-        // Not an exchange exchangeMonitors.add(new BaseExchangeMonitor(OERExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(ParibuExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(PaymiumExchange.class.getName()));
-        //exchangeMonitors.add(new BaseExchangeMonitor(PoloniexExchange.class.getName()));
-        // I forget why exchangeMonitors.add(new BaseExchangeMonitor(QuoineExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(QuadrigaCxExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(RippleExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(TaurusExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(TheRockExchange.class.getName()));
-        // I forget why exchangeMonitors.add(new BaseExchangeMonitor(TrueFxExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(VaultoroExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(VircurexExchange.class.getName()));
-        // I forget whyexchangeMonitors.add(new BaseExchangeMonitor(YoBitExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(WexExchange.class.getName()));
-        // exchangeMonitors.add(new BaseExchangeMonitor(ZaifExchange.class.getName()));
-
-        Thread.sleep(TIME_DELAY);
-
-        // Get all pairs traded on all exchanges
-        // Get all pairs traded on more than one exchange (arbitragePairs)
+        /*
+         * (3) Get all pairs traded on all exchanges
+         *     Get all pairs traded on more than one exchange (arbitragePairs)
+         */
         for (ExchangeMonitor monitor : exchangeMonitors)
         {
             Set<Currency> currencies = new HashSet<Currency>();
@@ -1027,6 +965,91 @@ public class Main
             System.out.println("    " + name1+price1+name2+price2);
             return false;
         }
+    }
+
+    /*
+     *   Make exchangeMonitor instances -- called by init()
+     */
+    private static void createExchangeMonitors() throws InterruptedException
+    {
+        exchangeMonitors = new ArrayList<ExchangeMonitor>();
+
+        // TODO find out why detailsLog has so many "GetPriceAtDepth: java.lang.NullPointerException" 
+        // Instantiate and init exchange monitors
+        // exchangeMonitors.add(new BaseExchangeMonitor(AbucoinsExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(ANXExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(AcxExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BiboxExchange.class.getName()));
+        exchangeMonitors.add(new BaseExchangeMonitor(BinanceExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BitbayExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BitcoinAverageExchange.class.getName()));
+        // Not an exchange exchangeMonitors.add(new BaseExchangeMonitor(BitcoinChartsExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BitcoinCoreExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BitcoindeExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BitcoiniumExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BitcointoyouExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BitfinexExchange.class.getName()));
+        //  exchangeMonitors.add(new BaseExchangeMonitor(BitmexExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BitflyerExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BitMarketExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BitsoExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BitstampExchange.class.getName()));
+        //exchangeMonitors.add(new BaseExchangeMonitor(BittrexExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BitZExchange.class.getName()));
+        // Timeouts exchangeMonitors.add(new BaseExchangeMonitor(BleutradeExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BlockchainExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BTCCExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BTCMarketsExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BTCTradeExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(BTCTurkExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(CampBXExchange.class.getName()));
+        // Ticker error. Json parse exception exchangeMonitors.add(new BaseExchangeMonitor(CCEXExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(CexIOExchange.class.getName()));
+        //exchangeMonitors.add(new BaseExchangeMonitor(CoinbaseExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(CoinEggExchange.class.getName()));
+        //Not an exchange exchangeMonitors.add(new BaseExchangeMonitor(CoinMarketCapExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(CoinfloorExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(CoinmateExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(CryptoFacilitiesExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(CryptopiaExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(CryptonitExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(DSXExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(EmpoExExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(GatecoinExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(GateioExchange.class.getName()));
+        exchangeMonitors.add(new BaseExchangeMonitor(GDAXExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(GeminiExchange.class.getName()));
+        // Terrible reputation exchangeMonitors.add(new BaseExchangeMonitor(HitbtcExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(ItBitExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(IndependentReserveExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(KoineksExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(KoinimExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(KrakenExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(KunaExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(KucoinExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(LakeBTCExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(LiquiExchange.class.getName()));
+        //exchangeMonitors.add(new BaseExchangeMonitor(LivecoinExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(LunoExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(MercadoBitcoinExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(OkCoinExchange.class.getName()));
+        // Not an exchange exchangeMonitors.add(new BaseExchangeMonitor(OERExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(ParibuExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(PaymiumExchange.class.getName()));
+        //exchangeMonitors.add(new BaseExchangeMonitor(PoloniexExchange.class.getName()));
+        // I forget why exchangeMonitors.add(new BaseExchangeMonitor(QuoineExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(QuadrigaCxExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(RippleExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(TaurusExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(TheRockExchange.class.getName()));
+        // I forget why exchangeMonitors.add(new BaseExchangeMonitor(TrueFxExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(VaultoroExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(VircurexExchange.class.getName()));
+        // I forget whyexchangeMonitors.add(new BaseExchangeMonitor(YoBitExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(WexExchange.class.getName()));
+        // exchangeMonitors.add(new BaseExchangeMonitor(ZaifExchange.class.getName()));
+
+        Thread.sleep(TIME_DELAY);
     }
 
     private static void addFiatValues(Map<Currency, BigDecimal> _allPrices)

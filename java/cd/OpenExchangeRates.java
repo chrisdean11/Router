@@ -23,11 +23,12 @@ public class OpenExchangeRates {
     public OpenExchangeRates()
     {
         // Use the factory to get the Open Exchange Rates exchange API
-        exchangeSpecification = new ExchangeSpecification(OERExchange.class.getName());
-        exchangeSpecification.setPlainTextUri("http://openexchangerates.org");
-        exchangeSpecification.setApiKey("257da32e4b584f3282beb4bc9623ca3a");
+        //exchangeSpecification = new ExchangeSpecification(OERExchange.class.getName());
+        //exchangeSpecification.setPlainTextUri("http://openexchangerates.org");
+        //exchangeSpecification.setApiKey("257da32e4b584f3282beb4bc9623ca3a");
 
-        openExchangeRates = ExchangeFactory.INSTANCE.createExchange(exchangeSpecification);
+        //openExchangeRates = ExchangeFactory.INSTANCE.createExchange(exchangeSpecification);
+        openExchangeRates = ExchangeFactory.INSTANCE.createExchange(OERExchange.class.getName(), "257da32e4b584f3282beb4bc9623ca3a", "");
         marketDataService = openExchangeRates.getMarketDataService();
     }
 

@@ -42,7 +42,7 @@ public class CoinMarketCapPrices
             System.out.println("Exception getting CoinMarketCap data");
         }
 
-        //System.out.println("CMC response:\n" + response);
+        System.out.println("CMC response:\n" + response);
 
         // Convert save and save into 'tickers'
         ObjectMapper objectMapper = new ObjectMapper();

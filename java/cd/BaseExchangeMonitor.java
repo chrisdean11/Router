@@ -435,16 +435,7 @@ public class BaseExchangeMonitor extends ExchangeMonitor
      */
     public static void main(String[] args) throws IOException, InterruptedException
     {
-        /*
-        BittrexMonitor m = new BittrexMonitor(); // Calls init()
-        System.out.println("\n" + m.getName() + " Monitor online");
-        for (CurrencyPair pair : m.getCurrencyPairs())
-        {
-            m.loadTicker(pair);
-            System.out.println(m.viewTicker(pair));
-            Thread.sleep(1000);
-        }
-        */
+        
     }
 
 }

@@ -1,2503 +1,2272 @@
 {
   "currency_pairs" : {
     "ETH/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 100000.00000000,
-      "price_scale" : 6
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+5,
+      "price_scale" : 5
     },
     "LTC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 100000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+5,
       "price_scale" : 6
     },
     "BNB/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "NEO/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 100000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+5,
       "price_scale" : 6
     },
     "QTUM/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "EOS/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "SNT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BNT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "BCC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 100000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+5,
       "price_scale" : 6
     },
     "GAS/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 100000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+5,
       "price_scale" : 6
     },
     "BNB/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "BTC/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00000100,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.000001,
+      "max_amount" : 1E+7,
       "price_scale" : 2
     },
     "ETH/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00001000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.00001,
+      "max_amount" : 1E+7,
       "price_scale" : 2
     },
-    "HSR/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
-      "price_scale" : 6
-    },
     "OAX/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "DNT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "MCO/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 6
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
+      "price_scale" : 5
     },
     "ICN/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "MCO/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "WTC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "WTC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "LRC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "LRC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "QTUM/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "YOYO/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "OMG/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "OMG/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "ZRX/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ZRX/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "STRAT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "STRAT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "SNGLS/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "SNGLS/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BQX/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BQX/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 7
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 6
     },
     "KNC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "KNC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "FUN/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     },
     "FUN/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "SNM/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "SNM/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "NEO/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "IOTA/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "IOTA/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "LINK/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "LINK/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     },
     "XVG/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "XVG/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "SALT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "SALT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "MDA/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "MDA/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 7
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 6
     },
     "MTL/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 7
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
+      "price_scale" : 6
     },
     "MTL/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "SUB/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "SUB/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "EOS/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 7
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
+      "price_scale" : 6
     },
     "SNT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ETC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "ETC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "MTH/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "MTH/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ENG/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ENG/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "DNT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ZEC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "ZEC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
-      "price_scale" : 5
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
+      "price_scale" : 4
     },
     "BNT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "AST/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "AST/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "DASH/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "DASH/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
-      "price_scale" : 5
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
+      "price_scale" : 4
     },
     "OAX/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ICN/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BTG/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "BTG/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "EVX/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "EVX/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "REQ/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "REQ/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "VIB/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "VIB/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
-    "HSR/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 6
-    },
     "TRX/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "TRX/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "POWR/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "POWR/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ARK/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "ARK/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "YOYO/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "XRP/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "XRP/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     },
     "MOD/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "MOD/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "ENJ/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ENJ/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "STORJ/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     },
     "STORJ/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "BNB/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
-      "price_scale" : 4
-    },
-    "VEN/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 4
     },
     "YOYO/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "POWR/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
-    "VEN/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
-    },
-    "VEN/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
-    },
     "KMD/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 7
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
+      "price_scale" : 6
     },
     "KMD/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "NULS/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "RCN/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "RCN/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "RCN/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "NULS/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "NULS/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "RDN/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "RDN/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 7
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 5
     },
     "RDN/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "XMR/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "XMR/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 5
     },
     "DLT/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 5
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
+      "price_scale" : 4
     },
     "WTC/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 4
     },
     "DLT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "DLT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "AMB/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "AMB/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "AMB/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "BCC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 5
     },
     "BCC/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00001000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.00001,
+      "max_amount" : 1E+7,
       "price_scale" : 2
     },
     "BCC/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00001000,
-      "max_amount" : 10000000.00000000,
-      "price_scale" : 2
+      "trading_fee" : 0.1,
+      "min_amount" : 0.00001,
+      "max_amount" : 1E+7,
+      "price_scale" : 1
     },
     "BAT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BAT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     },
     "BAT/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "BCPT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BCPT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BCPT/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "ARN/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ARN/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "GVT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "GVT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "CDT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "CDT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     },
     "GXS/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "GXS/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "NEO/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 3
     },
     "NEO/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 3
     },
     "POE/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "POE/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "QSP/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "QSP/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "QSP/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "BTS/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BTS/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BTS/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "XZC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "XZC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "XZC/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 3
     },
     "LSK/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "LSK/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "LSK/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 4
     },
     "TNT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "TNT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "FUEL/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "FUEL/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "MANA/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     },
     "MANA/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BCD/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "BCD/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 5
     },
     "DGD/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "DGD/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
-      "price_scale" : 5
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
+      "price_scale" : 4
     },
     "IOTA/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 5
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
+      "price_scale" : 4
     },
     "ADX/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ADX/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "ADX/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "ADA/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ADA/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "PPT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "PPT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "CMT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "CMT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     },
     "CMT/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 5
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
+      "price_scale" : 4
     },
     "XLM/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     },
     "XLM/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "XLM/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "CND/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "CND/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "CND/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "LEND/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "LEND/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "WABI/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     },
     "WABI/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "WABI/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "LTC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 5
     },
     "LTC/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00001000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.00001,
+      "max_amount" : 1E+7,
       "price_scale" : 2
     },
     "LTC/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00001000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.00001,
+      "max_amount" : 1E+7,
       "price_scale" : 2
     },
     "TNB/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "TNB/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "WAVES/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "WAVES/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 6
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
+      "price_scale" : 5
     },
     "WAVES/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 4
     },
     "GTO/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     },
     "GTO/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "GTO/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "ICX/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "ICX/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "ICX/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "OST/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "OST/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "OST/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "ELF/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ELF/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "AION/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "AION/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "AION/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "NEBL/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "NEBL/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "NEBL/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "BRD/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BRD/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "BRD/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "MCO/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "EDO/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "EDO/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "WINGS/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "WINGS/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "NAV/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "NAV/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "NAV/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "LUN/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "LUN/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 6
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
+      "price_scale" : 5
     },
     "TRIG/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "TRIG/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "TRIG/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "APPC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "APPC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "APPC/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "VIBE/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "VIBE/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "RLC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 7
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
+      "price_scale" : 6
     },
     "RLC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "RLC/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "INS/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "INS/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 6
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
+      "price_scale" : 5
     },
     "PIVX/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "PIVX/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "PIVX/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "IOST/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "IOST/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "CHAT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "CHAT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "STEEM/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "STEEM/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "STEEM/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 5
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
+      "price_scale" : 4
     },
     "NANO/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "NANO/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "NANO/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 4
     },
     "VIA/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "VIA/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "VIA/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "BLZ/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BLZ/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BLZ/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "AE/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "AE/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "AE/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "RPX/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "RPX/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "RPX/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "NCASH/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "NCASH/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "NCASH/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "POA/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "POA/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "POA/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "ZIL/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ZIL/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ZIL/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "ONT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "ONT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "ONT/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "STORM/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "STORM/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "STORM/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "QTUM/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "QTUM/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 3
     },
     "XEM/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "XEM/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "XEM/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "WAN/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "WAN/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "WAN/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "WPR/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "WPR/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "QLC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "QLC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "SYS/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "SYS/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "SYS/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "QLC/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "GRS/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "GRS/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     },
     "ADA/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.10000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "ADA/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "CLOAK/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "CLOAK/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "GNT/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "GNT/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "GNT/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "LOOM/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "LOOM/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "LOOM/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "XRP/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.10000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "BCN/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BCN/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "BCN/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "REP/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "REP/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
-      "price_scale" : 5
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
+      "price_scale" : 4
     },
     "REP/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 3
     },
     "TUSD/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "TUSD/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "TUSD/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 5
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
+      "price_scale" : 4
     },
     "ZEN/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "ZEN/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
-      "price_scale" : 5
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
+      "price_scale" : 4
     },
     "ZEN/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
-      "price_scale" : 3
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
+      "price_scale" : 2
     },
     "SKY/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 6
     },
     "SKY/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 5
     },
     "SKY/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 3
     },
     "EOS/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 4
     },
     "EOS/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 4
     },
     "CVC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "CVC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "CVC/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "THETA/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "THETA/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "THETA/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "XRP/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "TUSD/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 4
     },
     "IOTA/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 4
     },
     "XLM/USDT" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
-    "IOTX/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+    "IOT/XBTC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
-    "IOTX/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+    "IOT/XETH" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "QKC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "QKC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "AGI/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "AGI/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "AGI/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "NXS/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 7
     },
     "NXS/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "NXS/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 4
     },
     "ENJ/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 6
     },
     "DATA/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "DATA/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "ONT/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.00100000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.001,
+      "max_amount" : 1E+7,
       "price_scale" : 3
     },
     "TRX/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.10000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
       "price_scale" : 5
     },
     "ETC/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 4
     },
     "ETC/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 4
     },
     "ICX/USDT" : {
-      "minNotional" : 10.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 0.01000000,
-      "max_amount" : 10000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
       "price_scale" : 4
     },
     "SC/BTC" : {
-      "minNotional" : 0.00100000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
-      "price_scale" : 8
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     },
     "SC/ETH" : {
-      "minNotional" : 0.01000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 8
     },
     "SC/BNB" : {
-      "minNotional" : 1.00000000,
-      "trading_fee" : 0,
-      "min_amount" : 1.00000000,
-      "max_amount" : 90000000.00000000,
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
       "price_scale" : 6
+    },
+    "NPXS/BTC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "NPXS/ETH" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "KEY/BTC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "KEY/ETH" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "NAS/BTC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
+    },
+    "NAS/ETH" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 9E+7,
+      "price_scale" : 6
+    },
+    "NAS/BNB" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
+      "price_scale" : 4
+    },
+    "MFT/BTC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "MFT/ETH" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "MFT/BNB" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 6
+    },
+    "DENT/BTC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "DENT/ETH" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "ARDR/BTC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
+    },
+    "ARDR/ETH" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "ARDR/BNB" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
+      "price_scale" : 5
+    },
+    "NULS/USDT" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 0.01,
+      "max_amount" : 1E+7,
+      "price_scale" : 4
+    },
+    "HOT/BTC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "HOT/ETH" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "VET/BTC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "VET/ETH" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "VET/USDT" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
+      "price_scale" : 5
+    },
+    "VET/BNB" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
+      "price_scale" : 4
+    },
+    "DOCK/BTC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "DOCK/ETH" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "POLY/BTC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "POLY/BNB" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
+      "price_scale" : 5
     }
   },
   "currencies" : {
@@ -2992,23 +2761,4 @@
     "GRS" : {
       "scale" : 8,
       "withdrawal_fee" : 0.2
-    },
-    "EDO" : {
-      "scale" : 8,
-      "withdrawal_fee" : 1.7
-    },
-    "WINGS" : {
-      "scale" : 8,
-      "withdrawal_fee" : 6.1
-    },
-    "NAV" : {
-      "scale" : 8,
-      "withdrawal_fee" : 0.2
-    },
-    "TRIG" : {
-      "scale" : 8,
-      "withdrawal_fee" : 17.7
-    },
-    "APPC" : {
-      "scale" : 8,
-     
+   
