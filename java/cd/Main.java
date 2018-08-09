@@ -1054,8 +1054,18 @@ public class Main
 
     private static void addFiatValues(Map<Currency, BigDecimal> _allPrices)
     {
-        OpenExchangeRates exchangeRates = new OpenExchangeRates();
+        try
+        {
+            OpenExchangeRates exchangeRates = new OpenExchangeRates(_allPrices);
+        }
+        catch(IOException e)
+        {
+            System.out.println("Failed to make OpenExchangeRates: " + e);
+            return;
+        }
 
+
+        return;/*
         _allPrices.put(Currency.AED, exchangeRates.getTicker(new CurrencyPair("AED","USD")).getLast());
         _allPrices.put(Currency.AFN, exchangeRates.getTicker(new CurrencyPair("AFN","USD")).getLast());
         _allPrices.put(Currency.ALL, exchangeRates.getTicker(new CurrencyPair("ALL","USD")).getLast());
@@ -1217,6 +1227,6 @@ public class Main
         _allPrices.put(Currency.ZMK, exchangeRates.getTicker(new CurrencyPair("ZMK","USD")).getLast());
         _allPrices.put(Currency.ZWL, exchangeRates.getTicker(new CurrencyPair("ZWL","USD")).getLast());
 
-        return;
+        return; */
     }
 }

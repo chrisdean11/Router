@@ -4,7 +4,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.001,
       "max_amount" : 1E+5,
-      "price_scale" : 5
+      "price_scale" : 6
     },
     "LTC/BTC" : {
       "trading_fee" : 0.1,
@@ -94,7 +94,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 5
+      "price_scale" : 6
     },
     "ICN/ETH" : {
       "trading_fee" : 0.1,
@@ -106,7 +106,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 1E+7,
-      "price_scale" : 6
+      "price_scale" : 5
     },
     "WTC/BTC" : {
       "trading_fee" : 0.1,
@@ -172,7 +172,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 6
     },
     "STRAT/ETH" : {
       "trading_fee" : 0.1,
@@ -202,7 +202,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 6
+      "price_scale" : 7
     },
     "KNC/BTC" : {
       "trading_fee" : 0.1,
@@ -226,7 +226,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "SNM/BTC" : {
       "trading_fee" : 0.1,
@@ -268,7 +268,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 8
     },
     "XVG/BTC" : {
       "trading_fee" : 0.1,
@@ -286,7 +286,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 5
     },
     "SALT/ETH" : {
       "trading_fee" : 0.1,
@@ -304,13 +304,13 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 6
+      "price_scale" : 7
     },
     "MTL/BTC" : {
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 6
+      "price_scale" : 7
     },
     "MTL/ETH" : {
       "trading_fee" : 0.1,
@@ -334,7 +334,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 6
+      "price_scale" : 7
     },
     "SNT/BTC" : {
       "trading_fee" : 0.1,
@@ -358,7 +358,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "MTH/ETH" : {
       "trading_fee" : 0.1,
@@ -388,13 +388,13 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.001,
       "max_amount" : 1E+7,
-      "price_scale" : 6
+      "price_scale" : 5
     },
     "ZEC/ETH" : {
       "trading_fee" : 0.1,
       "min_amount" : 0.001,
       "max_amount" : 1E+7,
-      "price_scale" : 4
+      "price_scale" : 5
     },
     "BNT/BTC" : {
       "trading_fee" : 0.1,
@@ -412,7 +412,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 6
     },
     "DASH/BTC" : {
       "trading_fee" : 0.1,
@@ -424,7 +424,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.001,
       "max_amount" : 1E+7,
-      "price_scale" : 4
+      "price_scale" : 5
     },
     "OAX/BTC" : {
       "trading_fee" : 0.1,
@@ -460,7 +460,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 6
     },
     "REQ/BTC" : {
       "trading_fee" : 0.1,
@@ -490,7 +490,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "TRX/ETH" : {
       "trading_fee" : 0.1,
@@ -508,7 +508,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "ARK/BTC" : {
       "trading_fee" : 0.1,
@@ -538,13 +538,13 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 8
     },
     "MOD/BTC" : {
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 6
     },
     "MOD/ETH" : {
       "trading_fee" : 0.1,
@@ -556,7 +556,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "ENJ/ETH" : {
       "trading_fee" : 0.1,
@@ -568,7 +568,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 8
     },
     "STORJ/ETH" : {
       "trading_fee" : 0.1,
@@ -598,7 +598,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 6
+      "price_scale" : 7
     },
     "KMD/ETH" : {
       "trading_fee" : 0.1,
@@ -622,7 +622,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "RCN/BNB" : {
       "trading_fee" : 0.1,
@@ -634,7 +634,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "NULS/ETH" : {
       "trading_fee" : 0.1,
@@ -646,13 +646,13 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "RDN/ETH" : {
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 5
+      "price_scale" : 7
     },
     "RDN/BNB" : {
       "trading_fee" : 0.1,
@@ -676,7 +676,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.1,
       "max_amount" : 9E+7,
-      "price_scale" : 4
+      "price_scale" : 5
     },
     "WTC/BNB" : {
       "trading_fee" : 0.1,
@@ -700,7 +700,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "AMB/ETH" : {
       "trading_fee" : 0.1,
@@ -724,13 +724,13 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.00001,
       "max_amount" : 1E+7,
-      "price_scale" : 2
+      "price_scale" : 1
     },
     "BCC/BNB" : {
       "trading_fee" : 0.1,
       "min_amount" : 0.00001,
       "max_amount" : 1E+7,
-      "price_scale" : 1
+      "price_scale" : 2
     },
     "BAT/BTC" : {
       "trading_fee" : 0.1,
@@ -742,7 +742,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 8
     },
     "BAT/BNB" : {
       "trading_fee" : 0.1,
@@ -802,7 +802,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 8
     },
     "GXS/BTC" : {
       "trading_fee" : 0.1,
@@ -814,7 +814,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 6
+      "price_scale" : 5
     },
     "NEO/USDT" : {
       "trading_fee" : 0.1,
@@ -940,7 +940,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 8
     },
     "MANA/ETH" : {
       "trading_fee" : 0.1,
@@ -970,13 +970,13 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.001,
       "max_amount" : 1E+7,
-      "price_scale" : 4
+      "price_scale" : 5
     },
     "IOTA/BNB" : {
       "trading_fee" : 0.1,
       "min_amount" : 0.1,
       "max_amount" : 9E+7,
-      "price_scale" : 4
+      "price_scale" : 5
     },
     "ADX/BTC" : {
       "trading_fee" : 0.1,
@@ -1030,13 +1030,13 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 8
     },
     "CMT/BNB" : {
       "trading_fee" : 0.1,
       "min_amount" : 0.1,
       "max_amount" : 9E+7,
-      "price_scale" : 4
+      "price_scale" : 5
     },
     "XLM/BTC" : {
       "trading_fee" : 0.1,
@@ -1054,13 +1054,13 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.1,
       "max_amount" : 9E+7,
-      "price_scale" : 5
+      "price_scale" : 4
     },
     "CND/BTC" : {
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "CND/ETH" : {
       "trading_fee" : 0.1,
@@ -1090,7 +1090,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 8
     },
     "WABI/ETH" : {
       "trading_fee" : 0.1,
@@ -1132,7 +1132,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "WAVES/BTC" : {
       "trading_fee" : 0.1,
@@ -1144,7 +1144,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 5
+      "price_scale" : 6
     },
     "WAVES/BNB" : {
       "trading_fee" : 0.1,
@@ -1156,7 +1156,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 8
     },
     "GTO/ETH" : {
       "trading_fee" : 0.1,
@@ -1168,7 +1168,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.1,
       "max_amount" : 9E+7,
-      "price_scale" : 5
+      "price_scale" : 4
     },
     "ICX/BTC" : {
       "trading_fee" : 0.1,
@@ -1204,7 +1204,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 6
+      "price_scale" : 5
     },
     "ELF/BTC" : {
       "trading_fee" : 0.1,
@@ -1240,7 +1240,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 6
     },
     "NEBL/ETH" : {
       "trading_fee" : 0.1,
@@ -1330,7 +1330,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 5
+      "price_scale" : 6
     },
     "TRIG/BTC" : {
       "trading_fee" : 0.1,
@@ -1348,7 +1348,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.1,
       "max_amount" : 9E+7,
-      "price_scale" : 5
+      "price_scale" : 4
     },
     "APPC/BTC" : {
       "trading_fee" : 0.1,
@@ -1360,7 +1360,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 5
     },
     "APPC/BNB" : {
       "trading_fee" : 0.1,
@@ -1384,7 +1384,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 6
+      "price_scale" : 7
     },
     "RLC/ETH" : {
       "trading_fee" : 0.1,
@@ -1408,7 +1408,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 5
+      "price_scale" : 6
     },
     "PIVX/BTC" : {
       "trading_fee" : 0.1,
@@ -1438,7 +1438,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "CHAT/BTC" : {
       "trading_fee" : 0.1,
@@ -1468,7 +1468,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.1,
       "max_amount" : 9E+7,
-      "price_scale" : 4
+      "price_scale" : 5
     },
     "NANO/BTC" : {
       "trading_fee" : 0.1,
@@ -1558,7 +1558,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 6
+      "price_scale" : 5
     },
     "NCASH/BTC" : {
       "trading_fee" : 0.1,
@@ -1576,7 +1576,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 6
+      "price_scale" : 5
     },
     "POA/BTC" : {
       "trading_fee" : 0.1,
@@ -1624,7 +1624,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 9E+7,
-      "price_scale" : 6
+      "price_scale" : 5
     },
     "ONT/BNB" : {
       "trading_fee" : 0.1,
@@ -1678,7 +1678,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.1,
       "max_amount" : 9E+7,
-      "price_scale" : 5
+      "price_scale" : 3
     },
     "WAN/BTC" : {
       "trading_fee" : 0.1,
@@ -1708,7 +1708,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "QLC/BTC" : {
       "trading_fee" : 0.1,
@@ -1756,7 +1756,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 8
     },
     "ADA/USDT" : {
       "trading_fee" : 0.1,
@@ -1810,7 +1810,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "LOOM/BNB" : {
       "trading_fee" : 0.1,
@@ -1852,7 +1852,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.001,
       "max_amount" : 1E+7,
-      "price_scale" : 4
+      "price_scale" : 5
     },
     "REP/BNB" : {
       "trading_fee" : 0.1,
@@ -1864,13 +1864,13 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "TUSD/ETH" : {
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "TUSD/BNB" : {
       "trading_fee" : 0.1,
@@ -1888,13 +1888,13 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.001,
       "max_amount" : 1E+7,
-      "price_scale" : 4
+      "price_scale" : 3
     },
     "ZEN/BNB" : {
       "trading_fee" : 0.1,
       "min_amount" : 0.001,
       "max_amount" : 1E+7,
-      "price_scale" : 2
+      "price_scale" : 3
     },
     "SKY/BTC" : {
       "trading_fee" : 0.1,
@@ -1936,7 +1936,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 6
     },
     "CVC/BNB" : {
       "trading_fee" : 0.1,
@@ -1954,7 +1954,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "THETA/BNB" : {
       "trading_fee" : 0.1,
@@ -1972,7 +1972,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.01,
       "max_amount" : 1E+7,
-      "price_scale" : 4
+      "price_scale" : 1
     },
     "IOTA/USDT" : {
       "trading_fee" : 0.1,
@@ -2014,7 +2014,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 6
     },
     "AGI/ETH" : {
       "trading_fee" : 0.1,
@@ -2134,7 +2134,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "NAS/BTC" : {
       "trading_fee" : 0.1,
@@ -2152,7 +2152,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 0.1,
       "max_amount" : 9E+7,
-      "price_scale" : 4
+      "price_scale" : 5
     },
     "MFT/BTC" : {
       "trading_fee" : 0.1,
@@ -2188,13 +2188,13 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 7
+      "price_scale" : 8
     },
     "ARDR/ETH" : {
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "ARDR/BNB" : {
       "trading_fee" : 0.1,
@@ -2218,7 +2218,7 @@
       "trading_fee" : 0.1,
       "min_amount" : 1,
       "max_amount" : 9E+7,
-      "price_scale" : 8
+      "price_scale" : 7
     },
     "VET/BTC" : {
       "trading_fee" : 0.1,
