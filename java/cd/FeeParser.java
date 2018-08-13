@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.type.MapType;
 
 /*
  * FeeParser is for reading in my own static, manually-entered fee values per exchange.
- * Expected format of data:
+ * Expected JSON format of data:
         exchange : "ExchangeName"
         tradefee : .01
         withdrawfees :{
@@ -105,35 +105,4 @@ public class FeeParser{
 
         return f.stripTrailingZeros();
     }
-
-    /*
-    public boolean read(String name)
-    {
-        try
-        {
-            //read json file data to String
-            byte[] jsonData = Files.readAllBytes(Paths.get("./src/main/resources/fees/" + name + ".json"));
-            System.out.println("  " + name + " Fee info found: ./src/main/resources/fees/" + name + ".json");
-
-            //create ObjectMapper instance
-            ObjectMapper objectMapper = new ObjectMapper();
-        
-            //convert json string to object
-            fees = objectMapper.readValue(jsonData, Fees.class);
-        }
-        catch(IOException e)
-        {
-            System.out.println("  " + name + " Error loading fee info: " + e);
-            return false;
-        }
-
-        return true;
-    }
-
-    static class Fees
-    {
-        public double tradeFee;
-        public double withdrawFee; // Will eventually be the actual fee per currency instead of this dummy value.
-    }
-    */
 }

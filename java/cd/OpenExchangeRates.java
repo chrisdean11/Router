@@ -15,7 +15,7 @@ import org.knowm.xchange.service.marketdata.MarketDataService;
 import si.mazi.rescu.RestProxyFactory;
 
 /**
- * Demonstrate requesting Ticker at Open Exchange Rates
+ * Get exchange rates for all fiat currencies against USD
  */
 public class OpenExchangeRates {
 

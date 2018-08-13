@@ -318,7 +318,7 @@ public class BaseExchangeMonitor extends ExchangeMonitor
 
     /**
     *   Loops over orderbook until it can fulfill tradeAmount, and returns the rate in the forward direction.
-    *   Orderbook prices are number of Counter for a Base. ASKS - you give Counter. Bids - you take Counter.
+    *   Orderbook prices are number of Counter for a Base. ASKS - you give Counter. BIDS - you take Counter.
     *   order.OriginalAmount is in terms of Base.
     *   @tradeAmount In terms of the "from" currency you want to give away
     */
@@ -362,13 +362,13 @@ public class BaseExchangeMonitor extends ExchangeMonitor
             System.out.println("  "+name+": " + pair + ") doesn't exist."); 
             return new BigDecimal(0);
         }
-
         else if(news.get(pair).orderBook == null )
         {
             System.out.println("\n  "+name+": orderbook("+pair+")"+" doesn't exist."); 
             return new BigDecimal(0);
         }
 
+        // Get orders
         if(fromBase) orders = news.get(pair).orderBook.getBids();
         else orders = news.get(pair).orderBook.getAsks();
 
@@ -422,20 +422,6 @@ public class BaseExchangeMonitor extends ExchangeMonitor
 
         System.out.println("    "+ name + " GetExchangeRate: " + rateAtDepth+ " " + pair + "FromBase: " + fromBase);
         return rateAtDepth;
-    }
-    
-
-    //****************************************
-    // TESTING AND CUSTOM METHODS BELOW
-    //****************************************
-
-    /**
-     * Demonstrate the basic usage of this class
-     * @param args
-     */
-    public static void main(String[] args) throws IOException, InterruptedException
-    {
-        
     }
 
 }
