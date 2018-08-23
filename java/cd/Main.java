@@ -133,9 +133,10 @@ public class Main
     public static final int TIMEOUT = 5000;    // Number of milliseconds to wait for HTTP connection 
     public static final float ARBITRAGE_PERCENT = 3;
     public static final float USD_TRADE_AMOUNT  = 100;
-    public static final float DEPTH_FACTOR   = 2;   // USD_TRADE_AMOUNT multiplier that must be
-                                                    // in the orderbook before initiating a trade.
-    protected static final Logger LOG = LoggerFactory.getLogger(Main.class);
+    public static final float DEPTH_FACTOR   = 2;   // USD_TRADE_AMOUNT multiplier that must be in the orderbook before initiating a trade.
+    public static final boolean CURRENCIESOFINTEREST = false // Set to true if you want to ignore currencies that aren't part of currenciesOfInterest
+
+    protected static final Logger LOG = LoggerFactory.getLogger(Main.class); // TODO hook up logging for the XChange classes
     private static String LOG_DIRECTORY ="/home/cd/Eclipse-Workspace/tradebot/logs/";
 
     /*
@@ -146,7 +147,7 @@ public class Main
     private static Exchange openExchangeRates;
     private static List<CurrencyPair> allPairs;
     private static List<CurrencyPair> arbitragePairs;
-    private static Map<Currency, BigDecimal> allPrices = new HashMap<Currency, BigDecimal>();
+    private static Map<Currency, BigDecimal> allPrices = new HashMap<Currency, BigDecimal>(); // USD prices for all currencies
     private static Set<Currency> allCurrencies;
     private static List<CoinMarketCapTicker> coinMarketCapTickers;
     private static boolean initThreads;
@@ -160,60 +161,24 @@ public class Main
 
         try 
         {
-          tmp = new PrintWriter(new FileWriter(LOG_DIRECTORY+"ComparisonLog"+java.time.LocalDateTime.now()+".txt"));
+            comparisonLog = new PrintWriter(new FileWriter(LOG_DIRECTORY+"ComparisonLog"+java.time.LocalDateTime.now()+".txt"));
+            detailsLog = new PrintWriter(new FileWriter(LOG_DIRECTORY+"DetailsLog"+java.time.LocalDateTime.now()+".txt"));
+            // Prices = new PrintWriter(new FileOutputStream(LOG_DIRECTORY + "Prices.txt", false));
+            // Prices.println(java.time.LocalDateTime.now());  
         } 
         catch(Exception e)
         {
-          // Handle exception.
            System.out.println("ERROR: File Writer failed");
         }
-
-        comparisonLog = tmp;
-
-        try 
-        {
-          tmp = new PrintWriter(new FileWriter(LOG_DIRECTORY+"DetailsLog"+java.time.LocalDateTime.now()+".txt"));
-        } 
-        catch(Exception e)
-        {
-          // Handle exception.
-           System.out.println("ERROR: File Writer failed");
-        }
-
-        detailsLog = tmp;
     }
 
-/*
-    private static PrintWriter Prices;
-    static 
-    {
-        PrintWriter tmp = null;
-
-        try 
-        {
-          tmp = new PrintWriter(new FileOutputStream("/home/cd/Eclipse-Workspace/tradebot/logs/Prices.txt", false));
-        } 
-        catch(Exception e)
-        {
-          // Handle exception.
-           System.out.println("ERROR: File Writer failed");
-        }
-
-        Prices = tmp;
-        Prices.println(java.time.LocalDateTime.now());
-    }
-*/
-    /*
-    final private static Map<Currency, BigDecimal> fiatCurrencies = new HashMap<Currency, BigDecimal>(){
+    // If you want to limit yourself to specific currencies of interest, set CURRENCIESOFINTEREST to true 
+    final private static Map<Currency, BigDecimal> currenciesOfInterest = new HashMap<Currency, BigDecimal>(){
         {
             put(Currency.USD, new BigDecimal(0));
             put(Currency.CAD, new BigDecimal(0));
             put(Currency.EUR, new BigDecimal(0));
             put(Currency.GBP, new BigDecimal(0));
-        }};
-
-    final private static Map<Currency, BigDecimal> currenciesOfInterest = new HashMap<Currency, BigDecimal>(){
-        {
             put(Currency.ETH, new BigDecimal(0));  // Ethereum
             put(Currency.LTC, new BigDecimal(0));  // LiteCoin
             put(Currency.USDT, new BigDecimal(0)); // Tether
@@ -224,8 +189,6 @@ public class Main
             put(Currency.NEO, new BigDecimal(0));  // NEO
             put(Currency.XLM, new BigDecimal(0));  // Stellar
             put(Currency.EOS, new BigDecimal(0));  // EOX
-            //put(Currency.IOT, new BigDecimal(0));  // IOTA MIOTA
-            //put(Currency.IOTA, new BigDecimal(0)); 
             put(Currency.DASH, new BigDecimal(0)); // Dash
             put(Currency.XMR, new BigDecimal(0));  // Monero
             put(Currency.TRX, new BigDecimal(0));  // TRON
@@ -235,7 +198,6 @@ public class Main
             put(Currency.ETC, new BigDecimal(0));  // Ethereum Classic
             put(Currency.LSK, new BigDecimal(0));  // Lisk
             put(Currency.VEN, new BigDecimal(0));  // VeChain
-            //put(Currency.XRB, new BigDecimal(0));  // RaiBlocks
             put(Currency.OMG, new BigDecimal(0));  // Omise GO
             put(Currency.HSR, new BigDecimal(0));  // Hshare
             put(Currency.XVG, new BigDecimal(0));  // Verge
@@ -243,9 +205,10 @@ public class Main
     */
 
    /*
-    *   Make exchangeMonitors
-    *   Fill in allPairs and arbitragePairs
-    *   Get current prices
+    *   1. Get USD values
+    *   2. Make exchangeMonitors
+    *   3. Fill in allPairs and arbitragePairs
+    *   4. Get orderbooks
     */
     private static void init() throws InterruptedException, IOException
     {
@@ -295,8 +258,8 @@ public class Main
         createExchangeMonitors();
 
         /*
-         * (3) Get all pairs traded on all exchanges
-         *     Get all pairs traded on more than one exchange (arbitragePairs)
+         * (3) Set allPairs: all pairs traded on all exchanges
+         *     Set arbitragepairs: all pairs traded on more than one exchange
          */
         for (ExchangeMonitor monitor : exchangeMonitors)
         {
@@ -305,9 +268,8 @@ public class Main
             for (CurrencyPair pair : monitor.getCurrencyPairs())
             {
                 // Skip if either currency is not a currency of interest.
-                //if( (currenciesOfInterest.get(pair.base) == null && fiatCurrencies.get(pair.base) == null) || 
-                //    (currenciesOfInterest.get(pair.counter) == null && fiatCurrencies.get(pair.counter) == null) ) 
-                //    continue;
+                if( CURRENCIESOFINTEREST && ((currenciesOfInterest.get(pair.base) == null) || (currenciesOfInterest.get(pair.counter) == null)) )  
+                    continue;
 
                 // Only ever add to arbitragePairs if it's in more than one pair in allPairs
                 if (allPairs.contains(pair))

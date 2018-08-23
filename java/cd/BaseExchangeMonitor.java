@@ -49,8 +49,7 @@ public class BaseExchangeMonitor extends ExchangeMonitor
         public Ticker ticker;
         public OrderBook orderBook;
 
-        // TODO: trades, times, fee info, bank, etc
-        // TODO: BittrexTicker ticker; and other market-specific items 
+        // trades, times, balances?
     }
     
     private Map<CurrencyPair, News> news = new HashMap();
@@ -58,6 +57,8 @@ public class BaseExchangeMonitor extends ExchangeMonitor
 
     /**
      * Constructor without API keys
+     * Loads private data members - Name, currencyPairs, currencies, and fees.
+     * Does NOT retrieve tickers and orderbooks. Use init() or individual calls to loadTicker(c) and loadOrderbook(c).
      */
     public BaseExchangeMonitor(String exchangeClassName) 
     {
@@ -160,27 +161,6 @@ public class BaseExchangeMonitor extends ExchangeMonitor
     public BaseExchangeMonitor(String exchangeClassName, String apiKey, String secretKey) 
     {
         // Do everything in the above constructor, but with a different createExchange call.
-    /*
-        // Read api keys
-        try 
-        {
-            File file = new File("/home/cd/Eclipse-Workspace/keys");
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) 
-            {
-                String sections = line.split(',');
-                if (sections[0] = "CoinbaseExchange")
-                {
-                    // do stuff
-                }
-            }
-            fileReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    */
 
         exchange = ExchangeFactory.INSTANCE.createExchange(exchangeClassName, apiKey, secretKey);
         System.out.println(name + "\n" + exchange.getExchangeMetaData().toJSONString());
@@ -189,13 +169,13 @@ public class BaseExchangeMonitor extends ExchangeMonitor
     }
 
     /**
-     * Initialize this class by loading data from remote exchange. Makes a lot of requests and takes a long time.
+     * Load all tickers and order books at once. Makes a lot of requests and takes a long time.
      */
     public void init()
     {
         System.out.println("Initializing " + name);
 
-        // Get all orderbooks from remote
+        // Get all tickers and orderbooks from remote
         for (CurrencyPair pair : currencyPairs)
         {
             if (!loadTicker(pair))
