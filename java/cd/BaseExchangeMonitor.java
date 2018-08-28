@@ -108,6 +108,7 @@ public class BaseExchangeMonitor extends ExchangeMonitor
         }
         */
 
+        // Get all pairs and currencies
         currencyPairs = exchange.getExchangeSymbols();
 
         System.out.println(name + " CurrencyPairs and currencies:");
