@@ -150,7 +150,7 @@ public class Main
     private static Map<Currency, BigDecimal> allPrices = new HashMap<Currency, BigDecimal>(); // USD prices for all currencies
     private static Set<Currency> allCurrencies;
     private static List<CoinMarketCapTicker> coinMarketCapTickers;
-    private static boolean initThreads;
+    private static boolean initThreads = false;
 
     private static PrintWriter comparisonLog;
     private static PrintWriter detailsLog;
@@ -215,8 +215,6 @@ public class Main
         allPairs = new ArrayList<CurrencyPair>();
         arbitragePairs = new ArrayList<CurrencyPair>();
         allCurrencies = new HashSet<Currency>();
-
-        initThreads = false;
 
         /*
          * (1) Get USD values
@@ -297,8 +295,10 @@ public class Main
         System.out.println("\nArbitrage pairs: ");
         System.out.println(arbitragePairs);
 
+        // Should not need to deal with currenciesOfInterest past this point. allPairs/arbitragePairs reflect this info.
+
         /**
-         * Launch threads to load up the Monitors
+         * (4) Get orderbooks either by using initThreads, or by cycling through allPairs
          */
         if (initThreads)
         {
@@ -398,93 +398,6 @@ public class Main
         }
         */
 
-        /*REDO FIAT PRICES AND DELETE ALL THIS DEAD CODE
-        // Read everything from Prices log instead of retrieving them all at once
-        try (BufferedReader br = new BufferedReader(new FileReader("/home/cd/Eclipse-Workspace/tradebot/logs/Prices.txt"))) 
-        {
-            String line;
-            while ((line = br.readLine()) != null) 
-            {
-                // Turn line into Currency and BigDecimal, and get rid of whitespaces around items:
-                String[] currencyPrice = line.split("\\s*,\\s*");
-                Currency currency = new Currency(currencyPrice[0]);
-                BigDecimal price = new BigDecimal(currencyPrice[1]);
-
-                // Save it in allPrices
-                allPrices.put(currency, price);
-                System.out.println(currency + "_USD  " + allPrices.get(currency).setScale(5,BigDecimal.ROUND_HALF_UP ) + " (from file)");
-            }
-            br.close();
-        }
-        catch (Exception e)
-        {
-            System.out.println("Error reading Prices: " + e);
-        }
-
-        for (CurrencyPair pair : allPairs)
-        {
-            // Base
-            try
-            {
-                if (allPrices.get(pair.base) == null)
-                {
-                    allPrices.put(pair.base, coinMarketCap.getMarketDataService().getTicker(new CurrencyPair(pair.base, Currency.USD)).getLast());
-                    System.out.println(pair.base + "_USD  " + allPrices.get(pair.base).setScale(5,BigDecimal.ROUND_HALF_UP));
-                }
-            }
-            catch(Exception e)
-            {
-                //try
-                //{
-                //    allPrices.put(pair.base, openExchangeRates.getMarketDataService().getTicker(new CurrencyPair(pair.base, Currency.USD)).getLast());
-                //    System.out.println(pair.base + "_USD  " + allPrices.get(pair.base).setScale(5,BigDecimal.ROUND_HALF_UP));
-                //}
-                //catch (Exception f)
-                //{
-                    System.out.println("Couldn't get price of " + pair.base + ": " + e);
-                    allPrices.put(pair.base, new BigDecimal(0));
-                //}
-            }
-            
-            // Counter
-            try
-            {
-                if (allPrices.get(pair.counter) == null)
-                {
-                    allPrices.put(pair.counter, coinMarketCap.getMarketDataService().getTicker(new CurrencyPair(pair.counter, Currency.USD)).getLast());
-                    System.out.println(pair.counter + "_USD  " + allPrices.get(pair.counter).setScale(5,BigDecimal.ROUND_HALF_UP));
-                }
-            }
-            catch(Exception e)
-            {
-                //try
-                //{
-                //    allPrices.put(pair.counter, openExchangeRates.getMarketDataService().getTicker(new CurrencyPair(pair.counter, Currency.USD)).getLast());
-                //    System.out.println(pair.counter + "_USD  " + allPrices.get(pair.counter).setScale(5,BigDecimal.ROUND_HALF_UP));
-                //}
-                //catch(Exception f)
-                //{
-                    System.out.println("Couldn't get price of " + pair.counter + ": " + e);
-                    allPrices.put(pair.counter, new BigDecimal(0));
-                //}
-            }
-
-            Thread.sleep(6000);
-        }
-
-        // Write all prices back to Prices
-        for (Map.Entry<Currency, BigDecimal> entry : allPrices.entrySet())
-        {
-            try 
-            {
-                Prices.println(entry.getKey() + "," + entry.getValue());
-            } 
-            catch (Exception e) 
-            {
-                e.printStackTrace();
-            }       
-        }
-        */
         return;
     }
 
