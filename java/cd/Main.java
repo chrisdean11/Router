@@ -135,22 +135,19 @@ public class Main
     public static final float USD_TRADE_AMOUNT  = 100;
     public static final float DEPTH_FACTOR   = 2;   // USD_TRADE_AMOUNT multiplier that must be in the orderbook before initiating a trade.
     public static final boolean CURRENCIESOFINTEREST = false // Set to true if you want to ignore currencies that aren't part of currenciesOfInterest
+    public static final boolean INITTHREADS = false; // Set to true to do multi-threaded loading of order books  
 
     protected static final Logger LOG = LoggerFactory.getLogger(Main.class); // TODO hook up logging for the XChange classes
     private static String LOG_DIRECTORY ="/home/cd/Eclipse-Workspace/tradebot/logs/";
 
     /*
-     * Stuff
+     * Main data members
      */
-    private static List<ExchangeMonitor> exchangeMonitors;
-    private static Exchange coinMarketCap;
-    private static Exchange openExchangeRates;
-    private static List<CurrencyPair> allPairs;
-    private static List<CurrencyPair> arbitragePairs;
-    private static Map<Currency, BigDecimal> allPrices = new HashMap<Currency, BigDecimal>(); // USD prices for all currencies
-    private static Set<Currency> allCurrencies;
-    private static List<CoinMarketCapTicker> coinMarketCapTickers;
-    private static boolean initThreads = false;
+    private static List<ExchangeMonitor>        exchangeMonitors;
+    private static List<CurrencyPair>           allPairs;
+    private static List<CurrencyPair>           arbitragePairs;
+    private static Map<Currency, BigDecimal>    allPrices = new HashMap<Currency, BigDecimal>(); // USD prices for all currencies
+    private static Set<Currency>                allCurrencies;
 
     private static PrintWriter comparisonLog;
     private static PrintWriter detailsLog;
@@ -300,7 +297,7 @@ public class Main
         /**
          * (4) Get orderbooks either by using initThreads, or by cycling through allPairs
          */
-        if (initThreads)
+        if (initThreads) // Doesn't really work at the moment, they still block each other
         {
             System.out.println("Multi-thread");
             // Get ExecutorService from Executors utility class, thread pool size is 10
@@ -340,98 +337,69 @@ public class Main
         else
         {
             /**
-             * Load up monitors here instead of launching threads
+             * Load up monitors the original instead of launching threads
              */
-            //System.out.println("Single thread");
-            //for (CurrencyPair pair : arbitragePairs)
-            //{
-            //    System.out.println("Getting " + pair + " from all your favorite exchanges: ");
-            //    for (ExchangeMonitor monitor : exchangeMonitors)
-            //    {
-            //        System.out.print("  " + monitor.getName());
-            //        if (monitor.getCurrencyPairs().contains(pair))
-            //        {
-            //            System.out.println("-- Pair found.");
-            //            //monitor.loadTicker(pair);
-            //            if (!monitor.loadOrderBook(pair))
-            //            {
-            //                System.out.println("Orderbook load failed: " + monitor.getName());
-            //                detailsLog.println("Orderbook load failed: " + monitor.getName());
-            //                continue;
-            //            }
-            //        }
-            //        else System.out.println("-- Pair not found.");
-            //    }
-//
-            //    Thread.sleep(TIME_DELAY);
-            //}
+            System.out.println("Single thread");
+            long start, finish; // Enforce max rate limit per exchange without wasting time
 
-            // TODO: Check exchanges to see if you can get all orderbooks at once - method may only be present in some derived from BaseExchanges 
-            System.out.println("Single thread -- getting all pairs instead of just arbitragePairs -- May take much longer!");
-            for (ExchangeMonitor monitor : exchangeMonitors)
+            for (CurrencyPair pair : arbitragePairs)
             {
-                System.out.print("  " + monitor.getName());
-                for (CurrencyPair pair : monitor.getCurrencyPairs())
+                System.out.println("Getting " + pair + " from all your favorite exchanges: ");
+                start = new Date().getTime(); // getTime() is in milliseconds
+
+                for (ExchangeMonitor monitor : exchangeMonitors)
                 {
-                    //monitor.loadTicker(pair);
-                    if (!monitor.loadOrderBook(pair))
+                    System.out.print("  " + monitor.getName());
+                    if (monitor.getCurrencyPairs().contains(pair))
                     {
-                        System.out.println("Orderbook load failed: " + monitor.getName());
-                        detailsLog.println("Orderbook load failed: " + monitor.getName());
-                        continue;
+                        System.out.println("-- Pair found.");
+                        if (!monitor.loadTicker(pair))
+                        {
+                            System.out.println("Ticker load failed: " + monitor.getName());
+                            detailsLog.println("Ticker load failed: " + monitor.getName());
+                        }
+                        
+                        if (!monitor.loadOrderBook(pair))
+                        {
+                            System.out.println("Orderbook load failed: " + monitor.getName());
+                            detailsLog.println("Orderbook load failed: " + monitor.getName());
+                            continue;
+                        }
                     }
+                    else System.out.println("-- Pair not found.");
                 }
 
-                //Thread.sleep(TIME_DELAY);
+                finish = new Date().getTime();
+                if (finish - start < TIME_DELAY)
+                {
+                    // Sleep for the remaining time to satisfy TIME_DELAY
+                    Thread.sleep(TIME_DELAY - (finish - start));
+                }
             }
         }
-
-        // Get Coinmarketcap prices for all the currencies of interest
-        System.out.println();
-
-        /* Prices of currenciesOfInterest vs allPrices (below)
-        for (Map.Entry<Currency, BigDecimal> entry : currenciesOfInterest.entrySet())
-        {
-            entry.setValue(coinMarketCap.getMarketDataService().getTicker(new CurrencyPair(entry.getKey(), Currency.USD)).getLast());
-            System.out.println(entry.getKey() + "_USD  " + entry.getValue().setScale(5,BigDecimal.ROUND_HALF_UP));
-            Thread.sleep(500);
-        }
-        */
 
         return;
     }
 
+    /*
+     *  - Init() loads remote info
+     *  - Log basic arbitrage comparisons to comparisonLog
+     *  - Run Search algorithm tests
+     */
     public static void main(String[] args) throws IOException, InterruptedException
     {
         /*
-         * Init
+         *  1. Init
          */
         init();
 
-        //TODO consider USD>Coin Coin<EUR trading pairs
-
-        // Compare price differences for each currency pair
+        /*
+         *  2. Comparison Log - Record price differences for each currency pair using old method in this class.
+         */
         for (CurrencyPair pair : arbitragePairs)
         {
             comparisonLog.println(pair);
             detailsLog.println("\nComparing " + pair + "\n");
-
-            // Get orders and tickers
-            /* Moved to BaseExchangeMonitor::init()
-            for (ExchangeMonitor monitor : exchangeMonitors)
-            {
-                if (monitor.getCurrencyPairs().contains(pair))
-                {
-                    monitor.loadTicker(pair);
-                    if (!monitor.loadOrderBook(pair))
-                    {
-                            System.out.println("Orderbook load failed: " + monitor.getName());
-                            detailsLog.println("Orderbook load failed: " + monitor.getName());
-                            continue;
-                    }
-                }
-            }
-            */
 
             // Compare each exchange to each other exchange
             for (int i = 0; i < exchangeMonitors.size() - 1 ; i++)
@@ -484,6 +452,22 @@ public class Main
             }
         }
 
+        /*
+         *  3. Try search algorithm
+         */
+        testSearchWithGdaxAndBinance();
+
+        System.out.println("Completed successfully");
+        comparisonLog.println("Completed successfully");
+        detailsLog.println("Completed successfully");
+
+        comparisonLog.close();
+        detailsLog.close();
+        return;
+    }
+
+    static void testSearchWithGdaxAndBinance()
+    {
         ExchangeMonitor gdax = null;
         ExchangeMonitor binance = null;
 
@@ -511,14 +495,6 @@ public class Main
         seeker.dijkstra(gdax, Currency.BTC, binance, Currency.LTC, new BigDecimal(1));
 
         seeker.graph.dump();
-
-        System.out.println("Completed successfully");
-        comparisonLog.println("Completed successfully");
-        detailsLog.println("Completed successfully");
-
-        comparisonLog.close();
-        detailsLog.close();
-        return;
     }
 
     /*
@@ -719,12 +695,13 @@ public class Main
     *
     */
 
-
     /*
     *
     *   Trades
     *
     */
+
+    // Accounts and trades probably belong in ExchangeMonitor
 
     /*
         ASKS are ordered from low to high
@@ -739,108 +716,6 @@ public class Main
         To take a ASK, you need Counter
         To take a BID, you need Base 
     */
-
-    static void makeTrade()
-    {
-
-    }
-
-
-   /*
-    *
-    *   Tickers
-    *
-    */
-    // Cycles through each arbitragePair and does a comparison of all exhanges' prices that trade in it
-    static void compareAllTickers(PrintWriter file) throws InterruptedException
-    {
-        // Compare price differences for each currency pair
-        for (CurrencyPair pair : arbitragePairs)
-        {
-            HashMap<String, Ticker> tickers = new HashMap<String, Ticker>();
-
-            // Load up each ticker for this currency pair
-            for (ExchangeMonitor monitor : exchangeMonitors)
-            {
-                if (monitor.getCurrencyPairs().contains(pair))
-                {
-                    if (monitor.loadTicker(pair) == false) continue;
-                    tickers.put(monitor.getName(), monitor.viewTicker(pair));
-                }
-            }
-
-            file.println(pair);
-
-            // Get tickers on this currency pair
-            for(Map.Entry<String, Ticker> entry1: tickers.entrySet())
-            {
-                String name1    = entry1.getKey();
-                Ticker ticker1  = entry1.getValue();
-    
-                for(Map.Entry<String, Ticker> entry2: tickers.entrySet()) 
-                {
-                    String name2 = entry2.getKey();
-                    if (System.identityHashCode(name1) >= System.identityHashCode(name2)) continue;
-
-                    Ticker ticker2 = entry2.getValue();
-
-                    // Compare ticker1 and ticker2 and print out details if it's an arbitrage opportunity
-                    StringBuilder last = new StringBuilder();
-
-                    if ( compareTickers(last, name1, ticker1.getLast(), name2, ticker2.getLast()) ) 
-                    {
-                        StringBuilder bid = new StringBuilder();
-                        StringBuilder ask = new StringBuilder();
-
-                        compareTickers(bid, name1, ticker1.getBid(), name2, ticker2.getBid());
-                        compareTickers(ask, name1, ticker1.getAsk(), name2, ticker2.getAsk());
-
-                        file.println("    [" + name1 + "=" + ticker1.getLast() 
-                                    + "] vs [" + name2  + "=" + ticker2.getLast() + "]");
-                        file.println("    "+ name1 + "vs" + name2 
-                                    + "        last: " + last 
-                                    + "  bid: " + bid
-                                    + "  ask: " + ask
-                                    );
-                    }
-                }
-            }
-
-            Thread.sleep(TIME_DELAY);
-        }
-
-        return;
-    }
-
-    // Calculation method
-    // ETH/BTC last/ask/bid = the number of BTC you'd get for 1 ETH
-    static boolean compareTickers(StringBuilder res, String name1, BigDecimal price1, String name2, BigDecimal price2)
-    {
-        try
-        {
-            int compare = price1.compareTo(price2);
-            int scale = 3;
-    
-            if ( compare > 0 ) res.append(name1 + ">" + name2); 
-            else if ( compare < 0 ) res.append(name2 + ">" + name1); 
-            else res.append(name1 + "=" + name2);
-
-            // BigDecimal is terrible to use but there's no better alternative because Java doesn't have operator overloading
-            // 100 * (price1-price2) / price
-            BigDecimal difference = price1.subtract(price2).abs();  // price1-price2
-            BigDecimal percent = difference.multiply(new BigDecimal(100)).divide(price1.max(price2), scale, RoundingMode.HALF_UP); // 100*diff/price
-            res.append(" by " + percent + "%");
-
-            if (percent.compareTo(new BigDecimal(ARBITRAGE_PERCENT)) > 0) return true;
-            else return false;
-        }
-        catch(Exception e)
-        {
-            System.out.println("Ticker calculation error: " + e);
-            System.out.println("    " + name1+price1+name2+price2);
-            return false;
-        }
-    }
 
     /*
      *   Make exchangeMonitor instances -- called by init()
@@ -939,6 +814,104 @@ public class Main
             return;
         }
         
+        return;
+    }
+
+
+
+    /*
+    *
+    *   DEPRECATED - Nearly unused code that I don't want to delete yet
+    *
+    */
+
+    // ETH/BTC last/ask/bid = the number of BTC you'd get for 1 ETH
+    static boolean compareTickers(StringBuilder res, String name1, BigDecimal price1, String name2, BigDecimal price2)
+    {
+        try
+        {
+            int compare = price1.compareTo(price2);
+            int scale = 3;
+    
+            if ( compare > 0 ) res.append(name1 + ">" + name2); 
+            else if ( compare < 0 ) res.append(name2 + ">" + name1); 
+            else res.append(name1 + "=" + name2);
+
+            // BigDecimal is terrible to use but there's no better alternative because Java doesn't have operator overloading
+            // 100 * (price1-price2) / price
+            BigDecimal difference = price1.subtract(price2).abs();  // price1-price2
+            BigDecimal percent = difference.multiply(new BigDecimal(100)).divide(price1.max(price2), scale, RoundingMode.HALF_UP); // 100*diff/price
+            res.append(" by " + percent + "%");
+
+            if (percent.compareTo(new BigDecimal(ARBITRAGE_PERCENT)) > 0) return true;
+            else return false;
+        }
+        catch(Exception e)
+        {
+            System.out.println("Ticker calculation error: " + e);
+            System.out.println("    " + name1+price1+name2+price2);
+            return false;
+        }
+    }
+
+    // Cycles through each arbitragePair and does a comparison of all exhanges' prices that trade in it
+    static void compareAllTickers(PrintWriter file) throws InterruptedException
+    {
+        // Compare price differences for each currency pair
+        for (CurrencyPair pair : arbitragePairs)
+        {
+            HashMap<String, Ticker> tickers = new HashMap<String, Ticker>();
+
+            // Load up each ticker for this currency pair
+            for (ExchangeMonitor monitor : exchangeMonitors)
+            {
+                if (monitor.getCurrencyPairs().contains(pair))
+                {
+                    if (monitor.loadTicker(pair) == false) continue;
+                    tickers.put(monitor.getName(), monitor.viewTicker(pair));
+                }
+            }
+
+            file.println(pair);
+
+            // Get tickers on this currency pair
+            for(Map.Entry<String, Ticker> entry1: tickers.entrySet())
+            {
+                String name1    = entry1.getKey();
+                Ticker ticker1  = entry1.getValue();
+    
+                for(Map.Entry<String, Ticker> entry2: tickers.entrySet()) 
+                {
+                    String name2 = entry2.getKey();
+                    if (System.identityHashCode(name1) >= System.identityHashCode(name2)) continue;
+
+                    Ticker ticker2 = entry2.getValue();
+
+                    // Compare ticker1 and ticker2 and print out details if it's an arbitrage opportunity
+                    StringBuilder last = new StringBuilder();
+
+                    if ( compareTickers(last, name1, ticker1.getLast(), name2, ticker2.getLast()) ) 
+                    {
+                        StringBuilder bid = new StringBuilder();
+                        StringBuilder ask = new StringBuilder();
+
+                        compareTickers(bid, name1, ticker1.getBid(), name2, ticker2.getBid());
+                        compareTickers(ask, name1, ticker1.getAsk(), name2, ticker2.getAsk());
+
+                        file.println("    [" + name1 + "=" + ticker1.getLast() 
+                                    + "] vs [" + name2  + "=" + ticker2.getLast() + "]");
+                        file.println("    "+ name1 + "vs" + name2 
+                                    + "        last: " + last 
+                                    + "  bid: " + bid
+                                    + "  ask: " + ask
+                                    );
+                    }
+                }
+            }
+
+            Thread.sleep(TIME_DELAY);
+        }
+
         return;
     }
 }
