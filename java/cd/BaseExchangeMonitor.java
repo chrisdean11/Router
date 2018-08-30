@@ -334,7 +334,7 @@ public class BaseExchangeMonitor extends ExchangeMonitor
          */
 
         // This always confuses me:
-        // LimitPrice is in terms of Base to Counter. Asks are ordered low to high (less Counter for more Base) from Counter to Base.
+        // LimitPrice is in terms of trading Base-->Counter. Asks are ordered low to high (less Counter for more Base) from Counter to Base.
 
         List<LimitOrder> orders;
 
@@ -403,6 +403,139 @@ public class BaseExchangeMonitor extends ExchangeMonitor
 
         System.out.println("    "+ name + " GetExchangeRate: " + rateAtDepth+ " " + pair + "FromBase: " + fromBase);
         return rateAtDepth;
+    }
+
+    /**
+    *   Loops over orderbook until it can fulfill tradeAmount, and returns the rate in the forward direction.
+    *   Orderbook prices are number of Counter for a Base. ASKS - you give Counter. BIDS - you take Counter.
+    *   order.OriginalAmount is in terms of Base.
+    *   @tradeAmount In terms of the "from" currency you want to give away
+    */
+    public BigDecimal getExchangeRate2(Currency from, Currency to, BigDecimal tradeAmount)
+    {
+        boolean success = false;
+        boolean fromBase = false;
+        CurrencyPair pair;
+        BigDecimal amountAtDepth = new BigDecimal(0);
+        BigDecimal rateAtDepth = new BigDecimal(0);
+
+        // Check if we have data for this pair
+        if (news.get(new CurrencyPair(from,to)) != null)
+        {
+            pair = new CurrencyPair(from, to);
+            fromBase = true;
+        }
+        else if(news.get(new CurrencyPair(to,from)) != null)
+        {
+            pair = new CurrencyPair(to, from);
+            fromBase = false;
+        }
+        else
+        {
+            return new BigDecimal(0);
+        }
+
+        /*
+         * LTC/BTC example
+         * If trading from base to counter: look at Bids. LTC * .005 = BTC
+         * If trading from counter to base: look at Asks. BTC * 1/.005 = LTC
+         */
+
+        // This always confuses me:
+        // LimitPrice is in terms of trading Base-->Counter. Asks are ordered low to high (less Counter for more Base) from Counter to Base.
+
+        List<LimitOrder> orders;
+
+        if(news.get(pair) == null ) 
+        {
+            System.out.println("  "+name+": " + pair + ") doesn't exist."); 
+            return new BigDecimal(0);
+        }
+        else if(news.get(pair).orderBook == null )
+        {
+            System.out.println("\n  "+name+": orderbook("+pair+")"+" doesn't exist."); 
+            return new BigDecimal(0);
+        }
+
+        // Get orders
+        if(fromBase) orders = news.get(pair).orderBook.getBids();
+        else orders = news.get(pair).orderBook.getAsks();
+
+        if(orders.isEmpty())
+        {
+            System.out.println("    "+ name + " GetExchangeRate: Orderbook is empty!");
+            return new BigDecimal(0);
+        }
+
+        /*
+            If you have to dig through multiple orders, the effective exchange rate
+            for your trade amount is the weighted average rate: 
+            Rate = Rate1*amt1/amt + Rate2*amt2/amt + Rate3*amt3/amt
+                 = (Rate1*amt1 + Rate2*amt2 + Rate3*amt3)amt
+        */
+
+        BigDecimal cumulativeAmt = new BigDecimal(0);
+        BigDecimal rate = 0;
+
+        try
+        {
+            // Cycle through the orders until you get the price at a sufficient depth.
+            for (LimitOrder order : orders)
+            {
+                if (fromBase) // Bids - base to counter
+                {
+                    // Check if this order satisfies tradeAmount
+                    if (tradeAmount.compareTo( cumulativeAmt.add(order.getOriginalAmount()) ) > 0)
+                    {
+                        // Is not enough. Need another order.
+                        cumulativeAmt = cumulativeAmt.add(order.getOriginalAmount());
+                        rate = rate.add(order.getLimitPrice().multiply(order.getOriginalAmount()));
+                    }
+                    else // Is enough
+                    {
+                        remainingAmt = tradeAmt.subtract(cumulativeAmt);
+                        cumulativeAmt = cumulativeAmt.add(remainingAmt());
+                        rate = rate.add(order.getLimitPrice().multiply(remainingAmt));
+                        success = true;
+                        break;
+                    }
+                }
+                else // Asks - counter to base
+                {   
+                    // TODO - GENERALIZE ABOVE TO WORK FOR BOTH DIRECTIONS
+
+                    // Rate to receive counter is 1/LimitPrice
+                    // Amount of counter traded is rate *
+                    // Trying to maintain the precision when inverting the rate, using the method here: https://stackoverflow.com/questions/7572309/any-neat-way-to-limit-significant-figures-with-bigdecimal 
+                    BigDecimal priceInOtherDirection = order.getLimitPrice();
+                    int precision = priceInOtherDirection.precision(); // Desired precision
+                    BigDecimal preRateAtDepth = (new BigDecimal(1)).divide(priceInOtherDirection, 20, RoundingMode.HALF_UP);
+                    rateAtDepth = preRateAtDepth.setScale(precision - preRateAtDepth.precision() + preRateAtDepth.scale(), RoundingMode.HALF_UP);
+                    amountAtDepth = amountAtDepth.add(order.getOriginalAmount().multiply(rateAtDepth));
+                }
+
+                // Calculate
+                if (amountAtDepth.compareTo( tradeAmount ) > 0 ) // There's enough depth to cover trade. Stop searching.
+                {
+                    success = true;
+                    break;
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("    "+ name + " GetExchangeRate: Orderbook exception: " + e);
+            return new BigDecimal(0);
+        }
+
+        if (!success) // Ran out of orders
+        {
+            System.out.println("    "+ name + " GetExchangeRate: Ran out of orders!");
+            return new BigDecimal(0);
+        }
+
+        System.out.println("    "+ name + " GetExchangeRate: " + rate+ " " + pair + "FromBase: " + fromBase);
+        return rate;
     }
 
 }

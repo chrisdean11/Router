@@ -134,7 +134,7 @@ public class Main
     public static final float ARBITRAGE_PERCENT = 3;
     public static final float USD_TRADE_AMOUNT  = 100;
     public static final float DEPTH_FACTOR   = 2;   // USD_TRADE_AMOUNT multiplier that must be in the orderbook before initiating a trade.
-    public static final boolean CURRENCIESOFINTEREST = false // Set to true if you want to ignore currencies that aren't part of currenciesOfInterest
+    public static final boolean CURRENCIESOFINTEREST = false; // Set to true if you want to ignore currencies that aren't part of currenciesOfInterest
     public static final boolean INITTHREADS = false; // Set to true to do multi-threaded loading of order books  
 
     protected static final Logger LOG = LoggerFactory.getLogger(Main.class); // TODO hook up logging for the XChange classes
@@ -199,7 +199,6 @@ public class Main
             put(Currency.HSR, new BigDecimal(0));  // Hshare
             put(Currency.XVG, new BigDecimal(0));  // Verge
         }};
-    */
 
    /*
     *   1. Get USD values
@@ -297,7 +296,7 @@ public class Main
         /**
          * (4) Get orderbooks either by using initThreads, or by cycling through allPairs
          */
-        if (initThreads) // Doesn't really work at the moment, they still block each other
+        if (INITTHREADS) // Doesn't really work at the moment, they still block each other
         {
             System.out.println("Multi-thread");
             // Get ExecutorService from Executors utility class, thread pool size is 10
@@ -466,6 +465,11 @@ public class Main
         return;
     }
 
+    /*
+     * Get GDAX and Binance from the monitors list
+     * Find best path from GDAX BTC to Binance LTC, for 1 BTC.
+     * Dump graph to CSV files.
+     */
     static void testSearchWithGdaxAndBinance()
     {
         ExchangeMonitor gdax = null;
@@ -802,6 +806,9 @@ public class Main
         Thread.sleep(TIME_DELAY);
     }
 
+    /*
+     *   Load fiat prices from OER -- called by init()
+     */
     private static void addFiatValues(Map<Currency, BigDecimal> _allPrices)
     {
         try
@@ -811,7 +818,6 @@ public class Main
         catch(IOException e)
         {
             System.out.println("Failed to make OpenExchangeRates: " + e);
-            return;
         }
         
         return;
