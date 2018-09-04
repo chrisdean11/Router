@@ -408,16 +408,15 @@ public class BaseExchangeMonitor extends ExchangeMonitor
     /**
     *   Loops over orderbook until it can fulfill tradeAmount, and returns the rate in the forward direction.
     *   Orderbook prices are number of Counter for a Base. ASKS - you give Counter. BIDS - you take Counter.
-    *   order.OriginalAmount is in terms of Base.
+    *   order.OriginalAmount is in terms of Base. (For Bids and Asks, I believe.)
     *   @tradeAmount In terms of the "from" currency you want to give away
+    *   @return the rate you can trade currency 'from' for currency 'to'
     */
     public BigDecimal getExchangeRate2(Currency from, Currency to, BigDecimal tradeAmount)
     {
         boolean success = false;
         boolean fromBase = false;
         CurrencyPair pair;
-        BigDecimal amountAtDepth = new BigDecimal(0);
-        BigDecimal rateAtDepth = new BigDecimal(0);
 
         // Check if we have data for this pair
         if (news.get(new CurrencyPair(from,to)) != null)
@@ -470,53 +469,54 @@ public class BaseExchangeMonitor extends ExchangeMonitor
         /*
             If you have to dig through multiple orders, the effective exchange rate
             for your trade amount is the weighted average rate: 
-            Rate = Rate1*amt1/amt + Rate2*amt2/amt + Rate3*amt3/amt
-                 = (Rate1*amt1 + Rate2*amt2 + Rate3*amt3)amt
+            Rate = Rate1*amt_1/amt + Rate2*amt_2/amt + Rate3*amt_3/amt
+                 = (Rate1*amt_1 + Rate2*amt_2 + Rate3*amt_3)amt
+
+            Where sum(amt_i) == amt
         */
 
         BigDecimal cumulativeAmt = new BigDecimal(0);
-        BigDecimal rate = 0;
+        BigDecimal rate = new BigDecimal(0);
 
         try
         {
             // Cycle through the orders until you get the price at a sufficient depth.
             for (LimitOrder order : orders)
             {
-                if (fromBase) // Bids - base to counter
+                BigDecimal originalAmount, limitPrice;
+
+                // 1. Get this order's price and amount in the right direction
+                if (fromBase)
                 {
-                    // Check if this order satisfies tradeAmount
-                    if (tradeAmount.compareTo( cumulativeAmt.add(order.getOriginalAmount()) ) > 0)
-                    {
-                        // Is not enough. Need another order.
-                        cumulativeAmt = cumulativeAmt.add(order.getOriginalAmount());
-                        rate = rate.add(order.getLimitPrice().multiply(order.getOriginalAmount()));
-                    }
-                    else // Is enough
-                    {
-                        remainingAmt = tradeAmt.subtract(cumulativeAmt);
-                        cumulativeAmt = cumulativeAmt.add(remainingAmt());
-                        rate = rate.add(order.getLimitPrice().multiply(remainingAmt));
-                        success = true;
-                        break;
-                    }
+                    originalAmount = order.getOriginalAmount();
+                    limitPrice = order.getLimitPrice();
                 }
-                else // Asks - counter to base
+                else 
                 {   
-                    // TODO - GENERALIZE ABOVE TO WORK FOR BOTH DIRECTIONS
+                    // Convert from base to counter: originalAmount * limitPrice 
+                    originalAmount = order.getOriginalAmount().multiply(order.getLimitPrice());
+                    BigDecimal prePrice = (new BigDecimal(1)).divide(order.getLimitPrice(), 20, RoundingMode.HALF_UP);
 
-                    // Rate to receive counter is 1/LimitPrice
-                    // Amount of counter traded is rate *
-                    // Trying to maintain the precision when inverting the rate, using the method here: https://stackoverflow.com/questions/7572309/any-neat-way-to-limit-significant-figures-with-bigdecimal 
-                    BigDecimal priceInOtherDirection = order.getLimitPrice();
-                    int precision = priceInOtherDirection.precision(); // Desired precision
-                    BigDecimal preRateAtDepth = (new BigDecimal(1)).divide(priceInOtherDirection, 20, RoundingMode.HALF_UP);
-                    rateAtDepth = preRateAtDepth.setScale(precision - preRateAtDepth.precision() + preRateAtDepth.scale(), RoundingMode.HALF_UP);
-                    amountAtDepth = amountAtDepth.add(order.getOriginalAmount().multiply(rateAtDepth));
+                    // Using the method here to get an inverted price with same precision: 
+                    // https://stackoverflow.com/questions/7572309/any-neat-way-to-limit-significant-figures-with-bigdecimal 
+                    int precision = order.getLimitPrice().precision();
+                    limitPrice = prePrice.setScale(precision - prePrice.precision() + prePrice.scale(), RoundingMode.HALF_UP);
                 }
 
-                // Calculate
-                if (amountAtDepth.compareTo( tradeAmount ) > 0 ) // There's enough depth to cover trade. Stop searching.
+                // 2. Calculate cumulative rate
+
+                // Check if this order satisfies tradeAmount
+                if (tradeAmount.compareTo(cumulativeAmt.add(originalAmount)) > 0)
                 {
+                    // It's not enough. Need another order.
+                    cumulativeAmt = cumulativeAmt.add(originalAmount);
+                    rate = rate.add(limitPrice.multiply(originalAmount).divide(tradeAmount));
+                }
+                else // Is enough
+                {
+                    BigDecimal remainingAmt = tradeAmount.subtract(cumulativeAmt);
+                    cumulativeAmt = cumulativeAmt.add(remainingAmt);
+                    rate = rate.add(limitPrice.multiply(remainingAmt).divide(tradeAmount));
                     success = true;
                     break;
                 }
