@@ -52,7 +52,7 @@ import org.knowm.xchange.oer.dto.marketdata.OERRates;
 // Exchange
 import org.knowm.xchange.abucoins.                  AbucoinsExchange;
 import org.knowm.xchange.anx.v2.                    ANXExchange;
-import org.known.xchange.acx.                       AcxExchange;
+//import org.known.xchange.acx.                       AcxExchange;
 import org.knowm.xchange.bibox.                     BiboxExchange;
 import org.knowm.xchange.binance.                   BinanceExchange;
 import org.knowm.xchange.bitbay.                    BitbayExchange;
@@ -69,7 +69,7 @@ import org.knowm.xchange.bitmarket.                 BitMarketExchange;
 import org.knowm.xchange.bitso.                     BitsoExchange;
 import org.knowm.xchange.bitstamp.                  BitstampExchange;
 import org.knowm.xchange.bittrex.                   BittrexExchange;
-import org.xchange.bitz.                            BitZExchange;
+//import org.xchange.bitz.                            BitZExchange;
 import org.knowm.xchange.bleutrade.                 BleutradeExchange;
 import org.knowm.xchange.blockchain.                BlockchainExchange;
 import org.knowm.xchange.btcc.                      BTCCExchange;
@@ -80,17 +80,17 @@ import org.knowm.xchange.campbx.                    CampBXExchange;
 import org.knowm.xchange.ccex.                      CCEXExchange;
 import org.knowm.xchange.cexio.                     CexIOExchange;
 import org.knowm.xchange.coinbase.                  CoinbaseExchange;
-import org.xchange.coinegg.                         CoinEggExchange;
+//import org.xchange.coinegg.                         CoinEggExchange;
 import org.knowm.xchange.coinmarketcap.             CoinMarketCapExchange;
 import org.knowm.xchange.coinfloor.                 CoinfloorExchange;
 import org.knowm.xchange.coinmate.                  CoinmateExchange;
 import org.knowm.xchange.cryptofacilities.          CryptoFacilitiesExchange;
 import org.knowm.xchange.cryptopia.                 CryptopiaExchange;
-import org.knowm.xchange.cryptonit.v2.              CryptonitExchange;
+//import org.knowm.xchange.cryptonit.v2.              CryptonitExchange;
 import org.knowm.xchange.dsx.                       DSXExchange;
 import org.knowm.xchange.gatecoin.                  GatecoinExchange;
 import org.knowm.xchange.gateio.                    GateioExchange;
-import org.knowm.xchange.gdax.                      GDAXExchange;
+import org.knowm.xchange.coinbasepro.               CoinbaseProExchange;
 import org.knowm.xchange.gemini.v1.                 GeminiExchange;
 import org.knowm.xchange.hitbtc.v2.                 HitbtcExchange;
 import org.knowm.xchange.itbit.v1.                  ItBitExchange;
@@ -141,13 +141,14 @@ public class Main
     private static String LOG_DIRECTORY ="/home/cd/Eclipse-Workspace/tradebot/logs/";
 
     /*
-     * Main data members
+     * Major data members
      */
     private static List<ExchangeMonitor>        exchangeMonitors;
     private static List<CurrencyPair>           allPairs;
     private static List<CurrencyPair>           arbitragePairs;
     private static Map<Currency, BigDecimal>    allPrices = new HashMap<Currency, BigDecimal>(); // USD prices for all currencies
     private static Set<Currency>                allCurrencies;
+    private static Map<String,String>           keys;
 
     private static PrintWriter comparisonLog;
     private static PrintWriter detailsLog;
@@ -169,7 +170,7 @@ public class Main
         }
     }
 
-    // If you want to limit yourself to specific currencies of interest, set CURRENCIESOFINTEREST to true 
+    // If you want to limit yourself to specific currencies, set CURRENCIESOFINTEREST to true 
     final private static Map<Currency, BigDecimal> currenciesOfInterest = new HashMap<Currency, BigDecimal>(){
         {
             put(Currency.USD, new BigDecimal(0));
@@ -200,6 +201,12 @@ public class Main
             put(Currency.XVG, new BigDecimal(0));  // Verge
         }};
 
+    private static Map<String,String> loadApiKeys()
+    {
+        KeyParser keyParser = new KeyParser();
+        return keyParser.read();
+    }
+
    /*
     *   1. Get USD values
     *   2. Make exchangeMonitors
@@ -208,6 +215,7 @@ public class Main
     */
     private static void init() throws InterruptedException, IOException
     {
+        keys = loadApiKeys();
         allPairs = new ArrayList<CurrencyPair>();
         arbitragePairs = new ArrayList<CurrencyPair>();
         allCurrencies = new HashSet<Currency>();
@@ -215,28 +223,12 @@ public class Main
         /*
          * (1) Get USD values
          */
-
-        CoinMarketCapExchange coinMarketCap = new CoinMarketCapExchange();
-        CoinMarketCapMarketDataService coinMarketCapMarketDataService = new CoinMarketCapMarketDataService(coinMarketCap);
-
-        List<CoinMarketCapTicker> ticks = coinMarketCapMarketDataService.getCoinMarketCapTickers();
-        System.out.println("Number of CMC tickers = " + ticks.size());
-        for (CoinMarketCapTicker tick : ticks)
-        {
-            Map<String, CoinMarketCapQuote> quotes = tick.getQuotes();
-
-            for (Map.Entry<String, CoinMarketCapQuote> entry : quotes.entrySet())
-            {
-                System.out.println("  " + tick.getBaseCurrency().getCurrency() + " = " + entry.getValue().getPrice());
-                allPrices.put(tick.getBaseCurrency().getCurrency(), entry.getValue().getPrice());
-            }
-        }
-
         allPrices.put(Currency.getInstance("USD"), new BigDecimal(1));
+        addCoinValues(allPrices); // "Universal" USD price for all cryptos 
+        addFiatValues(allPrices); // TODO Figure out fiat OER problem 
 
-        // TODO Figure out fiat OER problem
-        // TODO Check AllPairs for reversed pairs     
-        addFiatValues(allPrices);
+        // TODO Check AllPairs for reversed pairs
+
         // Display all prices
         System.out.println("Repeating the currency prices available: ");
         for (Map.Entry<Currency, BigDecimal> entry : allPrices.entrySet())
@@ -245,6 +237,8 @@ public class Main
         }
 
         System.out.println("End of exchange rates"); 
+
+if(true) return;
 
         /*
          * (2) Construct exchangeMonitors
@@ -277,6 +271,7 @@ public class Main
                 allCurrencies.add(pair.base);
                 allCurrencies.add(pair.counter);
             }
+
             for (Currency c : currencies)
             {
                 //detailsLog.println(c);
@@ -290,6 +285,7 @@ public class Main
         System.out.println(allPairs);
         System.out.println("\nArbitrage pairs: ");
         System.out.println(arbitragePairs);
+        System.out.println();
 
         // Should not need to deal with currenciesOfInterest past this point. allPairs/arbitragePairs reflect this info.
 
@@ -336,12 +332,12 @@ public class Main
         else
         {
             /**
-             * Load up monitors the original instead of launching threads
+             * Load up monitors the original way instead of launching threads
              */
             System.out.println("Single thread");
             long start, finish; // Enforce max rate limit per exchange without wasting time
 
-            for (CurrencyPair pair : arbitragePairs)
+            for (CurrencyPair pair : allPairs) // or arbitragePairs to load faster
             {
                 System.out.println("Getting " + pair + " from all your favorite exchanges: ");
                 start = new Date().getTime(); // getTime() is in milliseconds
@@ -383,7 +379,7 @@ public class Main
     /*
      *  - Init() loads remote info
      *  - Log basic arbitrage comparisons to comparisonLog
-     *  - Run Search algorithm tests
+     *  - Run Search over exchanges
      */
     public static void main(String[] args) throws IOException, InterruptedException
     {
@@ -392,6 +388,7 @@ public class Main
          */
         init();
 
+if(true) return;
         /*
          *  2. Comparison Log - Record price differences for each currency pair using old method in this class.
          */
@@ -443,9 +440,11 @@ public class Main
         {
             for (CurrencyPair pair : monitor.getCurrencyPairs())
             {
+                System.out.print(pair + " --> ");
                 OrderBook book = monitor.viewOrderBook(pair);
-                BigDecimal asksPrice = getPriceAtDepth(monitor.viewOrderBook(pair).getAsks());
-                BigDecimal bidsPrice = getPriceAtDepth(monitor.viewOrderBook(pair).getBids());
+                if (book == null) continue; // Possibly not loaded earlier because only currenciesOfInterest or arbitragePairs were load()-ed, and not allPairs. 
+                BigDecimal asksPrice = getPriceAtDepth(book.getAsks());
+                BigDecimal bidsPrice = getPriceAtDepth(book.getBids());
 
                 System.out.println(monitor.getName() + " ExchangeRates: " + "Asks= " + asksPrice + " Bids=" + bidsPrice);
             }
@@ -456,6 +455,9 @@ public class Main
          */
         testSearchWithGdaxAndBinance();
 
+        /*
+         *  4. End
+         */
         System.out.println("Completed successfully");
         comparisonLog.println("Completed successfully");
         detailsLog.println("Completed successfully");
@@ -472,15 +474,15 @@ public class Main
      */
     static void testSearchWithGdaxAndBinance()
     {
-        ExchangeMonitor gdax = null;
+        ExchangeMonitor coinbasepro = null;
         ExchangeMonitor binance = null;
 
         for (ExchangeMonitor monitor : exchangeMonitors)
         {
-            if (monitor.getName().equals("GDAX"))
+            if (monitor.getName().equals("CoinbasePro"))
             {
-                gdax = monitor;
-                System.out.println("Found GDAX: compare fees - trade fee " + monitor.getTradeFee() + "=" + gdax.getTradeFee() +  ", BTC withdraw fee " + monitor.getWithdrawFee(new Currency("BTC")) + "=" + binance.getWithdrawFee(new Currency("BTC")));
+                coinbasepro = monitor;
+                System.out.println("Found CoinbasePro: compare fees - trade fee " + monitor.getTradeFee() + "=" + coinbasepro.getTradeFee() +  ", BTC withdraw fee " + monitor.getWithdrawFee(new Currency("BTC")) + "=" + binance.getWithdrawFee(new Currency("BTC")));
                 continue;
             }
 
@@ -496,7 +498,7 @@ public class Main
         System.out.println("Building Seeker");
         Seeker seeker = new Seeker(exchangeMonitors, LOG_DIRECTORY, allPrices);
 
-        seeker.dijkstra(gdax, Currency.BTC, binance, Currency.LTC, new BigDecimal(1));
+        seeker.dijkstra(coinbasepro, Currency.BTC, binance, Currency.LTC, new BigDecimal(1));
 
         seeker.graph.dump();
     }
@@ -771,7 +773,7 @@ public class Main
         // exchangeMonitors.add(new BaseExchangeMonitor(EmpoExExchange.class.getName()));
         // exchangeMonitors.add(new BaseExchangeMonitor(GatecoinExchange.class.getName()));
         // exchangeMonitors.add(new BaseExchangeMonitor(GateioExchange.class.getName()));
-        exchangeMonitors.add(new BaseExchangeMonitor(GDAXExchange.class.getName()));
+        exchangeMonitors.add(new BaseExchangeMonitor(CoinbaseProExchange.class.getName()));
         // exchangeMonitors.add(new BaseExchangeMonitor(GeminiExchange.class.getName()));
         // Terrible reputation exchangeMonitors.add(new BaseExchangeMonitor(HitbtcExchange.class.getName()));
         // exchangeMonitors.add(new BaseExchangeMonitor(ItBitExchange.class.getName()));
@@ -809,11 +811,36 @@ public class Main
     /*
      *   Load fiat prices from OER -- called by init()
      */
+    private static void addCoinValues(Map<Currency, BigDecimal> _allPrices)
+    {
+        CoinMarketCapExchange coinMarketCap = new CoinMarketCapExchange();
+        CoinMarketCapMarketDataService coinMarketCapMarketDataService = new CoinMarketCapMarketDataService(coinMarketCap);
+
+        List<CoinMarketCapTicker> ticks = coinMarketCapMarketDataService.getCoinMarketCapTickers();
+        System.out.println("Number of CMC tickers = " + ticks.size());
+
+        for (CoinMarketCapTicker tick : ticks)
+        {
+            Map<String, CoinMarketCapQuote> quotes = tick.getQuotes();
+
+            for (Map.Entry<String, CoinMarketCapQuote> entry : quotes.entrySet())
+            {
+                System.out.println("  " + tick.getBaseCurrency().getCurrency() + " = " + entry.getValue().getPrice());
+                _allPrices.put(tick.getBaseCurrency().getCurrency(), entry.getValue().getPrice());
+            }
+        }
+    }
+
+    /*
+     *   Load fiat prices from OER -- called by init()
+     */
     private static void addFiatValues(Map<Currency, BigDecimal> _allPrices)
     {
         try
         {
-            OpenExchangeRates exchangeRates = new OpenExchangeRates(_allPrices);
+            OpenExchangeRates exchangeRates = new OpenExchangeRates();
+            exchangeRates.loadOERRates(keys.get("OER"));
+            exchangeRates.copyRatesToMap(_allPrices);
         }
         catch(IOException e)
         {

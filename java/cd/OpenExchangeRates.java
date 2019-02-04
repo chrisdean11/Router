@@ -3,16 +3,44 @@ import java.util.List;
 import java.util.Map;
 import java.math.*;
 
-import org.knowm.xchange.Exchange;
-import org.knowm.xchange.ExchangeFactory;
-import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.oer.OER;
-import org.knowm.xchange.oer.OERExchange;
+import org.knowm.xchange.oer.dto.marketdata.OERTickers;
 import org.knowm.xchange.oer.dto.marketdata.OERRates;
-import org.knowm.xchange.oer.service.OERMarketDataServiceRaw;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 import si.mazi.rescu.RestProxyFactory;
+import si.mazi.rescu.ClientConfig;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+
+/*
+
+https://openexchangerates.org/api/latest.json?app_id=YOUR_APP_ID
+
+Result Format
+ 200 OK
+{
+    disclaimer: "https://openexchangerates.org/terms/",
+    license: "https://openexchangerates.org/license/",
+    timestamp: 1449877801,
+    base: "USD",
+    rates: {
+        AED: 3.672538,
+        AFN: 66.809999,
+        ALL: 125.716501,
+        AMD: 484.902502,
+        ANG: 1.788575,
+        AOA: 135.295998,
+        ARS: 9.750101,
+        AUD: 1.390866,
+        ...
+    }
+}
+
+*/
 
 /**
  * Get exchange rates for all fiat currencies against USD
@@ -20,15 +48,50 @@ import si.mazi.rescu.RestProxyFactory;
 public class OpenExchangeRates {
 
     public OERRates rates;
+    private final OERInterface oerInterface;
 
-    public OpenExchangeRates(Map<Currency, BigDecimal> _allPrices) throws IOException
+    public OpenExchangeRates() throws IOException
     {
-        Exchange exchange = ExchangeFactory.INSTANCE.createExchange(OERExchange.class.getName(), "257da32e4b584f3282beb4bc9623ca3a", "");
-        OERMarketDataServiceRaw marketDataService = new OERMarketDataServiceRaw(exchange);
+        /*
+            XChange seems to only allow you to retrieve one currency at a 
+            time but OER has a call for doing it all at once.
 
-        rates = marketDataService.getOERTicker();
+            So the interface to OER is totally independent of XChange, but their
+            data structures are still used to read the JSON response.
+
+            Just need to make an empty ClientConfig for the REST call. 
+            This is what XChange uses in BaseExchangeService, which is the same
+            ClientConfig that OERMarketDataService would ultimately use.
+        */
+
+        ClientConfig rescuConfig = new ClientConfig(); // create default rescu config
+        rescuConfig.setHttpConnTimeout(0);
+        rescuConfig.setHttpReadTimeout(0);
+
+        this.oerInterface = RestProxyFactory.createProxy(OERInterface.class, "http://openexchangerates.org", rescuConfig);
+    }
+
+    public OERRates loadOERRates(String key) throws IOException 
+    {
+        // Request data
+        OERTickers oERTickers = OERInterface.getTickers(key);
+        
+        if (oERTickers == null)
+        {
+          throw new Exception("Null response returned from Open Exchange Rates!");
+        }
+
+        rates = oERTickers.getRates();
+
+        System.out.println("\n\nOER RATES:\n\n");
         System.out.println(rates.toString());
+        System.out.println("\n\nEND OER RATES\n\n");
 
+        return rates;
+    }
+
+    public void copyRatesToMap(Map<Currency, BigDecimal> _allPrices)
+    {
         _allPrices.put(Currency.AED, new BigDecimal(rates.getAED()));
         _allPrices.put(Currency.AFN, new BigDecimal(rates.getAFN()));
         _allPrices.put(Currency.ALL, new BigDecimal(rates.getALL()));
@@ -189,5 +252,21 @@ public class OpenExchangeRates {
         _allPrices.put(Currency.ZAR, new BigDecimal(rates.getZAR()));
         _allPrices.put(Currency.ZMK, new BigDecimal(rates.getZMK()));
         _allPrices.put(Currency.ZWL, new BigDecimal(rates.getZWL()));
+    }
+
+    /*
+        This wasn't finished. First attempt at doing the REST stuff to OER 
+        without using anything from XChange. Tries to use javax directly.
+    */
+    public void getRates_DoesntWork()//Map<Currency, BigDecimal> _allPrices)
+    {
+
+        Client client = ClientBuilder.newClient();
+        String uri = "https://openexchangerates.org/api/latest.json?app_id=" + key;
+        String name = client.target(uri).request(MediaType.APPLICATION_JSON).get(String.class);
+
+        System.out.println("\n\nOER RESPONSE:\n\n");
+        System.out.println(name);
+        System.out.println("\n\nEND OER RESPONSE\n\n");
     }
 }
