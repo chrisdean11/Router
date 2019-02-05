@@ -4,17 +4,10 @@ import java.util.Map;
 import java.math.*;
 
 import org.knowm.xchange.currency.Currency;
-import org.knowm.xchange.oer.OER;
 import org.knowm.xchange.oer.dto.marketdata.OERTickers;
 import org.knowm.xchange.oer.dto.marketdata.OERRates;
-import org.knowm.xchange.service.marketdata.MarketDataService;
 import si.mazi.rescu.RestProxyFactory;
 import si.mazi.rescu.ClientConfig;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
 
 /*
 
@@ -260,7 +253,11 @@ public class OpenExchangeRates {
     /*
         This wasn't finished. First attempt at doing the REST stuff to OER 
         without using anything from XChange. Tries to use javax directly.
-    */
+        import javax.ws.rs.client.Client;
+        import javax.ws.rs.client.ClientBuilder;
+        import javax.ws.rs.client.WebTarget;
+        import javax.ws.rs.core.MediaType;
+    *
     public void getRates_DoesntWork(String key)//Map<Currency, BigDecimal> _allPrices)
     {
 
@@ -272,4 +269,5 @@ public class OpenExchangeRates {
         System.out.println(name);
         System.out.println("\n\nEND OER RESPONSE\n\n");
     }
+    */
 }

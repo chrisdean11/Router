@@ -360,9 +360,13 @@ public class Main
                             continue;
                         }
                     }
-                    else System.out.println("-- Pair not found.");
+                    else 
+                    {
+                        System.out.println("-- Pair not found.");
+                    }
                 }
 
+                // Wait before trying the next currency
                 finish = new Date().getTime();
                 if (finish - start < TIME_DELAY)
                 {

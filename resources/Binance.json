@@ -2687,6 +2687,54 @@
       "min_amount" : 0.00001,
       "max_amount" : 1E+7,
       "price_scale" : 2
+    },
+    "LTC/TUSD" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 0.00001,
+      "max_amount" : 1E+7,
+      "price_scale" : 2
+    },
+    "LTC/PAX" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 0.00001,
+      "max_amount" : 1E+7,
+      "price_scale" : 2
+    },
+    "LTC/USDC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 0.00001,
+      "max_amount" : 1E+7,
+      "price_scale" : 2
+    },
+    "TRX/PAX" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
+      "price_scale" : 5
+    },
+    "TRX/USDC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 0.1,
+      "max_amount" : 9E+7,
+      "price_scale" : 5
+    },
+    "BTT/BTC" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "BTT/BNB" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 8
+    },
+    "BTT/USDT" : {
+      "trading_fee" : 0.1,
+      "min_amount" : 1,
+      "max_amount" : 9E+7,
+      "price_scale" : 7
     }
   },
   "currencies" : {
@@ -3067,64 +3115,4 @@
       "withdrawal_fee" : 1.2
     },
     "OST" : {
-      "scale" : 8,
-      "withdrawal_fee" : 17.0
-    },
-    "ELF" : {
-      "scale" : 8,
-      "withdrawal_fee" : 2.9
-    },
-    "AION" : {
-      "scale" : 8,
-      "withdrawal_fee" : 1.2
-    },
-    "ETF" : {
-      "scale" : 8,
-      "withdrawal_fee" : 1.0
-    },
-    "BRD" : {
-      "scale" : 8,
-      "withdrawal_fee" : 6.0
-    },
-    "NEBL" : {
-      "scale" : 8,
-      "withdrawal_fee" : 0.01
-    },
-    "VIBE" : {
-      "scale" : 8,
-      "withdrawal_fee" : 15.3
-    },
-    "LUN" : {
-      "scale" : 8,
-      "withdrawal_fee" : 0.31
-    },
-    "CHAT" : {
-      "scale" : 8,
-      "withdrawal_fee" : 36.0
-    },
-    "RLC" : {
-      "scale" : 8,
-      "withdrawal_fee" : 2.8
-    },
-    "INS" : {
-      "scale" : 8,
-      "withdrawal_fee" : 2.4
-    },
-    "IOST" : {
-      "scale" : 8,
-      "withdrawal_fee" : 84.9
-    },
-    "STEEM" : {
-      "scale" : 8,
-      "withdrawal_fee" : 0.01
-    },
-    "NANO" : {
-      "scale" : 8,
-      "withdrawal_fee" : 0.01
-    },
-    "AE" : {
-      "scale" : 8,
-      "withdrawal_fee" : 1.8
-    },
-    "VIA" : {
- 
+      "sc
