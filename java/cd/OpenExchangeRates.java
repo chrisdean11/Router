@@ -48,7 +48,7 @@ Result Format
 public class OpenExchangeRates {
 
     public OERRates rates;
-    private final OERInterface oerInterface;
+    private OERInterface oerInterface;
 
     public OpenExchangeRates() throws IOException
     {
@@ -68,13 +68,16 @@ public class OpenExchangeRates {
         rescuConfig.setHttpConnTimeout(0);
         rescuConfig.setHttpReadTimeout(0);
 
-        this.oerInterface = RestProxyFactory.createProxy(OERInterface.class, "http://openexchangerates.org", rescuConfig);
+        this.oerInterface = RestProxyFactory.createProxy(
+                            OERInterface.class, 
+                            "http://openexchangerates.org", 
+                            rescuConfig);
     }
 
-    public OERRates loadOERRates(String key) throws IOException 
+    public OERRates loadOERRates(String key) throws Exception 
     {
         // Request data
-        OERTickers oERTickers = OERInterface.getTickers(key);
+        OERTickers oERTickers = oerInterface.getTickers(key);
         
         if (oERTickers == null)
         {
@@ -258,7 +261,7 @@ public class OpenExchangeRates {
         This wasn't finished. First attempt at doing the REST stuff to OER 
         without using anything from XChange. Tries to use javax directly.
     */
-    public void getRates_DoesntWork()//Map<Currency, BigDecimal> _allPrices)
+    public void getRates_DoesntWork(String key)//Map<Currency, BigDecimal> _allPrices)
     {
 
         Client client = ClientBuilder.newClient();

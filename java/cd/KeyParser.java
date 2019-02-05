@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.type.MapType;
 
 public class KeyParser{
 
-    Map<String, String> keyMap = new HashMap<Currency,BigDecimal>();
+    Map<String, String> keyMap = new HashMap<String,String>();
 
     public Map<String, String> read()
     {

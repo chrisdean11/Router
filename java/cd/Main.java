@@ -815,9 +815,18 @@ if(true) return;
     {
         CoinMarketCapExchange coinMarketCap = new CoinMarketCapExchange();
         CoinMarketCapMarketDataService coinMarketCapMarketDataService = new CoinMarketCapMarketDataService(coinMarketCap);
+        List<CoinMarketCapTicker> ticks;
 
-        List<CoinMarketCapTicker> ticks = coinMarketCapMarketDataService.getCoinMarketCapTickers();
-        System.out.println("Number of CMC tickers = " + ticks.size());
+        try
+        {
+            ticks = coinMarketCapMarketDataService.getCoinMarketCapTickers();
+            System.out.println("Number of CMC tickers = " + ticks.size());
+        }
+        catch (Exception e)
+        {
+            System.out.println("Failed to get CoinMarketCapTickers: " + e);
+            return;
+        }
 
         for (CoinMarketCapTicker tick : ticks)
         {
@@ -842,7 +851,7 @@ if(true) return;
             exchangeRates.loadOERRates(keys.get("OER"));
             exchangeRates.copyRatesToMap(_allPrices);
         }
-        catch(IOException e)
+        catch(Exception e)
         {
             System.out.println("Failed to make OpenExchangeRates: " + e);
         }
