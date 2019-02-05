@@ -236,9 +236,7 @@ public class Main
             System.out.println(entry.getKey() + "_USD: " + entry.getValue());
         }
 
-        System.out.println("End of exchange rates"); 
-
-if(true) return;
+        System.out.println("End of exchange rates");
 
         /*
          * (2) Construct exchangeMonitors
@@ -277,8 +275,9 @@ if(true) return;
                 //detailsLog.println(c);
             }
 
-            monitor.getExchange().getExchangeSpecification().setHttpReadTimeout(TIMEOUT);
-            monitor.getExchange().getExchangeSpecification().setHttpConnTimeout(TIMEOUT);
+            // Set this exchange's timeout stuff before the orderbook load
+            // monitor.getExchange().getExchangeSpecification().setHttpReadTimeout(TIMEOUT);
+            // monitor.getExchange().getExchangeSpecification().setHttpConnTimeout(TIMEOUT);
         }
 
         System.out.println("\nAll pairs on all exchanges: ");
@@ -388,7 +387,6 @@ if(true) return;
          */
         init();
 
-if(true) return;
         /*
          *  2. Comparison Log - Record price differences for each currency pair using old method in this class.
          */
