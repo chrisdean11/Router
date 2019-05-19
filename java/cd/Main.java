@@ -44,9 +44,9 @@ import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.Trades;
 
 // CoinMarketCap and OpenExchangeRates
-import org.knowm.xchange.coinmarketcap.dto.marketdata.CoinMarketCapTicker;
-import org.knowm.xchange.coinmarketcap.dto.marketdata.CoinMarketCapQuote;
-import org.knowm.xchange.coinmarketcap.service.CoinMarketCapMarketDataService;
+import org.knowm.xchange.coinmarketcap.pro.v1.dto.marketdata.CmcTicker;
+import org.knowm.xchange.coinmarketcap.pro.v1.dto.marketdata.CmcQuote;
+import org.knowm.xchange.coinmarketcap.pro.v1.service.CmcMarketDataService;
 import org.knowm.xchange.oer.dto.marketdata.OERRates;
 
 // Exchange
@@ -81,7 +81,7 @@ import org.knowm.xchange.ccex.                      CCEXExchange;
 import org.knowm.xchange.cexio.                     CexIOExchange;
 import org.knowm.xchange.coinbase.                  CoinbaseExchange;
 //import org.xchange.coinegg.                         CoinEggExchange;
-import org.knowm.xchange.coinmarketcap.             CoinMarketCapExchange;
+import org.knowm.xchange.coinmarketcap.pro.v1.      CmcExchange;
 import org.knowm.xchange.coinfloor.                 CoinfloorExchange;
 import org.knowm.xchange.coinmate.                  CoinmateExchange;
 import org.knowm.xchange.cryptofacilities.          CryptoFacilitiesExchange;
@@ -93,7 +93,7 @@ import org.knowm.xchange.gateio.                    GateioExchange;
 import org.knowm.xchange.coinbasepro.               CoinbaseProExchange;
 import org.knowm.xchange.gemini.v1.                 GeminiExchange;
 import org.knowm.xchange.hitbtc.v2.                 HitbtcExchange;
-import org.knowm.xchange.itbit.v1.                  ItBitExchange;
+import org.knowm.xchange.itbit.                      ItBitExchange;
 import org.knowm.xchange.independentreserve.        IndependentReserveExchange;
 import org.knowm.xchange.koineks.                   KoineksExchange;
 import org.knowm.xchange.koinim.                    KoinimExchange;
@@ -765,7 +765,7 @@ public class Main
         // exchangeMonitors.add(new BaseExchangeMonitor(CexIOExchange.class.getName()));
         //exchangeMonitors.add(new BaseExchangeMonitor(CoinbaseExchange.class.getName()));
         // exchangeMonitors.add(new BaseExchangeMonitor(CoinEggExchange.class.getName()));
-        //Not an exchange exchangeMonitors.add(new BaseExchangeMonitor(CoinMarketCapExchange.class.getName()));
+        //Not an exchange exchangeMonitors.add(new BaseExchangeMonitor(Cmc.class.getName()));
         // exchangeMonitors.add(new BaseExchangeMonitor(CoinfloorExchange.class.getName()));
         // exchangeMonitors.add(new BaseExchangeMonitor(CoinmateExchange.class.getName()));
         // exchangeMonitors.add(new BaseExchangeMonitor(CryptoFacilitiesExchange.class.getName()));
@@ -811,17 +811,17 @@ public class Main
     }
 
     /*
-     *   Load fiat prices from OER -- called by init()
+     *   Load USD values of cryptos from Cmc -- called by init()
      */
     private static void addCoinValues(Map<Currency, BigDecimal> _allPrices)
     {
-        CoinMarketCapExchange coinMarketCap = new CoinMarketCapExchange();
-        CoinMarketCapMarketDataService coinMarketCapMarketDataService = new CoinMarketCapMarketDataService(coinMarketCap);
-        List<CoinMarketCapTicker> ticks;
+        CmcExchange coinMarketCap = new CmcExchange();
+        CmcMarketDataService coinMarketCapMarketDataService = new CmcMarketDataService(coinMarketCap);
+        List<CmcTicker> ticks;
 
         try
         {
-            ticks = coinMarketCapMarketDataService.getCoinMarketCapTickers();
+            ticks = coinMarketCapMarketDataService.getCmcLatestDataForAllCurrencies();
             System.out.println("Number of CMC tickers = " + ticks.size());
         }
         catch (Exception e)
@@ -830,14 +830,14 @@ public class Main
             return;
         }
 
-        for (CoinMarketCapTicker tick : ticks)
+        for (CmcTicker tick : ticks)
         {
-            Map<String, CoinMarketCapQuote> quotes = tick.getQuotes();
+            Map<String, CmcQuote> quotes = tick.getQuote();
 
-            for (Map.Entry<String, CoinMarketCapQuote> entry : quotes.entrySet())
+            for (Map.Entry<String, CmcQuote> entry : quotes.entrySet())
             {
-                System.out.println("  " + tick.getBaseCurrency().getCurrency() + " = " + entry.getValue().getPrice());
-                _allPrices.put(tick.getBaseCurrency().getCurrency(), entry.getValue().getPrice());
+                System.out.println("  Ticker:" + tick.getSymbol() + " = " + entry.getValue().getPrice());
+                _allPrices.put(Currency.getInstance(tick.getSymbol()), entry.getValue().getPrice());
             }
         }
     }

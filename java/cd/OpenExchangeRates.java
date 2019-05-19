@@ -251,7 +251,7 @@ public class OpenExchangeRates {
     }
 
     /*
-        This wasn't finished. First attempt at doing the REST stuff to OER 
+        The approach below wasn't finished. First attempt at doing the REST stuff to OER 
         without using anything from XChange. Tries to use javax directly.
         import javax.ws.rs.client.Client;
         import javax.ws.rs.client.ClientBuilder;
