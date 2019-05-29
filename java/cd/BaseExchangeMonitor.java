@@ -231,6 +231,35 @@ public class BaseExchangeMonitor extends ExchangeMonitor
         return withdrawFees.get(c);
     }
 
+    // Factor in trade fees, etc to getExchangeRate2
+    // Always returns a value of 0 or more, never null.
+    public BigDecimal fakeTrade(Currency baseC, Currency counterC, BigDecimal baseAmt)
+    {
+        BigDecimal ret;
+        
+        // check if trade or withdraw
+        if (baseC.compareTo(counterC) == 0) // Withdraw
+        {
+
+            ret = baseAmt.subtract(getWithdrawFee(baseC));
+        }
+        else // Trade
+        {
+            // tradeAmt = (baseAmt - baseAmt*tradefee)
+            // exchangerate(tradeAmt) * tradeAmt
+            BigDecimal fee = baseAmt.multiply(getTradeFee());
+            BigDecimal tradeAmt = baseAmt.subtract(fee);
+            ret = getExchangeRate2(baseC, counterC, tradeAmt).multiply(tradeAmt);
+        }
+
+        if (ret == null || ret.compareTo(new BigDecimal(0)) < 0)
+        {
+            ret = new BigDecimal(0);
+        }
+
+        return ret;
+    }
+
     public boolean loadTicker(CurrencyPair pair)
     {
         if (currencyPairs.contains(pair))
@@ -483,7 +512,8 @@ public class BaseExchangeMonitor extends ExchangeMonitor
             // Cycle through the orders until you get the price at a sufficient depth.
             for (LimitOrder order : orders)
             {
-                BigDecimal originalAmount, limitPrice;
+                BigDecimal originalAmount;
+                BigDecimal limitPrice;
 
                 // 1. Get this order's price and amount in the right direction
                 if (fromBase)
@@ -534,7 +564,7 @@ public class BaseExchangeMonitor extends ExchangeMonitor
             return new BigDecimal(0);
         }
 
-        System.out.println("    "+ name + " GetExchangeRate: " + rate+ " " + pair + "FromBase: " + fromBase);
+        System.out.println("    "+ name + " GetExchangeRate: " + rate + " " + pair + "FromBase: " + fromBase);
         return rate;
     }
 

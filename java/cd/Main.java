@@ -561,7 +561,7 @@ public class Main
     */
 
    // Compare prices on two exchanges to find the direction and % difference of a trade
-   // Assumes Orderbook has been successfully loaded
+   // Assumes Orderbook has already been successfully loaded
    static void compareOrders(CurrencyPair pair, ExchangeMonitor m1, ExchangeMonitor m2)
    {
         List<LimitOrder> asks1 = m1.viewOrderBook(pair).getAsks();
