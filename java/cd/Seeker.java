@@ -139,6 +139,7 @@ public class Seeker
             {
                 node.balance = startAmount;
                 node.bestPath = new ArrayList<Node>();
+                node.touched = true;
             }
         }
 
@@ -153,6 +154,7 @@ public class Seeker
             edge.to.balance = edge.calculateResidual(edge.from.balance);
             edge.to.bestPath = new ArrayList<Node>();
             edge.to.bestPath.add(edge.from);
+            edge.to.touched = true;
         }
 
         // Shallow copy of nodes list to chew through
@@ -169,22 +171,26 @@ public class Seeker
             // Find a node that's been connected in the search so far
             for (Node node : nodes) //remainingNodes)
             {   
-                // TODO: Speed this up by maintaining a 'touched' list of nodes whose residual changed, 
+                // TODO: Speed this up by maintaining a 'touched' list of nodes whose residual changed last loop, 
                 // skip calculations on nodes that aren't downstream 
+                node.touchedLast = node.touched;
+                node.touched = false;
 
                 // Check for removals
                 //if (!node.bestPath.empty() && node.balance.compareTo(new BigDecimal(0)) <= 0)
                 //{
                 //  toRemove.add(node);
                 //}
-                // Nodes connected to search so far
-                if (!node.bestPath.isEmpty())
+
+                // Nodes connected to search so far and have been changed since the last turn
+                if (!node.bestPath.isEmpty() && node.touched == false)
                 {
                     int i = nodes.indexOf(node);
 
                     // Check all adjacents
                     for (int j = 0; j < nodes.size(); j++)
                     {
+                        // adjacencyMatrix: i is 'from' node, j is 'to' node
                         if (graph.adjacencyMatrix[i][j] == null) continue; // Not adjacent
 
                         Edge edge = graph.adjacencyMatrix[i][j];
@@ -195,6 +201,7 @@ public class Seeker
                             edge.to.balance = edge.calculateResidual(edge.from.balance);
                             edge.to.bestPath = new ArrayList<Node>(edge.from.bestPath);
                             edge.to.bestPath.add(edge.from);
+                            edge.to.touched = true;
                             madeChange = true;
                         }
                     }
@@ -206,14 +213,6 @@ public class Seeker
             // remainingNodes.removeAll(toRemove);
         }
 
-    }
-
-    // Maybe make this a member of Graph
-    // Should be automatically called whenever Node.balance gets changed
-    public touch(Node n)
-    {
-        // Every edge leading from this node is an edge that's ready to try
-        // To start, this will only be edges with n as its 'from' node
     }
 
     public Node getNode(ExchangeMonitor monitor, Currency currency)
@@ -234,6 +233,8 @@ public class Seeker
         // dijkstra results
         public BigDecimal balance;
         public List<Node> bestPath;
+        public boolean touched;
+        public boolean touchedLast;
 
         public Node(ExchangeMonitor m, Currency c) 
         {
@@ -246,6 +247,8 @@ public class Seeker
         {
             balance = new BigDecimal(0);
             bestPath = new ArrayList<Node>();
+            touched = false;
+            touchedLast = false;
         }
 
         public String bestPathToString()
@@ -364,7 +367,7 @@ public class Seeker
                     // Intra-exchange edge (Same exchange, different node)
                     if ( (nodes.get(i).monitor == nodes.get(j).monitor) && (i != j))
                     {
-                        /*Base vs Counter shouldn't matter here. Every i edge to every j edge*/
+                        /* Base vs Counter shouldn't matter here. Every i edge to every j edge */
                         // base is i and counter is j
                         //if ( nodes.get(i).monitor.getCurrencyPairs().contains( new CurrencyPair(nodes.get(i).currency, nodes.get(j).currency) ))
                         //{
