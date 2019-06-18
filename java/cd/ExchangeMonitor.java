@@ -43,6 +43,8 @@ abstract public class ExchangeMonitor {
 
     abstract public BigDecimal getWithdrawFee(Currency c);
 
+    abstract public BigDecimal fakeTrade(Currency baseC, Currency counterC, BigDecimal baseAmt);
+
     // Refresh info from remote exchange and view it
 
     abstract public boolean loadTicker(CurrencyPair pair);
@@ -54,4 +56,5 @@ abstract public class ExchangeMonitor {
     abstract public OrderBook viewOrderBook(CurrencyPair pair);
 
     abstract public BigDecimal getExchangeRate(Currency from, Currency to, BigDecimal tradeAmount);
+    abstract public BigDecimal getExchangeRate2(Currency from, Currency to, BigDecimal tradeAmount);
 }

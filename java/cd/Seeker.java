@@ -294,8 +294,9 @@ public class Seeker
 
         public BigDecimal calculateResidual(BigDecimal tradeAmount)
         {
-            BigDecimal ret = from.fakeTrade(from.currency, to.currency, tradeAmount);
+            BigDecimal ret = from.monitor.fakeTrade(from.currency, to.currency, tradeAmount);
             System.out.println(this.toString()+":\n  CalculatingResidual: tradeAmount="+tradeAmount+" result="+ret);
+            return ret;
         }
 
         /*
@@ -494,7 +495,7 @@ public class Seeker
             valueTable[1][2] = "Residual";
             valueTable[1][3] = "USD Value";
             
-            rateTable[0][0]         = "ExchangeRate";
+            rateTable[0][0]         = "ExchangeRate2";
             edgeTable[0][0]         = "Edge";
             tradeFeeTable[0][0]     = "TradeFee";
             withdrawFeeTable[0][0]  = "WithdrawFee";
@@ -513,18 +514,23 @@ public class Seeker
                         continue;
                     }
                     else if (adjacencyMatrix[i][j] == null) continue;
-                    edgeTable[i+2][j+2] = adjacencyMatrix[i][j].toString();
-                    if (adjacencyMatrix[i][j].rate != null) rateTable[i+2][j+2] = adjacencyMatrix[i][j].rate.toString();
-                    if (adjacencyMatrix[i][j].fee != null) feeTable[i+2][j+2] = adjacencyMatrix[i][j].fee.toString();
-                    if (adjacencyMatrix[i][j].to.balance != null) residualTable[i+2][j+2] = adjacencyMatrix[i][j].to.balance.toString();
+
+                    Edge thisEdge = adjacencyMatrix[i][j];
+
+                    edgeTable[i+2][j+2] = thisEdge.toString();
+
+                    if (thisEdge.fee(thisEdge.from.balance) != null) feeTable[i+2][j+2] = thisEdge.fee(thisEdge.from.balance).toString();
+                    if (thisEdge.to.balance != null) residualTable[i+2][j+2] = thisEdge.to.balance.toString();
                     
-                    if (adjacencyMatrix[i][j].from.monitor.getName().compareTo(adjacencyMatrix[i][j].to.monitor.getName()) == 0)
+                    // Exchange rate and trade fee, or withdraw fee if different exchanges
+                    if (thisEdge.from.monitor.getName().compareTo(thisEdge.to.monitor.getName()) == 0)
                     {
-                        if (adjacencyMatrix[i][j].tradeFee() != null) tradeFeeTable[i+2][j+2] = adjacencyMatrix[i][j].tradeFee().toString();
+                        if (thisEdge.tradeFee() != null) tradeFeeTable[i+2][j+2] = thisEdge.tradeFee().toString();
+                        rateTable[i+2][j+2] = thisEdge.from.monitor.getExchangeRate2(thisEdge.from.currency, thisEdge.to.currency, thisEdge.from.balance).toString();
                     }
                     else
                     {
-                        if (adjacencyMatrix[i][j].withdrawalFee() != null) withdrawFeeTable[i+2][j+2]  = adjacencyMatrix[i][j].withdrawalFee().toString();
+                        if (thisEdge.withdrawalFee() != null) withdrawFeeTable[i+2][j+2]  = thisEdge.withdrawalFee().toString();
                     }
                 }
 
