@@ -498,11 +498,12 @@ public class Main
 
         // TEST SEARCH ALGORITHM
         System.out.println("Building Seeker");
-        Seeker seeker = new Seeker(exchangeMonitors, LOG_DIRECTORY, allPrices);
+        Seeker seeker = new Seeker(exchangeMonitors);
+        BigDecimal startBalance = new BigDecimal(1);
+        BigDecimal startVal = startBalance.multiply(allPrices.get(Currency.BTC));
 
-        seeker.dijkstra(coinbasepro, Currency.BTC, binance, Currency.LTC, new BigDecimal(1));
-
-        seeker.graph.dump();
+        seeker.dijkstra(coinbasepro, Currency.BTC, binance, Currency.LTC, startBalance);
+        seeker.graph.dump(allPrices, startVal, LOG_DIRECTORY);
     }
 
     /*
