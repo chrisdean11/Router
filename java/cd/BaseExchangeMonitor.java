@@ -330,7 +330,12 @@ public class BaseExchangeMonitor extends ExchangeMonitor
     *   Loops over orderbook until it can fulfill tradeAmount, and returns the rate in the forward direction.
     *   Orderbook prices are number of Counter for a Base. ASKS - you give Counter. BIDS - you take Counter.
     *   order.OriginalAmount is in terms of Base.
-    *   @tradeAmount In terms of the "from" currency you want to give away
+    *   @from Currency to give.  Asks are from counter to base, BIDS are from base to counter.
+    *   @to Currency to receive. Asks are from counter to base, BIDS are from base to counter.
+    *   @tradeAmount In terms of the "from" currency.
+    *   @return The amount of "to" currency you end up with. Returns 0 on error.
+   // ASKS - FROM counter TO base
+   // BIDS - FROM base TO counter
     */
     public BigDecimal getExchangeRate(Currency from, Currency to, BigDecimal tradeAmount)
     {

@@ -225,9 +225,7 @@ public class Main
          */
         allPrices.put(Currency.getInstance("USD"), new BigDecimal(1));
         addCoinValues(allPrices); // "Universal" USD price for all cryptos 
-        addFiatValues(allPrices); // TODO Figure out fiat OER problem 
-
-        // TODO Check AllPairs for reversed pairs
+        addFiatValues(allPrices); // Fiat from OER 
 
         // Display all prices
         System.out.println("Repeating the currency prices available: ");
@@ -246,6 +244,7 @@ public class Main
         /*
          * (3) Set allPairs: all pairs traded on all exchanges
          *     Set arbitragepairs: all pairs traded on more than one exchange
+         *     TODO Check AllPairs for reversed pairs
          */
         for (ExchangeMonitor monitor : exchangeMonitors)
         {
@@ -336,7 +335,7 @@ public class Main
             System.out.println("Single thread");
             long start, finish; // Enforce max rate limit per exchange without wasting time
 
-            for (CurrencyPair pair : allPairs) // or arbitragePairs to load faster
+            for (CurrencyPair pair : arbitragePairs)//allPairs) // or arbitragePairs to load faster
             {
                 System.out.println("Getting " + pair + " from all your favorite exchanges: ");
                 start = new Date().getTime(); // getTime() is in milliseconds
@@ -430,27 +429,32 @@ public class Main
                                 //comparisonLog.println("  Couldn't load tickers");
                                 detailsLog.println("  Couldn't load tickers");
                             }
-                            compareOrders(pair, monitor, monitor2);
+
+                            // Eg. counterAmt = ($100)/($10000 per BTC) = 0.0001 BTC
+                            BigDecimal counterAmt = (new BigDecimal(USD_TRADE_AMOUNT)).divide(allPrices.get(pair.counter), 10, RoundingMode.HALF_UP);
+                            System.out.println("CoinMarketCap: $" + USD_TRADE_AMOUNT + "=" + counterAmt + pair.counter);
+                            detailsLog.println("CoinMarketCap: $" + USD_TRADE_AMOUNT + "=" + counterAmt + pair.counter);
+                            compareOrders(pair, counterAmt, monitor, monitor2);
                         }
                     }
                 }
             }
         }
 
-        detailsLog.println("\n\n\n\nALL EXCHANGE RATES");
-        for (ExchangeMonitor monitor : exchangeMonitors)
-        {
-            for (CurrencyPair pair : monitor.getCurrencyPairs())
-            {
-                System.out.print(pair + " --> ");
-                OrderBook book = monitor.viewOrderBook(pair);
-                if (book == null) continue; // Possibly not loaded earlier because only currenciesOfInterest or arbitragePairs were load()-ed, and not allPairs. 
-                BigDecimal asksPrice = getPriceAtDepth(book.getAsks());
-                BigDecimal bidsPrice = getPriceAtDepth(book.getBids());
-
-                System.out.println(monitor.getName() + " ExchangeRates: " + "Asks= " + asksPrice + " Bids=" + bidsPrice);
-            }
-        }
+        //detailsLog.println("\n\n\n\nALL EXCHANGE RATES");
+        //for (ExchangeMonitor monitor : exchangeMonitors)
+        //{
+        //    for (CurrencyPair pair : monitor.getCurrencyPairs())
+        //    {
+        //        System.out.print(pair + " --> ");
+        //        OrderBook book = monitor.viewOrderBook(pair);
+        //        if (book == null) continue; // Possibly not loaded earlier because only currenciesOfInterest or arbitragePairs were load()-ed, and not allPairs. 
+        //        BigDecimal asksPrice = getPriceAtDepth(book.getAsks());
+        //        BigDecimal bidsPrice = getPriceAtDepth(book.getBids());
+//
+        //        System.out.println(monitor.getName() + " ExchangeRates: " + "Asks= " + asksPrice + " Bids=" + bidsPrice);
+        //    }
+        //}
 
         /*
          *  3. Try search algorithm
@@ -563,7 +567,7 @@ public class Main
 
    // Compare prices on two exchanges to find the direction and % difference of a trade
    // Assumes Orderbook has already been successfully loaded
-   static void compareOrders(CurrencyPair pair, ExchangeMonitor m1, ExchangeMonitor m2)
+   static void compareOrders(CurrencyPair pair, BigDecimal counterAmt, ExchangeMonitor m1, ExchangeMonitor m2)
    {
         List<LimitOrder> asks1 = m1.viewOrderBook(pair).getAsks();
         List<LimitOrder> bids1 = m1.viewOrderBook(pair).getBids();
@@ -573,55 +577,42 @@ public class Main
         // DID YOU KNOW THAT BIGDECIMAL IS IMMUTABLE, SO YOU CAN SAFELY SHARE THE REFERENCE AROUND
 
         // Get the prices at the desired depth
-        detailsLog.println("    " + m1.getName() + " asks");
-        BigDecimal asks1Price = getPriceAtDepth(asks1);
+        /*
+            m1 Counter - m1 Base
+                |          |
+            m2 Counter - m1 Base
+        */
 
-        detailsLog.println("    " + m1.getName() + " bids");
-        BigDecimal bids1Price = getPriceAtDepth(bids1);
+        // Clockwise direction x1counter -> x1base vs x2base=x1base -> x2counter
+        BigDecimal asks1Rate = m1.getExchangeRate2(pair.counter, pair.base, counterAmt);
+        BigDecimal baseLeft1 = counterAmt.multiply(asks1Rate);        
+        BigDecimal bids2Rate = m2.getExchangeRate2(pair.base, pair.counter, baseLeft1);
+        BigDecimal counterLeft2 = baseLeft1.multiply(bids2Rate);
 
-        detailsLog.println("    " + m2.getName() + " asks");
-        BigDecimal asks2Price = getPriceAtDepth(asks2);
+            // end/start. arbitrageRate of 1 is an even trade
+            BigDecimal arbitrageRate = counterLeft2.divide(counterAmt);
+            detailsLog.println("CLOCKWISE  " + m1.getName() + " " + pair.counter + "->" + pair.base + " (" + asks1Rate + ") " + 
+                                    " vs " + 
+                                    m2.getName() + " " + pair.base + "->" + pair.counter + " (" + bids2Rate + ") ");
+            detailsLog.println("  " + pair.counter + ": Start=" + counterAmt + " End=" + counterLeft2 + " ArbitrageRate=");
 
-        detailsLog.println("    " + m2.getName() + " bids");
-        BigDecimal bids2Price = getPriceAtDepth(bids2);
 
-        if (asks1Price.compareTo(new BigDecimal(0)) == 0 || 
-            bids1Price.compareTo(new BigDecimal(0)) == 0 || 
-            asks2Price.compareTo(new BigDecimal(0)) == 0 || 
-            bids2Price.compareTo(new BigDecimal(0)) == 0 )
-        {
-            //comparisonLog.println("  Fail. OrderBook end reached.");
-            detailsLog.println("  Fail. OrderBook end reached.");
-        }
-        else
-        {
-            // Compare both directions 
-            // Normally ASKS price > BIDS price
-            // ASKS are ordered from low to high - you pay in Counter to get Base
-            // BIDS are ordered from high to low - you get Counter in exchange for Base
-            // Look for when ASKS < BIDS
-    
-            if (asks1Price.compareTo(bids2Price) < 0) 
-            {
-                detailsLog.println("  "    + percentDifference(asks1Price, bids2Price) +"%  "+ m1.getName() + " Ask " + asks1Price + " vs " + m2.getName() + "  Bid " + bids2Price     ); 
-                if ( percentDifference(asks1Price, bids2Price).compareTo( new BigDecimal(ARBITRAGE_PERCENT)) > 0 )
-                    comparisonLog.println("  " + percentDifference(asks1Price, bids2Price) +"%  #"+ m1.getName() + " Ask " + asks1Price + " vs #" + m2.getName() + "  Bid " + bids2Price  ); 
-            }
-            else if (asks2Price.compareTo(bids1Price) < 0) 
-            { 
-                detailsLog.println("  "    + percentDifference(asks2Price, bids1Price) + "%  " + m2.getName() + " Ask " + asks2Price + " vs " + m1.getName() + "  Bid " + bids1Price); 
-                if ( percentDifference(asks2Price, bids1Price).compareTo(new BigDecimal(ARBITRAGE_PERCENT)) > 0 )
-                    comparisonLog.println("  " + percentDifference(asks2Price, bids1Price) + "%  #" + m2.getName() + " Ask " + asks2Price + " vs #" + m1.getName() + "  Bid " + bids1Price); 
-            }
-            else 
-            { 
-                detailsLog.println("  Lock (ask-bid): " + m1.getName() + asks1Price + "-" + bids1Price + "   " + m2.getName() + asks2Price + "-" + bids2Price); 
-                //comparisonLog.println("  Lock (ask-bid): " + m1.getName() + asks1Price + "-" + bids1Price + "   " + m2.getName() + asks2Price + "-" + bids2Price); 
-            }
+        // Clockwise direction x2counter -> x2base vs x1base=x2base -> x1counter
+        BigDecimal asks2Rate = m2.getExchangeRate2(pair.counter, pair.base, counterAmt);
+        BigDecimal baseLeft2 = counterAmt.multiply(asks2Rate);        
+        BigDecimal bids1Rate = m1.getExchangeRate2(pair.base, pair.counter, baseLeft2);
+        BigDecimal counterLeft1 = baseLeft2.multiply(bids1Rate);
 
-        }
-        detailsLog.println();
+            // end/start. arbitrageRate of 1 is an even trade
+            BigDecimal arbitrageRate2 = counterLeft1.divide(counterAmt); // CounterLeft=arbitrageRate
+            detailsLog.println("COUNTERCLOCKWISE  " + m2.getName() + " " + pair.counter + "->" + pair.base + " (" + asks2Rate + ") " + 
+                                    " vs " + 
+                                    m1.getName() + " " + pair.base + "->" + pair.counter + " (" + bids1Rate + ") ");
+            detailsLog.println("  " + pair.counter + ": Start=" + counterAmt + " End=" + counterLeft1 + " ArbitrageRate=");
+
     }
+
+    /*
 
     // Get the price at USD_TRADE_AMOUNT * DEPTH_FACTOR deep in the OrderBook.
     // TODO: Calculate the accurate price considering the cost of each order you eat up, not just the worst-case one.
@@ -686,6 +677,7 @@ public class Main
         }
         
     }
+    */
 
     // diff = 100 * (larger-smaller)/larger
     static BigDecimal percentDifference(BigDecimal smaller, BigDecimal larger)
@@ -817,6 +809,9 @@ public class Main
     private static void addCoinValues(Map<Currency, BigDecimal> _allPrices)
     {
         CmcExchange coinMarketCap = new CmcExchange();
+        ExchangeSpecification spec = coinMarketCap.getDefaultExchangeSpecification();
+        spec.setApiKey(keys.get("CMC"));
+        coinMarketCap.applySpecification(spec);
         CmcMarketDataService coinMarketCapMarketDataService = new CmcMarketDataService(coinMarketCap);
         List<CmcTicker> ticks;
 

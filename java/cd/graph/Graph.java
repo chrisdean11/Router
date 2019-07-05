@@ -61,6 +61,12 @@ public class Graph
         System.out.println("Graph constructor complete.");
     }
 
+    /*
+
+    Everything below here is just the graph printout
+
+    */
+
     // Prints adjacency tables to csv
     public void dump(Map<Currency, BigDecimal> allPrices, BigDecimal startVal, String logDirectory)
     {

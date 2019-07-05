@@ -32,6 +32,8 @@ public class Seeker
     // This is an acceptable value for a max cost. BigDecimal is stored as an array of ints. Arrays are indexed using ints.
     // Therefore, the largest BigDecimal is Integer.MAX_VALUE[Integer.MAX_VALUE]
 
+// TODO need some way to reduce graph to currencies of interest
+
     // Assumes that the ExchangeMonitors already have ther OrderBooks loaded
     public Seeker(List<ExchangeMonitor> monitors)
     {
