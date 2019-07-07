@@ -25,8 +25,8 @@ import org.slf4j.LoggerFactory;
 
 public class Seeker
 {
-    public final Graph graph;
-    public final List<Node> nodes;
+    public Graph graph;
+    private List<Node> nodes;
     private Node startNode;
     public final BigDecimal COST_INFINITE = new BigDecimal(0x0FFFFFFF); 
     // This is an acceptable value for a max cost. BigDecimal is stored as an array of ints. Arrays are indexed using ints.
@@ -34,11 +34,52 @@ public class Seeker
 
 // TODO need some way to reduce graph to currencies of interest
 
-    // Assumes that the ExchangeMonitors already have ther OrderBooks loaded
+    // Assumes that the ExchangeMonitors already have ther OrderBooks loaded for pairs that can be made from currenciesOfInterest
+    public Seeker(List<ExchangeMonitor> monitors, List<Currency> currenciesOfInterest)
+    {
+        init(monitors, currenciesOfInterest);
+    }
+
     public Seeker(List<ExchangeMonitor> monitors)
+    {
+        init(monitors, null);
+    }
+
+    // Makes currencies list from list of CurrencyPair list
+    // Unused int is just here because the constructor Seeker(List<>, List<>) already exists
+    public Seeker(List<ExchangeMonitor> monitors, List<CurrencyPair> pairs, int unused)
+    {
+        List<Currency> currenciesOfInterest = new ArrayList<Currency>();
+        for (CurrencyPair pair : pairs)
+        {
+            if (!currenciesOfInterest.contains(pair.base))
+            {
+                currenciesOfInterest.add(pair.base);
+            }
+
+            if (!currenciesOfInterest.contains(pair.counter))
+            {
+                currenciesOfInterest.add(pair.counter);
+            }
+        }
+
+        init(monitors, currenciesOfInterest);
+    }
+
+    private void init(List<ExchangeMonitor> monitors, List<Currency> currenciesOfInterest)
     {
         nodes = new ArrayList<Node>();
         System.out.println("Building Seeker: ");
+
+        if (currenciesOfInterest != null)
+        {
+            System.out.println("Seeker: currencies of interest:");
+            for (Currency c : currenciesOfInterest)
+            {
+                System.out.println("  " + c);
+            }
+        }
+
         // Make a Node for each currency in each Monitor
         for (ExchangeMonitor monitor : monitors)
         {
@@ -47,8 +88,17 @@ public class Seeker
             //for (Currency currency : monitor.getExchange().getExchangeMetaData().getCurrencies().keySet())
             for (Currency currency : monitor.getCurrencies())
             {
+                if (currenciesOfInterest != null)
+                {
+                    if (!currenciesOfInterest.contains(currency))
+                    {
+                        System.out.println(monitor.getName() + " contains " + currency + " but it is not part of this graph");
+                        continue;
+                    }
+                }
+
                 nodes.add(new Node(monitor, currency));
-                System.out.println("    " + currency.toString() + " Fees: " + monitor.getTradeFee() + monitor.getWithdrawFee(currency));
+                System.out.println("    " + currency.toString() + " Fees: trade=" + monitor.getTradeFee() + " withdraw"+ monitor.getWithdrawFee(currency));
             }
         }
 

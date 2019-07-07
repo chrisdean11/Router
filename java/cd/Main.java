@@ -502,12 +502,12 @@ public class Main
 
         // TEST SEARCH ALGORITHM
         System.out.println("Building Seeker");
-        Seeker seeker = new Seeker(exchangeMonitors);
-        BigDecimal startBalance = new BigDecimal(1);
-        BigDecimal startVal = startBalance.multiply(allPrices.get(Currency.BTC));
+        Seeker seeker = new Seeker(exchangeMonitors, arbitragePairs, 0);
+        BigDecimal startBalance = new BigDecimal(1); // 1 of starting currency
+        BigDecimal startValUSD = startBalance.multiply(allPrices.get(Currency.BTC));
 
         seeker.dijkstra(coinbasepro, Currency.BTC, binance, Currency.LTC, startBalance);
-        seeker.graph.dump(allPrices, startVal, LOG_DIRECTORY);
+        seeker.graph.dump(allPrices, startValUSD, LOG_DIRECTORY);
     }
 
     /*

@@ -44,6 +44,9 @@ public class BaseExchangeMonitor extends ExchangeMonitor
     private Set<Currency> currencies = new HashSet();
     private BigDecimal tradeFee; // Fractional fee
 
+    // True if all currencies have the same withdraw fee.
+    // This is indicated in the json by currency "ALL" which is the Albanian Lek which we'll probably never use.
+
     private class News
     {
         public Ticker ticker;
@@ -134,6 +137,13 @@ public class BaseExchangeMonitor extends ExchangeMonitor
         {
             tradeFee = parser.tradeFee;
             System.out.println(name + " tradefee:" + tradeFee);
+
+            BigDecimal all = parser.withdrawFees.get(new Currency("ALL"));
+            if (all != null)
+            {
+                withdrawFees.put(new Currency("ALL"), all);
+                System.out.println("  ALL" + " withdrawfee: " + all);
+            }
 
             for(Currency currency : currencies)
             {
@@ -228,7 +238,18 @@ public class BaseExchangeMonitor extends ExchangeMonitor
 
     public BigDecimal getWithdrawFee(Currency c)
     {
-        return withdrawFees.get(c);
+
+        // Check if the currency is present
+        if (withdrawFees.get(c) != null)
+        {
+            return withdrawFees.get(c);
+        }
+        // Check if "ALL" is present
+        else if (withdrawFees.get(new Currency("ALL")) != null && currencies.contains(c))
+        {
+            return withdrawFees.get(new Currency("ALL"));
+        }
+        else return null;
     }
 
     // Factor in trade fees, etc to getExchangeRate2
@@ -240,8 +261,9 @@ public class BaseExchangeMonitor extends ExchangeMonitor
         // check if trade or withdraw
         if (baseC.compareTo(counterC) == 0) // Withdraw
         {
-
-            ret = baseAmt.subtract(getWithdrawFee(baseC));
+            BigDecimal withdrawFee = getWithdrawFee(baseC);
+            System.out.println("baseC=" + baseC + " counterC=" + counterC + " baseAmt=" + baseAmt + " withdrawFee=" + withdrawFee);
+            ret = baseAmt.subtract(withdrawFee);
         }
         else // Trade
         {
@@ -407,7 +429,7 @@ public class BaseExchangeMonitor extends ExchangeMonitor
                 {   
                     // Rate to receive counter is 1/LimitPrice
                     // Amount of counter traded is rate *
-                    // Trying to maintain the precision when inverting the rate, using the method here: https://stackoverflow.com/questions/7572309/any-neat-way-to-limit-significant-figures-with-bigdecimal 
+                    // Trying to maintain the precision when inverting the rate, using the method here: https://stackoverflow.com/questions/7572309/any-neat-way-to-limit-significant-figures-with-bigdecimal
                     BigDecimal priceInOtherDirection = order.getLimitPrice();
                     int precision = priceInOtherDirection.precision(); // Desired precision
                     BigDecimal preRateAtDepth = (new BigDecimal(1)).divide(priceInOtherDirection, 20, RoundingMode.HALF_UP);
@@ -496,7 +518,7 @@ public class BaseExchangeMonitor extends ExchangeMonitor
 
         if(orders.isEmpty())
         {
-            System.out.println("    "+ name + " GetExchangeRate: Orderbook is empty!");
+            System.out.println("    "+ name + " GetExchangeRate2: Orderbook is empty!");
             return new BigDecimal(0);
         }
 
@@ -551,7 +573,7 @@ public class BaseExchangeMonitor extends ExchangeMonitor
                 {
                     BigDecimal remainingAmt = tradeAmount.subtract(cumulativeAmt);
                     cumulativeAmt = cumulativeAmt.add(remainingAmt);
-                    rate = rate.add(limitPrice.multiply(remainingAmt).divide(tradeAmount));
+                    rate = rate.add(limitPrice.multiply(remainingAmt).divide(tradeAmount, 20, RoundingMode.HALF_UP));
                     success = true;
                     break;
                 }
@@ -559,17 +581,17 @@ public class BaseExchangeMonitor extends ExchangeMonitor
         }
         catch(Exception e)
         {
-            System.out.println("    "+ name + " GetExchangeRate: Orderbook exception: " + e);
+            System.out.println("    "+ name + " GetExchangeRate2: Orderbook exception: " + e);
             return new BigDecimal(0);
         }
 
         if (!success) // Ran out of orders
         {
-            System.out.println("    "+ name + " GetExchangeRate: Ran out of orders!");
+            System.out.println("    " + name + " GetExchangeRate2: Ran out of orders!");
             return new BigDecimal(0);
         }
 
-        System.out.println("    "+ name + " GetExchangeRate: " + rate + " " + pair + "FromBase: " + fromBase);
+        System.out.println("    " + name + " GetExchangeRate2: " + rate + " " + pair + "FromBase: " + fromBase);
         return rate;
     }
 

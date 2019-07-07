@@ -1,6 +1,7 @@
 name,CoinbasePro
-tradefee,0.003
+tradefee,0.0025
 withdrawfees
+,ALL,0.0
 ,BTC,0.0
 ,ETH,0.0
 ,LTC,0.0
